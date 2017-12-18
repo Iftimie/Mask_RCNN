@@ -1,78 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="418118b4-75cf-43f0-af73-3a32da8e7cbe" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/detection_activations.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/detection_anchors.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/detection_final.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/detection_histograms.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/detection_masks.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/detection_refinement.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/detection_tensorboard.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/donuts.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/sheep.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/street.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/conversions/MRI_orig.nii" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/conversions/MRI_orig_padded0.nii" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/conversions/MRI_orig_padded0_input_maskRCNN.nii" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/conversions/MRI_orig_resized.nii" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/1045023827_4ec3e8ba5c_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/12283150_12d37e6389_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/2383514521_1fc8d7b0de_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/2502287818_41e4b0c4fb_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/2516944023_d00345997d_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/25691390_f9944f61b5_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/262985539_1709e54576_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/3132016470_c27baa00e8_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/3627527276_6fe8cd9bfe_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/3651581213_f81963d1dd_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/3800883468_12af3c0b50_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/3862500489_6fd195d183_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/3878153025_8fde829928_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/4410436637_7b0ca36ee7_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/4782628554_668bc31826_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/5951960966_d4e1cda5d0_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/6584515005_fce9cec486_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/6821351586_59aa0dc110_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/7581246086_cf7bbb7255_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/7933423348_c30bd9bd4e_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/8053677163_d4c8f416be_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/8239308689_efa6c11b08_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/8433365521_9252889f9a_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/8512296263_5fc5458e20_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/8699757338_c3941051b6_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/8734543718_37f6b8bd45_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/8829708882_48f263491e_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/9118579087_f9ffa19e63_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/9247489789_132c0d534a_z.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/inspect_model-checkpoint.ipynb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/train_shapes-checkpoint.ipynb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mask_RCNN_py.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/coco.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/conversions/out.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/conversions/pad_align_face_to_axis.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/conversions/pad_save_swap_save.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/conversions/resizeVolume.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/conversions/validate_annotation.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo.ipynb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/inspect_data.ipynb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/inspect_model.ipynb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/inspect_weights.ipynb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/model.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/parallel_model.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/shapes.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/train_MRI.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/train_shapes.ipynb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/utils.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/visualize.py" />
-    </list>
+    <list default="true" id="418118b4-75cf-43f0-af73-3a32da8e7cbe" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -569,12 +498,12 @@
       <workItem from="1513461880971" duration="7159000" />
       <workItem from="1513509033106" duration="98000" />
       <workItem from="1513531810345" duration="4659000" />
-      <workItem from="1513538618456" duration="13470000" />
+      <workItem from="1513538618456" duration="13770000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67315000" />
+    <option name="totallyTimeSpent" value="67615000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="75" y="34" width="1857" height="1092" extended-state="6" />
