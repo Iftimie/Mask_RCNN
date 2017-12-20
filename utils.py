@@ -49,8 +49,8 @@ def extract_bboxes(mask):
 
 def compute_iou(box, boxes, box_area, boxes_area):
     """Calculates IoU of the given box with the array of the given boxes.
-    box: 1D vector [y1, x1, y2, x2]
-    boxes: [boxes_count, (y1, x1, y2, x2)]
+    box: 1D vector [y1, x1, z1, y2, x2, z2]
+    boxes: [boxes_count, (y1, x1, z1, y2, x2, z2)]
     box_area: float. the area of 'box'
     boxes_area: array of length boxes_count.
 
@@ -59,10 +59,12 @@ def compute_iou(box, boxes, box_area, boxes_area):
     """
     # Calculate intersection areas
     y1 = np.maximum(box[0], boxes[:, 0])
-    y2 = np.minimum(box[2], boxes[:, 2])
+    y2 = np.minimum(box[3], boxes[:, 3])
     x1 = np.maximum(box[1], boxes[:, 1])
-    x2 = np.minimum(box[3], boxes[:, 3])
-    intersection = np.maximum(x2 - x1, 0) * np.maximum(y2 - y1, 0)
+    x2 = np.minimum(box[4], boxes[:, 4])
+    z1 = np.maximum(box[2], boxes[:, 2])
+    z2 = np.minimum(box[5], boxes[:, 5])
+    intersection = np.maximum(x2 - x1, 0) * np.maximum(y2 - y1, 0) * np.maximum(z2 -z1, 0)
     union = box_area + boxes_area[:] - intersection[:]
     iou = intersection / union
     return iou
@@ -535,9 +537,9 @@ def generate_anchors(scales, ratios, shape, feature_stride, anchor_stride):
     depths = np.array([widths[0], widths[1], widths[0], heights[0]])
 
     # Enumerate shifts in feature space
-    shifts_y = np.arange(0, shape[0], anchor_stride) * feature_stride
-    shifts_x = np.arange(0, shape[1], anchor_stride) * feature_stride
-    shifts_z = np.arange(0, shape[2], anchor_stride) * feature_stride
+    shifts_y = np.arange(0, shape[0], anchor_stride) * feature_stride + heights[0] /2
+    shifts_x = np.arange(0, shape[1], anchor_stride) * feature_stride + widths[0] /2
+    shifts_z = np.arange(0, shape[2], anchor_stride) * feature_stride + depths[0] /2
     shifts_x, shifts_y, shifts_z = np.meshgrid(shifts_x, shifts_y, shifts_z)
 
     # Enumerate combinations of shifts, widths, and heights
@@ -555,8 +557,9 @@ def generate_anchors(scales, ratios, shape, feature_stride, anchor_stride):
     boxes = np.concatenate([box_centers - 0.5 * box_sizes,
                             box_centers + 0.5 * box_sizes], axis=1)
 
-    #plotBoxes(boxes)
 
+    # if(scales[1]==32):
+    #     plotBoxesMesh(boxes)
     return boxes
 
 
@@ -565,8 +568,9 @@ def plotBoxes(boxes):
     import matplotlib.pyplot as plt
     import numpy as np
     from itertools import product, combinations
+    print boxes.max()
 
-    for y1,x1,z1,y2,x2,z2 in boxes[:10,:]:
+    for y1,x1,z1,y2,x2,z2 in boxes[:,:]:
         w = x2- x1
         h = y2 - y1
         d = z2 - z1
@@ -593,6 +597,48 @@ def plotBoxes(boxes):
         plt.show()
 
 
+def plotBoxesMesh(boxes):
+    from mpl_toolkits.mplot3d import Axes3D
+    from mpl_toolkits.mplot3d.art3d import Poly3DCollection, Line3DCollection
+    import matplotlib.pyplot as plt
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    for y1,x1,z1,y2,x2,z2 in boxes[:,:]:
+        points = np.array([[y1,x1,z1],
+                           [y1,x2,z1],
+                           [y1,x2, z2],
+                           [y1, x1,z2],
+                           [y2,x1, z1],
+                           [y2,x2,z1],
+                           [y2,x2,z2],
+                           [y2,x1,z2]])
+
+
+        r = [0,128]
+        X, Y = np.meshgrid(r, r)
+        # plot vertices
+        ax.scatter3D(points[:, 0], points[:, 1], points[:, 2])
+        ax.set_xlim(0,128)
+        ax.set_ylim(0,128)
+        ax.set_zlim(0,128)
+
+        Z = points
+        verts = [[Z[0],Z[1],Z[2],Z[3]],
+                 [Z[4],Z[5],Z[6],Z[7]],
+                 [Z[0],Z[1],Z[5],Z[4]],
+                 [Z[2],Z[3],Z[7],Z[6]],
+                 [Z[1],Z[2],Z[6],Z[5]],
+                 [Z[4],Z[7],Z[3],Z[0]],
+                 [Z[2],Z[3],Z[7],Z[6]]]
+        ax.add_collection3d(Poly3DCollection(verts,
+                                             facecolors='cyan', linewidths=1, edgecolors='r', alpha=.25))
+
+        ax.set_xlabel('X')
+        ax.set_ylabel('Y')
+        ax.set_zlabel('Z')
+
+        plt.show()
+    print 'finished showing'
 
 # self.BACKBONE_SHAPES = np.array(
 #     [[int(math.ceil(self.IMAGE_SHAPE[0] / stride)),

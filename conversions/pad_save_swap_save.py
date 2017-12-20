@@ -36,6 +36,9 @@ data = new_data
 
 #swap the axes of z and y
 data = np.transpose(data,(0,2,1))
+data = (np.array(data,dtype=np.float32) / data.max() * 255).astype(np.uint32)
+data = ndimage.zoom(data,(0.5,0.5,0.5))
+print data.shape
 nim = NiftiImage(data)
 nim.save("MRI_orig_padded0_input_maskRCNN.nii")
 

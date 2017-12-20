@@ -74,10 +74,10 @@ class Config(object):
     RPN_ANCHOR_STRIDE = 2
 
     # How many anchors per image to use for RPN training
-    RPN_TRAIN_ANCHORS_PER_IMAGE = 256
+    RPN_TRAIN_ANCHORS_PER_IMAGE = 1024
 
     # ROIs kept after non-maximum supression (training and inference)
-    POST_NMS_ROIS_TRAINING = 2000
+    POST_NMS_ROIS_TRAINING = 5000
     POST_NMS_ROIS_INFERENCE = 1000
 
     # If enabled, resizes instance masks to a smaller size to reduce
@@ -89,16 +89,16 @@ class Config(object):
     # Images are resized such that the smallest side is >= IMAGE_MIN_DIM and
     # the longest side is <= IMAGE_MAX_DIM. In case both conditions can't
     # be satisfied together the IMAGE_MAX_DIM is enforced.
-    IMAGE_MIN_DIM = 800
-    IMAGE_MAX_DIM = 1024
+    IMAGE_MIN_DIM = 128
+    IMAGE_MAX_DIM = 128
     # If True, pad images with zeros such that they're (max_dim by max_dim)
     IMAGE_PADDING = True  # currently, the False option is not supported
 
     # Image mean (RGB)
-    MEAN_PIXEL = np.array([123.7, 116.8, 103.9])
+    MEAN_PIXEL = np.array([127.5])
 
     # Number of ROIs per image to feed to classifier/mask heads
-    TRAIN_ROIS_PER_IMAGE = 128  # TODO: paper uses 512
+    TRAIN_ROIS_PER_IMAGE = 1024  # TODO: paper uses 512
 
     # Percent of positive ROIs used to train classifier/mask heads
     ROI_POSITIVE_RATIO = 0.33
@@ -109,21 +109,28 @@ class Config(object):
     MASK_SHAPE = [28, 28]
 
     # Maximum number of ground truth instances to use in one image
-    MAX_GT_INSTANCES = 100
+    MAX_GT_INSTANCES = 1
 
+    DEV = 0.08 # DEV = 0.1 for x y z and 0.2 for h w d
+    DEV2 = 0.16
     # Bounding box refinement standard deviation for RPN and final detections.
-    RPN_BBOX_STD_DEV = np.array([0.1, 0.1, 0.1, 0.2, 0.2, 0.2])
-    BBOX_STD_DEV = np.array([0.1, 0.1, 0.1, 0.2, 0.2, 0.2])
+    RPN_BBOX_STD_DEV = np.array([DEV, DEV, DEV, DEV2, DEV2, DEV2])
+    BBOX_STD_DEV = np.array([DEV, DEV, DEV, DEV2, DEV2, DEV2])
 
     # Max number of final detections
     DETECTION_MAX_INSTANCES = 100
 
     # Minimum probability value to accept a detected instance
     # ROIs below this threshold are skipped
-    DETECTION_MIN_CONFIDENCE = 0.7
+    DETECTION_MIN_CONFIDENCE = 0.05
+
+    IOU_OBJECTNESS_TRESHOLD = 0.05
 
     # Non-maximum suppression threshold for detection
-    DETECTION_NMS_THRESHOLD = 0.3
+    DETECTION_NMS_THRESHOLD = 0.5
+
+    ANCHOR_IOU_POS_TRESH = 0.3
+    ANCHOR_IOU_NEG_TRESH = 0.1
 
     # Learning rate and momentum
     # The paper uses lr=0.02, but we found that to cause weights to explode often
