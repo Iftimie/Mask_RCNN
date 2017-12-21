@@ -52,7 +52,7 @@ class VolumesConfig(Config):
 
     # Reduce training ROIs per image because the images are small and have
     # few objects. Aim to allow ROI sampling to pick 33% positive ROIs.
-    TRAIN_ROIS_PER_IMAGE = 1024
+    TRAIN_ROIS_PER_IMAGE = 32
 
     # Use a small epoch since the data is simple
     STEPS_PER_EPOCH = 200
@@ -82,11 +82,36 @@ print (config)
 # sess = tf_debug.LocalCLIDebugWrapperSession(sess)
 # K.set_session(sess)
 # Create model in training mode
-model = modellib.MaskRCNN(mode="training", config=config,
-                          model_dir=MODEL_DIR)
-model.load_weights("logs/mask_rcnn_shapes_0017.h5")
-model.train(None,None,
-            learning_rate=config.LEARNING_RATE / 10,
-            epochs=100,
-            layers="all")
+# model = modellib.MaskRCNN(mode="training", config=config,
+#                           model_dir=MODEL_DIR)
+# model.load_weights("logs/shapes20171220T0949/mask_rcnn_shapes_0023.h5")
+# model.train(None,None,
+#             learning_rate=config.LEARNING_RATE / 10,
+#             epochs=100,
+#             layers="all")
 
+
+class InferenceConfig(VolumesConfig):
+    GPU_COUNT = 1
+    IMAGES_PER_GPU = 1
+inference_config = InferenceConfig()
+
+model = modellib.MaskRCNN(mode="inference", config=inference_config,model_dir=MODEL_DIR)
+model.load_weights("logs/shapes20171220T0949/mask_rcnn_shapes_0023.h5",by_name=True)
+original_image, image_meta, gt_bbox = modellib.load_image_gt(None,inference_config,-1, use_mini_mask=False)
+results = model.detect([original_image], verbose=1)
+from conversions.validateNNOutput import validateNNOutput, visualizeNNOutput
+
+#it only prints the first output
+#validateNNOutput(original_image,results[0]['rois'], gt_bbox, sleep_time=1000000000)
+visualizeNNOutput(results[0]['rois'], gt_bbox,sleep_time=1000000000)
+
+print ("ok")
+
+# batch_size = 1
+# batch_image_meta = np.zeros((batch_size,)+image_meta.shape, dtype=image_meta.dtype)
+# batch_rpn_match = np.zeros([batch_size, anchors.shape[0], 1], dtype=rpn_match.dtype)
+# batch_rpn_bbox = np.zeros([batch_size, config.RPN_TRAIN_ANCHORS_PER_IMAGE, 6], dtype=rpn_bbox.dtype)
+# batch_images = np.zeros((batch_size,)+image.shape, dtype=np.float32)
+# batch_gt_boxes = np.zeros((batch_size, config.MAX_GT_INSTANCES, 7), dtype=np.int32)
+# batch_images[0] = original_image

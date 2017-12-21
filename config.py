@@ -74,7 +74,7 @@ class Config(object):
     RPN_ANCHOR_STRIDE = 2
 
     # How many anchors per image to use for RPN training
-    RPN_TRAIN_ANCHORS_PER_IMAGE = 1024
+    RPN_TRAIN_ANCHORS_PER_IMAGE = 256
 
     # ROIs kept after non-maximum supression (training and inference)
     POST_NMS_ROIS_TRAINING = 5000
@@ -98,7 +98,7 @@ class Config(object):
     MEAN_PIXEL = np.array([127.5])
 
     # Number of ROIs per image to feed to classifier/mask heads
-    TRAIN_ROIS_PER_IMAGE = 1024  # TODO: paper uses 512
+    TRAIN_ROIS_PER_IMAGE = 128  # TODO: paper uses 512
 
     # Percent of positive ROIs used to train classifier/mask heads
     ROI_POSITIVE_RATIO = 0.33
@@ -111,8 +111,8 @@ class Config(object):
     # Maximum number of ground truth instances to use in one image
     MAX_GT_INSTANCES = 1
 
-    DEV = 0.08 # DEV = 0.1 for x y z and 0.2 for h w d
-    DEV2 = 0.16
+    DEV = 0.1 # DEV = 0.1 for x y z and 0.2 for h w d
+    DEV2 = 0.2
     # Bounding box refinement standard deviation for RPN and final detections.
     RPN_BBOX_STD_DEV = np.array([DEV, DEV, DEV, DEV2, DEV2, DEV2])
     BBOX_STD_DEV = np.array([DEV, DEV, DEV, DEV2, DEV2, DEV2])
@@ -122,15 +122,17 @@ class Config(object):
 
     # Minimum probability value to accept a detected instance
     # ROIs below this threshold are skipped
-    DETECTION_MIN_CONFIDENCE = 0.05
+    DETECTION_MIN_CONFIDENCE = 0.5
+    rpn_class_loss_W = 1
+    mrcnn_class_loss_W = 1
 
-    IOU_OBJECTNESS_TRESHOLD = 0.05
+    IOU_OBJECTNESS_TRESHOLD = 0.5
 
     # Non-maximum suppression threshold for detection
-    DETECTION_NMS_THRESHOLD = 0.5
+    DETECTION_NMS_THRESHOLD = 0.3
 
-    ANCHOR_IOU_POS_TRESH = 0.3
-    ANCHOR_IOU_NEG_TRESH = 0.1
+    ANCHOR_IOU_POS_TRESH = 0.7
+    ANCHOR_IOU_NEG_TRESH = 0.3
 
     # Learning rate and momentum
     # The paper uses lr=0.02, but we found that to cause weights to explode often

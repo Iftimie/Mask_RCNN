@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 from numpy import genfromtxt
 
+
 nim = NiftiImage('MRI_orig_padded0_input_maskRCNN.nii')
 nii_data = nim.data
 

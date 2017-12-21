@@ -91,7 +91,7 @@ def compute_overlaps(boxes1, boxes2):
 
 def non_max_suppression(boxes, scores, threshold):
     """Performs non-maximum supression and returns indicies of kept boxes.
-    boxes: [N, (y1, x1, y2, x2)]. Notice that (y2, x2) lays outside the box.
+    boxes: [N, (y1, x1, z1, y2, x2, z2)]. Notice that (y2, x2, z2) lays outside the box.
     scores: 1-D array of box scores.
     threshold: Float. IoU threshold to use for filtering.
     """
@@ -102,9 +102,11 @@ def non_max_suppression(boxes, scores, threshold):
     # Compute box areas
     y1 = boxes[:, 0]
     x1 = boxes[:, 1]
-    y2 = boxes[:, 2]
-    x2 = boxes[:, 3]
-    area = (y2 - y1) * (x2 - x1)
+    z1 = boxes[:, 2]
+    y2 = boxes[:, 3]
+    x2 = boxes[:, 4]
+    z2 = boxes[:, 5]
+    area = (y2 - y1) * (x2 - x1) * (y2 - y1)
 
     # Get indicies of boxes sorted by scores (highest first)
     ixs = scores.argsort()[::-1]
@@ -128,26 +130,37 @@ def non_max_suppression(boxes, scores, threshold):
 
 def apply_box_deltas(boxes, deltas):
     """Applies the given deltas to the given boxes.
-    boxes: [N, (y1, x1, y2, x2)]. Note that (y2, x2) is outside the box.
-    deltas: [N, (dy, dx, log(dh), log(dw))]
+    boxes: [N, (y1, x1, z1, y2, x2, z2)]. Note that (y2, x2, z2) is outside the box.
+    deltas: [N, (dy, dx, dz, log(dh), log(dw), log(dd))]
     """
+    print ("apply bbox deltas")
     boxes = boxes.astype(np.float32)
     # Convert to y, x, h, w
-    height = boxes[:, 2] - boxes[:, 0]
-    width = boxes[:, 3] - boxes[:, 1]
+    print boxes.shape
+    height = boxes[:, 3] - boxes[:, 0]
+    width = boxes[:, 4] - boxes[:, 1]
+    depth = boxes[:, 5] - boxes[:, 2]
+    print ("apply bbox deltas")
     center_y = boxes[:, 0] + 0.5 * height
     center_x = boxes[:, 1] + 0.5 * width
+    center_z = boxes[:, 2] + 0.5 * depth
+    print ("apply bbox deltas")
     # Apply deltas
     center_y += deltas[:, 0] * height
     center_x += deltas[:, 1] * width
-    height *= np.exp(deltas[:, 2])
-    width *= np.exp(deltas[:, 3])
-    # Convert back to y1, x1, y2, x2
+    center_z += deltas[:, 2] * depth
+    print ("apply bbox deltas")
+    height *= np.exp(deltas[:, 3])
+    width *= np.exp(deltas[:, 4])
+    depth *= np.exp(deltas[:, 5])
+    # Convert back to y1, x1, z1, y2, x2, z2
     y1 = center_y - 0.5 * height
     x1 = center_x - 0.5 * width
+    z1 = center_z - 0.5 * depth
     y2 = y1 + height
     x2 = x1 + width
-    return np.stack([y1, x1, y2, x2], axis=1)
+    z2 = z1 + depth
+    return np.stack([y1, x1, z1, y2, x2, z2], axis=1)
 
 
 def box_refinement_graph(box, gt_box):
@@ -383,34 +396,35 @@ def resize_image(image, min_dim=None, max_dim=None, padding=False):
     padding: Padding added to the image [(top, bottom), (left, right), (0, 0)]
     """
     # Default window (y1, x1, y2, x2) and default scale == 1.
-    h, w = image.shape[:2]
-    window = (0, 0, h, w)
+    h, w, d = image.shape[:3]
+    window = (0, 0,0, h, w, d)
     scale = 1
 
-    # Scale?
-    if min_dim:
-        # Scale up but not down
-        scale = max(1, min_dim / min(h, w))
-    # Does it exceed max dim?
-    if max_dim:
-        image_max = max(h, w)
-        if round(image_max * scale) > max_dim:
-            scale = max_dim / image_max
-    # Resize image and mask
-    if scale != 1:
-        image = scipy.misc.imresize(
-            image, (round(h * scale), round(w * scale)))
-    # Need padding?
-    if padding:
-        # Get new height and width
-        h, w = image.shape[:2]
-        top_pad = (max_dim - h) // 2
-        bottom_pad = max_dim - h - top_pad
-        left_pad = (max_dim - w) // 2
-        right_pad = max_dim - w - left_pad
-        padding = [(top_pad, bottom_pad), (left_pad, right_pad), (0, 0)]
-        image = np.pad(image, padding, mode='constant', constant_values=0)
-        window = (top_pad, left_pad, h + top_pad, w + left_pad)
+    # # Scale?
+    # if min_dim:
+    #     # Scale up but not down
+    #     scale = max(1, min_dim / min(h, w))
+    # # Does it exceed max dim?
+    # if max_dim:
+    #     image_max = max(h, w)
+    #     if round(image_max * scale) > max_dim:
+    #         scale = max_dim / image_max
+    # # Resize image and mask
+    # if scale != 1:
+    #     image = scipy.misc.imresize(
+    #         image, (round(h * scale), round(w * scale)))
+    # # Need padding?
+    # if padding:
+    #     # Get new height and width
+    #     h, w = image.shape[:2]
+    #     top_pad = (max_dim - h) // 2
+    #     bottom_pad = max_dim - h - top_pad
+    #     left_pad = (max_dim - w) // 2
+    #     right_pad = max_dim - w - left_pad
+    #padding = [(top_pad, bottom_pad), (left_pad, right_pad), (0, 0)]
+    padding = None
+    #image = np.pad(image, padding, mode='constant', constant_values=0)
+    #window = (0, 0, h + top_pad, w + left_pad)
     return image, window, scale, padding
 
 
