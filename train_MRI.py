@@ -23,9 +23,6 @@ ROOT_DIR = os.getcwd()
 # Directory to save logs and trained model
 MODEL_DIR = os.path.join(ROOT_DIR, "logs")
 
-# Path to COCO trained weights
-COCO_MODEL_PATH = os.path.join(ROOT_DIR, "mask_rcnn_coco.h5")
-
 class VolumesConfig(Config):
     """Configuration for training on the toy shapes dataset.
     Derives from the base Config class and overrides values specific
@@ -63,55 +60,16 @@ class VolumesConfig(Config):
 config = VolumesConfig()
 print (config)
 
-# from nifti import *
-# data_mri =  NiftiImage('conversions/MRI_orig_padded0_input_maskRCNN.nii').data
-# import pandas as pd
-# df=pd.read_csv('out.csv', sep=',')
-# data = df.as_matrix()
-# boxes = np.zeros((1,7))
-# boxes[0,0]= int(data[0,2])
-# boxes[0,1]= int(data[0,3])
-# boxes[0,2]= int(data[0,4])
-# boxes[0,3]= int(data[0,5])
-# boxes[0,4]= int(data[0,6])
-# boxes[0,5]= int(data[0,7])
-# boxes[0,6] = 1
-
 # from tensorflow.python import debug as tf_debug
 # sess = K.get_session()
 # sess = tf_debug.LocalCLIDebugWrapperSession(sess)
 # K.set_session(sess)
-# Create model in training mode
-# model = modellib.MaskRCNN(mode="training", config=config,
-#                           model_dir=MODEL_DIR)
-# model.load_weights("logs/shapes20171220T0949/mask_rcnn_shapes_0023.h5")
-# model.train(None,None,
-#             learning_rate=config.LEARNING_RATE / 10,
-#             epochs=100,
-#             layers="all")
-
-
-class InferenceConfig(VolumesConfig):
-    GPU_COUNT = 1
-    IMAGES_PER_GPU = 1
-inference_config = InferenceConfig()
-
-model = modellib.MaskRCNN(mode="inference", config=inference_config,model_dir=MODEL_DIR)
+#Create model in training mode
+model = modellib.MaskRCNN(mode="training", config=config,
+                          model_dir=MODEL_DIR)
 model.load_weights("logs/shapes20171220T0949/mask_rcnn_shapes_0023.h5",by_name=True)
-original_image, image_meta, gt_bbox = modellib.load_image_gt(None,inference_config,-1, use_mini_mask=False)
-results = model.detect([original_image], verbose=1)
-from conversions.validateNNOutput import validateNNOutput, visualizeNNOutput
+model.train(None,None,
+            learning_rate=config.LEARNING_RATE / 10,
+            epochs=100,
+            layers="all")
 
-#it only prints the first output
-#validateNNOutput(original_image,results[0]['rois'], gt_bbox, sleep_time=1000000000)
-visualizeNNOutput(results[0]['rois'], gt_bbox,sleep_time=1000000000)
-
-print ("ok")
-
-# batch_size = 1
-# batch_image_meta = np.zeros((batch_size,)+image_meta.shape, dtype=image_meta.dtype)
-# batch_rpn_match = np.zeros([batch_size, anchors.shape[0], 1], dtype=rpn_match.dtype)
-# batch_rpn_bbox = np.zeros([batch_size, config.RPN_TRAIN_ANCHORS_PER_IMAGE, 6], dtype=rpn_bbox.dtype)
-# batch_images = np.zeros((batch_size,)+image.shape, dtype=np.float32)
-# batch_gt_boxes = np.zeros((batch_size, config.MAX_GT_INSTANCES, 7), dtype=np.int32)
-# batch_images[0] = original_image

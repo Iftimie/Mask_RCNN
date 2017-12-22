@@ -493,6 +493,8 @@ class PyramidROIAlign(KE.Layer):
 #  Detection Target Layer
 ############################################################
 
+DEFINE_RPN_OR_MRCNN = 'rpn'
+DEFINE_DISPLAY_GT = False
 def visualize_target_graphs(rois, gt_boxes):
     from mpl_toolkits.mplot3d import Axes3D
     from mpl_toolkits.mplot3d.art3d import Poly3DCollection, Line3DCollection
@@ -502,25 +504,35 @@ def visualize_target_graphs(rois, gt_boxes):
     import time
     gt_boxes_orig = gt_boxes
     rois_orig = rois
-    gt_boxes = gt_boxes * np.array([128,128,128,128,128,128,1])
+    if DEFINE_RPN_OR_MRCNN == 'mrcnn':
+        scaler = np.array([128,128,128,128,128,128,1])
+    elif DEFINE_RPN_OR_MRCNN == 'rpn':
+        scaler = np.array([128,128,128,128,128,128])
+    gt_boxes = gt_boxes * scaler
     rois = rois * np.array([128,128,128,128,128,128])
-    max_number = 50
-    for i in reversed(range(len(rois))):
+    max_number = 20
+    import random
+    #for i in reversed(range(len(rois))):
+    for i in range(len(rois)):
         y1,x1,z1,y2,x2,z2 = gt_boxes[i,:6]
         Y1,X1,Z1,Y2,X2,Z2 = rois[i,:6]
-        dist = 30
+        dist = 40
         volume_roi = (Y2-Y1)*(X2-X1) * (Z2 -Z1)
-        if not( abs(Y1-y1) <dist and abs(X1-x1) <dist and abs(Z1-z1) < dist and abs(Y2-y2) < dist and abs(X2-x2) < dist  and abs(Z2 - z2) < dist and max_number>0 and volume_roi > 15*15*15):
+        # if not( abs(Y1-y1) <dist and abs(X1-x1) <dist and abs(Z1-z1) < dist and abs(Y2-y2) < dist and abs(X2-x2) < dist  and abs(Z2 - z2) < dist and max_number>0 and volume_roi > 15*15*15):
+        #     continue
+        if not(max_number > 0) and not(i % 10 ==0):
             continue
         max_number= max_number-1
-        points = np.array([[y1,x1,z1],
-                           [y1,x2,z1],
-                           [y1,x2, z2],
-                           [y1, x1,z2],
-                           [y2,x1, z1],
-                           [y2,x2,z1],
-                           [y2,x2,z2],
-                           [y2,x1,z2]])
+
+        if DEFINE_DISPLAY_GT:
+            points = np.array([[y1,x1,z1],
+                               [y1,x2,z1],
+                               [y1,x2, z2],
+                               [y1, x1,z2],
+                               [y2,x1, z1],
+                               [y2,x2,z1],
+                               [y2,x2,z2],
+                               [y2,x1,z2]])
 
         points_R = np.array([[Y1,X1,Z1],
                              [Y1,X2,Z1],
@@ -533,21 +545,24 @@ def visualize_target_graphs(rois, gt_boxes):
 
 
         # plot vertices
-        ax.scatter3D(points[:, 0], points[:, 1], points[:, 2])
+        if DEFINE_DISPLAY_GT:
+            ax.scatter3D(points[:, 0], points[:, 1], points[:, 2])
         ax.scatter3D(points_R[:, 0], points_R[:, 1], points_R[:, 2])
         ax.set_xlim(0,128)
         ax.set_ylim(0,128)
         ax.set_zlim(0,128)
 
-        Z = points
-        verts = [[Z[0],Z[1],Z[2],Z[3]],
-                 [Z[4],Z[5],Z[6],Z[7]],
-                 [Z[0],Z[1],Z[5],Z[4]],
-                 [Z[2],Z[3],Z[7],Z[6]],
-                 [Z[1],Z[2],Z[6],Z[5]],
-                 [Z[4],Z[7],Z[3],Z[0]],
-                 [Z[2],Z[3],Z[7],Z[6]]]
-        ax.add_collection3d(Poly3DCollection(verts,
+        if DEFINE_DISPLAY_GT:
+            Z = points
+            verts = [[Z[0],Z[1],Z[2],Z[3]],
+                     [Z[4],Z[5],Z[6],Z[7]],
+                     [Z[0],Z[1],Z[5],Z[4]],
+                     [Z[2],Z[3],Z[7],Z[6]],
+                     [Z[1],Z[2],Z[6],Z[5]],
+                     [Z[4],Z[7],Z[3],Z[0]],
+                     [Z[2],Z[3],Z[7],Z[6]]]
+
+            ax.add_collection3d(Poly3DCollection(verts,
                                              facecolors='cyan', linewidths=1, edgecolors='r', alpha=.25))
         Z = points_R
         verts = [[Z[0],Z[1],Z[2],Z[3]],
@@ -570,6 +585,66 @@ def visualize_target_graphs(rois, gt_boxes):
     plt.show()
     time.sleep(1000)
     return rois_orig, gt_boxes_orig
+
+def visualize_rpn_rois(rois):
+    from mpl_toolkits.mplot3d.art3d import Poly3DCollection, Line3DCollection
+    import matplotlib.pyplot as plt
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    rois_orig = rois
+    if DEFINE_RPN_OR_MRCNN == 'mrcnn':
+        scaler = np.array([128,128,128,128,128,128,1])
+    elif DEFINE_RPN_OR_MRCNN == 'rpn':
+        scaler = np.array([128,128,128,128,128,128])
+    rois = rois * np.array([128,128,128,128,128,128])
+    max_number = 20
+    import random
+    #for i in reversed(range(len(rois))):
+    for i in range(len(rois)):
+        Y1,X1,Z1,Y2,X2,Z2 = rois[i,:6]
+        dist = 40
+        volume_roi = (Y2-Y1)*(X2-X1) * (Z2 -Z1)
+        # if not( abs(Y1-y1) <dist and abs(X1-x1) <dist and abs(Z1-z1) < dist and abs(Y2-y2) < dist and abs(X2-x2) < dist  and abs(Z2 - z2) < dist and max_number>0 and volume_roi > 15*15*15):
+        #     continue
+        if not(max_number > 0) and not(i % 10 ==0):
+            continue
+        max_number= max_number-1
+
+        points_R = np.array([[Y1,X1,Z1],
+                             [Y1,X2,Z1],
+                             [Y1,X2,Z2],
+                             [Y1,X1,Z2],
+                             [Y2,X1,Z1],
+                             [Y2,X2,Z1],
+                             [Y2,X2,Z2],
+                             [Y2,X1,Z2]])
+
+        ax.scatter3D(points_R[:, 0], points_R[:, 1], points_R[:, 2])
+        ax.set_xlim(0,128)
+        ax.set_ylim(0,128)
+        ax.set_zlim(0,128)
+        Z = points_R
+        verts = [[Z[0],Z[1],Z[2],Z[3]],
+                 [Z[4],Z[5],Z[6],Z[7]],
+                 [Z[0],Z[1],Z[5],Z[4]],
+                 [Z[2],Z[3],Z[7],Z[6]],
+                 [Z[1],Z[2],Z[6],Z[5]],
+                 [Z[4],Z[7],Z[3],Z[0]],
+                 [Z[2],Z[3],Z[7],Z[6]]]
+        ax.add_collection3d(Poly3DCollection(verts,
+                                             facecolors='red', linewidths=1, edgecolors='r', alpha=.25))
+
+
+        ax.set_xlabel('X')
+        ax.set_ylabel('Y')
+        ax.set_zlabel('Z')
+
+
+        print 'finished showing'
+    plt.show()
+    import time
+    time.sleep(1000)
+    return rois_orig
 
 def detection_targets_graph(proposals, gt_boxes, config):
     """Generates detection targets for one image. Subsamples proposals and
@@ -1109,7 +1184,7 @@ def smooth_l1_loss(y_true, y_pred):
     return loss
 
 
-def rpn_class_loss_graph(rpn_match, rpn_class_logits, config):
+def rpn_class_loss_graph(rpn_match, rpn_class_logits):
     """RPN anchor classifier loss.
 
     rpn_match: [batch, anchors, 1]. Anchor match type. 1=positive,
@@ -1131,7 +1206,7 @@ def rpn_class_loss_graph(rpn_match, rpn_class_logits, config):
                                              output=rpn_class_logits, 
                                              from_logits=True)
     loss = K.switch(tf.size(loss) > 0, K.mean(loss), tf.constant(0.0))
-    return loss * config.rpn_class_loss_W
+    return loss * 1
 
 
 def rpn_bbox_loss_graph(config, target_bbox, rpn_match, rpn_bbox):
@@ -1159,6 +1234,9 @@ def rpn_bbox_loss_graph(config, target_bbox, rpn_match, rpn_bbox):
 
     # TODO: use smooth_l1_loss() rather than reimplementing here
     #       to reduce code duplication
+
+    #rpn_bbox, target_bbox = tf.py_func(visualize_target_graphs,[rpn_bbox, target_bbox],[tf.float32,tf.float32])
+
     diff = K.abs(target_bbox - rpn_bbox)
     less_than_one = K.cast(K.less(diff, 1.0), "float32")
     loss = (less_than_one * 0.5 * diff**2) + (1-less_than_one) * (diff - 0.5)
@@ -1168,7 +1246,7 @@ def rpn_bbox_loss_graph(config, target_bbox, rpn_match, rpn_bbox):
 
 
 def mrcnn_class_loss_graph(target_class_ids, pred_class_logits,
-                           active_class_ids, config):
+                           active_class_ids):
     """Loss for the classifier head of Mask RCNN.
 
     target_class_ids: [batch, num_rois]. Integer class IDs. Uses zero
@@ -1197,7 +1275,7 @@ def mrcnn_class_loss_graph(target_class_ids, pred_class_logits,
     # Computer loss mean. Use only predictions that contribute
     # to the loss to get a correct mean.
     loss = tf.reduce_sum(loss) / tf.reduce_sum(pred_active)
-    return loss * config.mrcnn_class_loss_W
+    return loss * 1
 
 def display_pred_box(pred_box):
     print pred_box
@@ -1514,7 +1592,7 @@ def build_rpn_targets(image_shape, anchors, gt_boxes, config):
 
     # Areas of anchors and GT boxes
     gt_box_area = (gt_boxes[:, 3] - gt_boxes[:, 0]) * (gt_boxes[:, 4] - gt_boxes[:, 1]) * (gt_boxes[:,5] - gt_boxes[:,2])
-    anchor_area = (anchors[:, 3] - anchors[:, 0]) * (anchors[:, 4] - anchors[:, 1]) * (anchors[:,5] - anchors[:,0])
+    anchor_area = (anchors[:, 3] - anchors[:, 0]) * (anchors[:, 4] - anchors[:, 1]) * (anchors[:,5] - anchors[:,2])
 
     # Compute overlaps [num_anchors, num_gt_boxes]
     # Each cell contains the IoU of an anchor and GT box.
@@ -1952,6 +2030,9 @@ class MaskRCNN():
         #[Batch, num_rois, 2]
         #[Batch, num_rois, 6]
 
+        #rpn_bbox = KL.Lambda(lambda x: x * 1, name="rpn_bbox__deltas_debug")(rpn_bbox)
+
+
         # Generate proposals
         # Proposals are [N, (y1, x1, y2, x2)] in normalized coordinates.
         proposal_count = config.POST_NMS_ROIS_TRAINING if mode == "training"\
@@ -1990,22 +2071,17 @@ class MaskRCNN():
             mrcnn_class_logits, mrcnn_class, mrcnn_bbox =\
                 fpn_classifier_graph(rois, mrcnn_feature_maps, config.IMAGE_SHAPE,
                                      config.POOL_SIZE, config.NUM_CLASSES)
-                
-            # mrcnn_mask = build_fpn_mask_graph(rois, mrcnn_feature_maps,
-            #                                   config.IMAGE_SHAPE,
-            #                                   config.MASK_POOL_SIZE,
-            #                                   config.NUM_CLASSES)
 
             # TODO: clean up (use tf.identify if necessary)
             output_rois = KL.Lambda(lambda x: x * 1, name="output_rois")(rois)
 
             # Losses
             rpn_class_loss = KL.Lambda(lambda x: rpn_class_loss_graph(*x), name="rpn_class_loss")(
-                [input_rpn_match, rpn_class_logits, config])
+                [input_rpn_match, rpn_class_logits])
             rpn_bbox_loss = KL.Lambda(lambda x: rpn_bbox_loss_graph(config, *x), name="rpn_bbox_loss")(
                 [input_rpn_bbox, input_rpn_match, rpn_bbox])
             class_loss = KL.Lambda(lambda x: mrcnn_class_loss_graph(*x), name="mrcnn_class_loss")(
-                [target_class_ids, mrcnn_class_logits, active_class_ids, config])
+                [target_class_ids, mrcnn_class_logits, active_class_ids])
             bbox_loss = KL.Lambda(lambda x: mrcnn_bbox_loss_graph(*x), name="mrcnn_bbox_loss")(
                 [target_bbox, target_class_ids, mrcnn_bbox])
             # mask_loss = KL.Lambda(lambda x: mrcnn_mask_loss_graph(*x), name="mrcnn_mask_loss")(
