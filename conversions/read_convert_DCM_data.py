@@ -67,6 +67,6 @@ for x in range(1,len(lstFilesDCM)):
     #     cv2.waitKey(10)
 
     nim = NiftiImage(newArrayDicom)
-    nim.save("../../rocketChallenge_data/smir/MRI_"+str(x)+".nii")
+    nim.save("../../rocketChallenge_data/smir/input_MaskRCNN/MRI_"+str(x)+".nii")
 
 
