@@ -72,6 +72,11 @@ class Config(object):
     # there is generated 1 anchor for every two every two voxels in the maps
     # maps have the following sizes: 32^3, 16^3, 8^3, 4^3, 2^3 but our number of anchors is (16^3+8^3+4^3+2^3+1^3)×4 =18724
     #before for an image of 128 by 128 with 3 aspect ratios: 1023 anchors. what about 640*640
+    #one problem that i had was the fact that I was generating fewer proposals than anchors because in build_rpn_model(num_anchors = 3) instead of 4
+    #on the GPU there was no problem, explanation here:https://github.com/tensorflow/tensorflow/issues/15091 comment by ebrevdo
+    #on the CPU however the indices are validated, and the problem was recognized
+    #because the laptop did not recognized the GPU and for a while showed this problem I was able to find this bug
+
 
     # Anchor stride
     # If 1 then anchors are created for each cell in the backbone feature map.
