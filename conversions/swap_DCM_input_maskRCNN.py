@@ -13,6 +13,8 @@ for dirName, subdirList, fileList in os.walk(PathDicom):
         if ".nii" in filename.lower():  # check whether the file's DICOM
             lstFilesNII.append(os.path.join(dirName,filename))
 
+lstFilesNII = natsorted(lstFilesNII)
+
 for i in range(len(lstFilesNII)):
     nim = NiftiImage(lstFilesNII[i])
     data = nim.data
@@ -32,7 +34,7 @@ for i in range(len(lstFilesNII)):
     data = ndimage.zoom(data,(0.5,0.5,0.5))
     print data.shape
     nim = NiftiImage(data)
-    nim.save("../../rocketChallenge_data/smir/MRI_"+str(i+1)+"_input_maskRCNN.nii")
+    nim.save("../../rocketChallenge_data/smir/input_MaskRCNN/MRI_"+str(i+1)+".nii")
 
     # for x in range(data.shape[0]):
     #     piece = np.array(data[x,:,:],dtype=np.float32)/ data.max()

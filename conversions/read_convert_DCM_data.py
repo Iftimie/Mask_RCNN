@@ -6,6 +6,26 @@ from natsort import natsorted
 from nifti import *
 import scipy.ndimage as ndimage
 
+def increaseContrast(img):
+    img = cv2.cvtColor(img,cv2.COLOR_GRAY2BGR)
+    #-----Converting image to LAB Color model-----------------------------------
+    lab= cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
+
+    #-----Splitting the LAB image to different channels-------------------------
+    l, a, b = cv2.split(lab)
+
+    #-----Applying CLAHE to L-channel-------------------------------------------
+    clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8,8))
+    cl = clahe.apply(l)
+
+    #-----Merge the CLAHE enhanced L-channel with the a and b channel-----------
+    limg = cv2.merge((cl,a,b))
+
+    #-----Converting image from LAB Color model to RGB model--------------------
+    final = cv2.cvtColor(limg, cv2.COLOR_LAB2BGR)
+    final = cv2.cvtColor(final, cv2.COLOR_BGR2GRAY)
+    return final
+
 PathDicom = "../../rocketChallenge_data/smir/"
 lstFilesDCM = []  # create an empty list
 for dirName, subdirList, fileList in os.walk(PathDicom):
@@ -60,13 +80,19 @@ for x in range(1,len(lstFilesDCM)):
         newArrayDicom_resized[i,:,:] = newArrayDicom[i,:,:]
 
     newArrayDicom = newArrayDicom_resized
+
     # print newArrayDicom.shape
+    for slice in range(newArrayDicom.shape[0]):
+        data = np.array(newArrayDicom[slice,:,:],dtype=np.uint8)
+        data = increaseContrast(data)
+        newArrayDicom[slice,:,:] = data
+
     # for slice in range(newArrayDicom.shape[0]):
     #     data = np.array(newArrayDicom[slice,:,:],dtype=np.uint8)
     #     cv2.imshow("slice",data)
     #     cv2.waitKey(10)
 
     nim = NiftiImage(newArrayDicom)
-    nim.save("../../rocketChallenge_data/smir/input_MaskRCNN/MRI_"+str(x)+".nii")
+    nim.save("../../rocketChallenge_data/smir/MRI_"+str(x)+".nii")
 
 
