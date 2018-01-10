@@ -1356,7 +1356,7 @@ def mrcnn_mask_loss_graph(target_masks, target_class_ids, pred_masks):
 ############################################################
 #  Data Generator
 ############################################################
-
+class_dictionary={0:0, 1:1, 2:2, 9:3, 10:4, 12:5}
 def load_image_gt(dataset, config, image_id, augment=False,use_mini_mask=False):
     """Load and return ground truth data for an image (image, mask, bounding boxes).
 
@@ -1379,7 +1379,7 @@ def load_image_gt(dataset, config, image_id, augment=False,use_mini_mask=False):
     # Load image and mask
     #image = dataset.load_image(image_id)
     from nifti import NiftiImage
-    data_mri =  NiftiImage('conversions/MRI_orig_padded0_input_maskRCNN.nii').data
+    data_mri =  NiftiImage('../rocketChallenge_data/smir/input_MaskRCNN/MRI_'+str(image_id)+'.nii').data
     image = data_mri[:,:,:,np.newaxis]
     #mask, class_ids = dataset.load_mask(image_id)
     shape = image.shape
@@ -1400,24 +1400,30 @@ def load_image_gt(dataset, config, image_id, augment=False,use_mini_mask=False):
     # if the corresponding mask got cropped out.
     # bbox: [num_instances, (y1, x1, y2, x2)]
     #bbox = utils.extract_bboxes(mask)
-    boxes = np.zeros([1, 7], dtype=np.int32)
+    number_of_classes = config.NUM_CLASSES #this has 1 + 6(nb organs) = 7
+
+
     import pandas as pd
-    df=pd.read_csv('conversions/out.csv', sep=',')
+    df=pd.read_csv('../rocketChallenge_data/smir/input_MaskRCNN/out_'+str(image_id)+'.csv', sep=',')
     data = df.as_matrix()
-    y1 = int(data[0,2])
-    x1 = int(data[0,3])
-    z1 = int(data[0,4])
-    y2 = int(data[0,5])
-    x2 = int(data[0,6])
-    z2 = int(data[0,7])
-    boxes[0] = np.array([y1, x1, z1, y2, x2, z2, 1])
+    number_of_bbox_in_image = len(data)
+    boxes = np.zeros([number_of_bbox_in_image, 7], dtype=np.int32)
+    for i in range(number_of_bbox_in_image):
+        y1 = int(data[i,2])
+        x1 = int(data[i,3])
+        z1 = int(data[i,4])
+        y2 = int(data[i,5])
+        x2 = int(data[i,6])
+        z2 = int(data[i,7])
+        class_id = class_dictionary[(int(data[0,1]))]
+        boxes[i] = np.array([y1, x1, z1, y2, x2, z2, class_id])
     window = (0,0,0,128,128,128)
 
     # Active classes
     # Different datasets have different classes, so track the
     # classes supported in the dataset of this image.
-    active_class_ids = np.zeros([2], dtype=np.int32)
-    class_ids = [0, 1]
+    active_class_ids = np.zeros([number_of_classes], dtype=np.int32)
+    class_ids = range(number_of_classes)
     active_class_ids[class_ids] = 1
     #class_ids = dataset.source_class_ids[dataset.image_info[image_id]["source"]]
     #active_class_ids[class_ids] = 1
@@ -1782,8 +1788,8 @@ def data_generator(dataset, config, shuffle=True, augment=True, random_rois=0,
         and masks.
     """
     b = 0  # batch item index
-    image_index = -1
-    image_ids = np.array([1]) # i only have one box
+    image_index = 0
+    image_ids = np.array([1, 2, 3, 4, 5]) # i only have one box
     error_count = 0
 
     # Anchors
@@ -1800,6 +1806,7 @@ def data_generator(dataset, config, shuffle=True, augment=True, random_rois=0,
 
             # Get GT bounding boxes and masks for image.
             image_id = image_ids[image_index]
+            image_index = (image_index + 1) % 5
             image, image_meta, gt_boxes = \
                 load_image_gt(dataset, config, image_id, augment=augment, use_mini_mask=config.USE_MINI_MASK)
 
@@ -1876,7 +1883,7 @@ def data_generator(dataset, config, shuffle=True, augment=True, random_rois=0,
             raise
         except:
             # Log it and skip the image
-            logging.exception("Error processing image {}".format(dataset.image_info[image_id]))
+            logging.exception("Error processing image {}".format(image_id))
             error_count += 1
             if error_count > 5:
                 raise
@@ -2009,7 +2016,7 @@ class MaskRCNN():
         
         # RPN Model #this is where it attaches more region proposal networks to the specific layers
         rpn = build_rpn_model(config.RPN_ANCHOR_STRIDE, 
-                              len(config.RPN_ANCHOR_RATIOS), 8)
+                              config.NUM_ANCHORS_PER_LOCATION, 8)
         # Loop through pyramid layers
         layer_outputs = []  # list of lists
         for p in rpn_feature_maps:

@@ -37,7 +37,7 @@ class VolumesConfig(Config):
     IMAGES_PER_GPU = 1
 
     # Number of classes (including background)
-    NUM_CLASSES = 1 + 1  # background + 1 organ
+    NUM_CLASSES = 1 + 6  # background + 6 organ
 
     # Use small images for faster training. Set the limits of the small side
     # the large side, and that determines the image shape.
@@ -67,7 +67,7 @@ print (config)
 #Create model in training mode
 model = modellib.MaskRCNN(mode="training", config=config,
                           model_dir=MODEL_DIR)
-model.load_weights("logs/shapes20171220T0949/mask_rcnn_shapes_0023.h5",by_name=True)
+#model.load_weights("logs/shapes20171220T0949/mask_rcnn_shapes_0023.h5",by_name=True)
 model.train(None,None,
             learning_rate=config.LEARNING_RATE / 10,
             epochs=100,

@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Mask R-CNN
 Base Configurations class.
@@ -67,6 +68,10 @@ class Config(object):
     # Ratios of anchors at each cell (width/height)
     # A value of 1 represents a square anchor, and 0.5 is a wide anchor
     RPN_ANCHOR_RATIOS = [0.5, 1, 2]
+    NUM_ANCHORS_PER_LOCATION = 4 # in 3D there are 4 boxes per location not 3 as before. with the coresponding ratios
+    # there is generated 1 anchor for every two every two voxels in the maps
+    # maps have the following sizes: 32^3, 16^3, 8^3, 4^3, 2^3 but our number of anchors is (16^3+8^3+4^3+2^3+1^3)×4 =18724
+    #before for an image of 128 by 128 with 3 aspect ratios: 1023 anchors. what about 640*640
 
     # Anchor stride
     # If 1 then anchors are created for each cell in the backbone feature map.
@@ -109,7 +114,7 @@ class Config(object):
     MASK_SHAPE = [28, 28]
 
     # Maximum number of ground truth instances to use in one image
-    MAX_GT_INSTANCES = 1
+    MAX_GT_INSTANCES = 6
 
     DEV = 0.1 # DEV = 0.1 for x y z and 0.2 for h w d
     DEV2 = 0.2
