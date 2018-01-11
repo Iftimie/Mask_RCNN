@@ -67,7 +67,7 @@ print (config)
 #Create model in training mode
 model = modellib.MaskRCNN(mode="training", config=config,
                           model_dir=MODEL_DIR)
-#model.load_weights("logs/shapes20171220T0949/mask_rcnn_shapes_0023.h5",by_name=True)
+model.load_weights("logs/shapes20180111T0431/mask_rcnn_shapes_0001.h5",by_name=True)
 model.train(None,None,
             learning_rate=config.LEARNING_RATE / 10,
             epochs=100,
