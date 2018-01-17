@@ -8,19 +8,19 @@ from numpy import genfromtxt
 
 import pandas as pd
 
-for i in range(2,6):
-    nim = NiftiImage('/home/alex/IdeaProjects/rocketChallenge_data/smir/input_MaskRCNN/MRI_'+str(i)+'.nii')
+for i in range(1,6):
+    nim = NiftiImage('/home/alex/IdeaProjects/rocketChallenge_data/smir/input_MaskRCNN_128/MRI_'+str(i)+'.nii')
     nii_data = nim.data
-    df=pd.read_csv('/home/alex/Desktop/out.csv', sep=',')
+    df=pd.read_csv('/home/alex/IdeaProjects/rocketChallenge_data/smir/input_MaskRCNN_128/out_'+str(i)+'.csv', sep=',')
     data = df.as_matrix()
-    for id in range(5,6):
+    for id in range(2,6):
         class_id = int(data[id,1])
-        y1 = int(data[id,2])
-        x1 = int(data[id,3])
-        z1 = int(data[id,4])
-        y2 = int(data[id,5])
-        x2 = int(data[id,6])
-        z2 = int(data[id,7])
+        y1 = int(data[id,2]  )
+        x1 = int(data[id,3]  )
+        z1 = int(data[id,4]  )
+        y2 = int(data[id,5]  )
+        x2 = int(data[id,6]  )
+        z2 = int(data[id,7]  )
 
         front_side = nii_data[:,:,z1]
         back_side = nii_data[:,:,z2]
@@ -51,4 +51,4 @@ for i in range(2,6):
         cv2.waitKey(100)
         cv2.imshow("top_side",top_side)
         cv2.imshow("down_side", down_side)
-        cv2.waitKey(50000)
+        cv2.waitKey(1000000)

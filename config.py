@@ -42,23 +42,24 @@ class Config(object):
     # Validation stats are also calculated at each epoch end and they
     # might take a while, so don't set this too small to avoid spending
     # a lot of time on validation stats.
-    STEPS_PER_EPOCH = 1000
+    STEPS_PER_EPOCH = 200
 
     # Number of validation steps to run at the end of every training epoch.
     # A bigger number improves accuracy of validation stats, but slows
     # down the training.
-    VALIDATION_STPES = 50
+    VALIDATION_STPES = 5
 
     # The strides of each layer of the FPN Pyramid. These values
     # are based on a Resnet101 backbone.
     BACKBONE_STRIDES = [4, 8, 16, 32, 64] #there are 5 values. probably each for each stage. for resnet 50 there should be only 4 values
 
     # Number of classification classes (including background)
-    NUM_CLASSES = 1  # Override in sub-classes
+    NUM_CLASSES = 1 + 6 # Override in sub-classes
 
     ###### RPN ######
     # Length of square anchor side in pixels
-    RPN_ANCHOR_SCALES = (8, 16, 32, 64, 128) #  the number of scales should be equal to BACKBONE_STRIDES
+    ## Use smaller anchors because our image and objects are small
+    RPN_ANCHOR_SCALES = (8, 13, 18, 28, 34)  # anchor side in pixels #  the number of scales should be equal to BACKBONE_STRIDES
     #this is clever because you compute the anchors for specific layers. the low resolution layers contain information about big objects
     #high resolution layers contain information about smaller objects
     #so there are attached achros to specific layers. this is better because if we attach small scale on low resolution, the
@@ -81,7 +82,7 @@ class Config(object):
     # Anchor stride
     # If 1 then anchors are created for each cell in the backbone feature map.
     # If 2, then anchors are created for every other cell, and so on.
-    RPN_ANCHOR_STRIDE = 2
+    RPN_ANCHOR_STRIDE = 1
 
     # How many anchors per image to use for RPN training
     RPN_TRAIN_ANCHORS_PER_IMAGE = 256
@@ -121,8 +122,8 @@ class Config(object):
     # Maximum number of ground truth instances to use in one image
     MAX_GT_INSTANCES = 6
 
-    DEV = 0.1 # DEV = 0.1 for x y z and 0.2 for h w d
-    DEV2 = 0.2
+    DEV = 1 # DEV = 0.1 for x y z and 0.2 for h w d
+    DEV2 = 1
     # Bounding box refinement standard deviation for RPN and final detections.
     RPN_BBOX_STD_DEV = np.array([DEV, DEV, DEV, DEV2, DEV2, DEV2])
     BBOX_STD_DEV = np.array([DEV, DEV, DEV, DEV2, DEV2, DEV2])
@@ -132,21 +133,21 @@ class Config(object):
 
     # Minimum probability value to accept a detected instance
     # ROIs below this threshold are skipped
-    DETECTION_MIN_CONFIDENCE = 0.5
+    DETECTION_MIN_CONFIDENCE = 0.5 #this
     rpn_class_loss_W = 1
     mrcnn_class_loss_W = 1
 
-    IOU_OBJECTNESS_TRESHOLD = 0.5
+    IOU_OBJECTNESS_TRESHOLD = 0.4 #this
 
     # Non-maximum suppression threshold for detection
-    DETECTION_NMS_THRESHOLD = 0.3
+    DETECTION_NMS_THRESHOLD = 0.9
 
-    ANCHOR_IOU_POS_TRESH = 0.7
-    ANCHOR_IOU_NEG_TRESH = 0.3
+    ANCHOR_IOU_POS_TRESH = 0.4 #this
+    ANCHOR_IOU_NEG_TRESH = 0.4
 
     # Learning rate and momentum
     # The paper uses lr=0.02, but we found that to cause weights to explode often
-    LEARNING_RATE = 0.002
+    LEARNING_RATE = 0.002 #this
     LEARNING_MOMENTUM = 0.9
 
     # Weight decay regularization

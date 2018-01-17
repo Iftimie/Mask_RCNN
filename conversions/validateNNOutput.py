@@ -156,9 +156,11 @@ def visualizeNNOutput(out_bbox, gt_bbox,sleep_time=100000):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     rois =out_bbox
+    print len(rois)
     for i in range(len(rois)):
         showBoxes(rois,ax, i, colour="red")
-    showBoxes(gt_bbox,ax,0,colour="cyan")
+    for i in range(len(gt_bbox)):
+        showBoxes(gt_bbox,ax,i,colour="cyan")
     plt.show()
     import time
     time.sleep(sleep_time)

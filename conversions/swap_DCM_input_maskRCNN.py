@@ -31,10 +31,10 @@ for i in range(len(lstFilesNII)):
     data = new_data
     data = np.transpose(data,(0,2,1))
     data = (np.array(data,dtype=np.float32) / data.max() * 255).astype(np.uint32)
-    data = ndimage.zoom(data,(0.5,0.5,0.5))
+    #data = ndimage.zoom(data,(0.5,0.5,0.5))
     print data.shape
     nim = NiftiImage(data)
-    nim.save("../../rocketChallenge_data/smir/input_MaskRCNN/MRI_"+str(i+1)+".nii")
+    nim.save("../../rocketChallenge_data/smir/input_MaskRCNN_256/MRI_"+str(i+1)+".nii")
 
     # for x in range(data.shape[0]):
     #     piece = np.array(data[x,:,:],dtype=np.float32)/ data.max()

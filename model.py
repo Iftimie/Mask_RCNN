@@ -148,30 +148,30 @@ def resnet_graph(input_image, architecture, stage5=False):
     assert architecture in ["resnet50", "resnet101"]
     # Stage 1
     x = KL.ZeroPadding3D((3, 3, 3))(input_image)
-    x = KL.Conv3D(16, (7, 7, 7), strides=(2, 2, 2), name='conv1', use_bias=True)(x)
+    x = KL.Conv3D(4, (7, 7, 7), strides=(2, 2, 2), name='conv1', use_bias=True)(x)
     x = BatchNorm(axis=4, name='bn_conv1')(x)
     x = KL.Activation('relu')(x)
     C1 = x = KL.MaxPooling3D((3, 3, 3), strides=(2, 2, 2), padding="same")(x)
     # Stage 2
-    x = conv_block(x, 3, [2, 2, 32], stage=2, block='a', strides=(1, 1, 1))
-    x = identity_block(x, 3, [2, 2, 32], stage=2, block='b')
-    C2 = x = identity_block(x, 3, [2, 2, 32], stage=2, block='c')
+    x = conv_block(x, 3, [2, 2, 8], stage=2, block='a', strides=(1, 1, 1))
+    x = identity_block(x, 3, [2, 2, 8], stage=2, block='b')
+    C2 = x = identity_block(x, 3, [2, 2, 8], stage=2, block='c')
     # Stage 3
-    x = conv_block(x, 3, [4, 4, 64], stage=3, block='a')
-    x = identity_block(x, 3, [4, 4, 64], stage=3, block='b')
-    x = identity_block(x, 3, [4, 4, 64], stage=3, block='c')
-    C3 = x = identity_block(x, 3, [4, 4, 64], stage=3, block='d')
+    x = conv_block(x, 3, [4, 4, 16], stage=3, block='a')
+    x = identity_block(x, 3, [4, 4, 16], stage=3, block='b')
+    x = identity_block(x, 3, [4, 4, 16], stage=3, block='c')
+    C3 = x = identity_block(x, 3, [4, 4, 16], stage=3, block='d')
     # Stage 4
-    x = conv_block(x, 3, [8, 8, 128], stage=4, block='a')
+    x = conv_block(x, 3, [8, 8, 32], stage=4, block='a')
     block_count = {"resnet50": 5, "resnet101": 22}[architecture]
     for i in range(block_count):
-        x = identity_block(x, 3, [8, 8, 128], stage=4, block=chr(98+i))
+        x = identity_block(x, 3, [8, 8, 32], stage=4, block=chr(98+i))
     C4 = x
     # Stage 5
     if stage5:
-        x = conv_block(x, 3, [16, 16, 256], stage=5, block='a')
-        x = identity_block(x, 3, [16, 16, 256], stage=5, block='b')
-        C5 = x = identity_block(x, 3, [16, 16, 256], stage=5, block='c')
+        x = conv_block(x, 3, [16, 16, 64], stage=5, block='a')
+        x = identity_block(x, 3, [16, 16, 64], stage=5, block='b')
+        C5 = x = identity_block(x, 3, [16, 16, 64], stage=5, block='c')
     else:
         C5 = None
     return [C1, C2, C3, C4, C5]
@@ -403,10 +403,11 @@ class PyramidROIAlign(KE.Layer):
     The width and height are those specific in the pool_shape in the layer
     constructor.
     """
-    def __init__(self, pool_shape, image_shape, **kwargs):
+    def __init__(self, pool_shape, image_shape, config, **kwargs):
         super(PyramidROIAlign, self).__init__(**kwargs)
         self.pool_shape = tuple(pool_shape)
         self.image_shape = tuple(image_shape)
+        self.config = config
 
     def call(self, inputs):
         # Crop boxes [batch, num_boxes, (y1, x1, y2, x2)] in normalized coords
@@ -425,7 +426,7 @@ class PyramidROIAlign(KE.Layer):
         # the fact that our coordinates are normalized here.
         # e.g. a 224x224 ROI (in pixels) maps to P4. TODO I added 128 insead of 224 because my input is at most 128 pixels. see paper Feature Pyramid Networks for Object Detection
         image_volume = tf.cast(self.image_shape[0] * self.image_shape[1] * self.image_shape[2], tf.float32)
-        roi_level = log2_graph(tf.sqrt(h*w*d) / (128/tf.sqrt(image_volume)))
+        roi_level = log2_graph(tf.sqrt(h*w*d) / (self.config.IMAGE_MAX_DIM/tf.sqrt(image_volume)))
         roi_level = tf.minimum(5, tf.maximum(2, 4 + tf.cast(tf.round(roi_level), tf.int32)))
         roi_level = tf.squeeze(roi_level, 2)
 
@@ -992,7 +993,8 @@ class DetectionLayer(KE.Layer):
 
 
 # Region Proposal Network (RPN)
-
+import ntm.ntm.mann_cell_K as ntm_cell
+from tensorflow.contrib import rnn
 def rpn_graph(feature_map, anchors_per_location, anchor_stride):
     """Builds the computation graph of Region Proposal Network.
 
@@ -1013,6 +1015,29 @@ def rpn_graph(feature_map, anchors_per_location, anchor_stride):
     shared = KL.Conv3D(16, (3, 3, 3), padding='same', activation='relu',
                        strides=anchor_stride,
                        name='rpn_conv_shared')(feature_map)
+
+    # MANNCell = ntm_cell.MANNCell(
+    #     rnn_size=200,           # Size of hidden states of controller
+    #     memory_size=128,        # Number of memory locations (N)
+    #     memory_vector_dim=20,   # The vector size at each location (M)
+    #     head_num = 2,
+    #     reuse=False,
+    # )
+    # initial_shape = tf.shape(shared)
+    # initial_size = tf.size(shared)
+    # #shared = KL.Activation("tanh", name="shared_tanh_rpn")(shared)
+    # shared = KL.Lambda(lambda t: tf.reshape(t, [1, tf.shape(t)[0], -1]))(shared)
+    # shared = KL.Lambda(lambda t: tf.unstack(t, tf.shape(t)[1], 1))(shared)
+    # state = MANNCell.zero_state(1, tf.float32)
+    # output_list = []
+    # for t in range(len(initial_shape)):
+    #     output, state = MANNCell(shared[t], state)
+    #     output_list.append(output)
+    #
+    # #shared = KL.RNN(MANNCell, return_sequences=True, return_state=False, go_backwards=False, stateful=False, unroll=False)(shared)
+    # #shared should have shape [1, batch_size, rnn_size ]
+    # shared =  KL.Dense(initial_size)(shared)
+    # shared = KL.Lambda(lambda t: tf.reshape(t, initial_shape))(shared)
 
     # Anchor Score. [batch, height, width, anchors per location * 2].
     x = KL.Conv3D(2 * anchors_per_location, (1, 1, 1), padding='valid',
@@ -1065,7 +1090,7 @@ def build_rpn_model(anchor_stride, anchors_per_location, depth):
 ############################################################
 
 def fpn_classifier_graph(rois, feature_maps,
-                         image_shape, pool_size, num_classes):
+                         image_shape, pool_size, num_classes, config):
     """Builds the computation graph of the feature pyramid network classifier
     and regressor heads.
 
@@ -1085,15 +1110,15 @@ def fpn_classifier_graph(rois, feature_maps,
     """
     # ROI Pooling
     # Shape: [batch, num_boxes, pool_height, pool_width, channels]
-    x = PyramidROIAlign([pool_size, pool_size, pool_size], image_shape,
+    x = PyramidROIAlign([pool_size, pool_size, pool_size], image_shape, config, 
                         name="roi_align_classifier")([rois] + feature_maps)
     # Two 1024 FC layers (implemented with Conv2D for consistency)
-    x = KL.TimeDistributed(KL.Conv3D(256, (pool_size, pool_size, pool_size), padding="valid"),
+    x = KL.TimeDistributed(KL.Conv3D(64, (pool_size, pool_size, pool_size), padding="valid"),
                            name="mrcnn_class_conv1")(x)
     x = KL.TimeDistributed(BatchNorm(axis=4), name='mrcnn_class_bn1')(x)
     x = KL.Activation('relu')(x)
-    x = KL.Dropout(0.5)(x)
-    x = KL.TimeDistributed(KL.Conv3D(256, (1, 1, 1)),
+    x = KL.Dropout(0.05)(x)
+    x = KL.TimeDistributed(KL.Conv3D(64, (1, 1, 1)),
                            name="mrcnn_class_conv2")(x)
     x = KL.TimeDistributed(BatchNorm(axis=4),
                            name='mrcnn_class_bn2')(x)
@@ -1135,7 +1160,7 @@ def build_fpn_mask_graph(rois, feature_maps,
     """
     # ROI Pooling
     # Shape: [batch, boxes, pool_height, pool_width, channels]
-    x = PyramidROIAlign([pool_size, pool_size], image_shape,
+    x = PyramidROIAlign([pool_size, pool_size], image_shape, self.config, 
                         name="roi_align_mask")([rois] + feature_maps)
 
     # Conv layers
@@ -1379,7 +1404,7 @@ def load_image_gt(dataset, config, image_id, augment=False,use_mini_mask=False):
     # Load image and mask
     #image = dataset.load_image(image_id)
     from nifti import NiftiImage
-    data_mri =  NiftiImage('../rocketChallenge_data/smir/input_MaskRCNN/MRI_'+str(image_id)+'.nii').data
+    data_mri =  NiftiImage('../rocketChallenge_data/smir/input_MaskRCNN_128/MRI_'+str(image_id)+'.nii').data
     image = data_mri[:,:,:,np.newaxis]
     #mask, class_ids = dataset.load_mask(image_id)
     shape = image.shape
@@ -1402,22 +1427,22 @@ def load_image_gt(dataset, config, image_id, augment=False,use_mini_mask=False):
     #bbox = utils.extract_bboxes(mask)
     number_of_classes = config.NUM_CLASSES #this has 1 + 6(nb organs) = 7
 
-
+    image_id = 1
     import pandas as pd
-    df=pd.read_csv('../rocketChallenge_data/smir/input_MaskRCNN/out_'+str(image_id)+'.csv', sep=',')
+    df=pd.read_csv('../rocketChallenge_data/smir/input_MaskRCNN_128/out_'+str(image_id)+'.csv', sep=',')
     data = df.as_matrix()
     number_of_bbox_in_image = len(data)
     boxes = np.zeros([number_of_bbox_in_image, 7], dtype=np.int32)
     for i in range(number_of_bbox_in_image):
-        y1 = int(data[i,2])
-        x1 = int(data[i,3])
-        z1 = int(data[i,4])
-        y2 = int(data[i,5])
-        x2 = int(data[i,6])
-        z2 = int(data[i,7])
-        class_id = class_dictionary[(int(data[0,1]))]
+        y1 = int(data[i,2] )
+        x1 = int(data[i,3] )
+        z1 = int(data[i,4] )
+        y2 = int(data[i,5] )
+        x2 = int(data[i,6] )
+        z2 = int(data[i,7] )
+        class_id = class_dictionary[(int(data[i,1]))]
         boxes[i] = np.array([y1, x1, z1, y2, x2, z2, class_id])
-    window = (0,0,0,128,128,128)
+    window = (0,0,0,config.IMAGE_MAX_DIM,config.IMAGE_MAX_DIM,config.IMAGE_MAX_DIM)
 
     # Active classes
     # Different datasets have different classes, so track the
@@ -1484,12 +1509,12 @@ def build_detection_targets(rpn_rois, gt_boxes, gt_masks, config):
     rpn_roi_gt_boxes = gt_boxes[rpn_roi_iou_argmax]  # GT box assigned to each ROI
 
     # Positive ROIs are those with >= 0.5 IoU with a GT box. 
-    fg_ids = np.where(rpn_roi_iou_max > 0.5)[0]
+    fg_ids = np.where(rpn_roi_iou_max > config.IOU_OBJECTNESS_TRESHOLD)[0]
 
     # Negative ROIs are those with max IoU 0.1-0.5 (hard example mining)
     # TODO: To hard example mine or not to hard example mine, that's the question
 #     bg_ids = np.where((rpn_roi_iou_max >= 0.1) & (rpn_roi_iou_max < 0.5))[0]
-    bg_ids = np.where(rpn_roi_iou_max < 0.5)[0]
+    bg_ids = np.where(rpn_roi_iou_max < config.IOU_OBJECTNESS_TRESHOLD)[0]
 
     # Subsample ROIs. Aim for 33% foreground.
     # FG
@@ -1516,7 +1541,7 @@ def build_detection_targets(rpn_rois, gt_boxes, gt_masks, config):
         # There is a small chance we have neither fg nor bg samples.
         if keep.shape[0] == 0:
             # Pick bg regions with easier IoU threshold
-            bg_ids = np.where(rpn_roi_iou_max < 0.5)[0]
+            bg_ids = np.where(rpn_roi_iou_max < condig.IOU_OBJECTNESS_TRESHOLD)[0]
             assert bg_ids.shape[0] >= remaining
             keep_bg_ids = np.random.choice(bg_ids, remaining, replace=False)
             assert keep_bg_ids.shape[0] == remaining
@@ -1984,21 +2009,21 @@ class MaskRCNN():
         _, C2, C3, C4, C5 = resnet_graph(input_image, "resnet101", stage5=True)
         # Top-down Layers
         # TODO: add assert to varify feature map sizes match what's in config
-        P5 = KL.Conv3D(256, (1, 1, 1), name='fpn_c5p5')(C5)
+        P5 = KL.Conv3D(64, (1, 1, 1), name='fpn_c5p5')(C5)
         P4 = KL.Add(name="fpn_p4add")([
             KL.UpSampling3D(size=(2, 2, 2), name="fpn_p5upsampled")(P5),
-            KL.Conv3D(256, (1, 1, 1), name='fpn_c4p4')(C4)])
+            KL.Conv3D(64, (1, 1, 1), name='fpn_c4p4')(C4)])
         P3 = KL.Add(name="fpn_p3add")([
             KL.UpSampling3D(size=(2, 2, 2), name="fpn_p4upsampled")(P4),
-            KL.Conv3D(256, (1, 1, 1), name='fpn_c3p3')(C3)])
+            KL.Conv3D(64, (1, 1, 1), name='fpn_c3p3')(C3)])
         P2 = KL.Add(name="fpn_p2add")([
             KL.UpSampling3D(size=(2, 2, 2), name="fpn_p3upsampled")(P3),
-            KL.Conv3D(256, (1, 1, 1), name='fpn_c2p2')(C2)])
+            KL.Conv3D(64, (1, 1, 1), name='fpn_c2p2')(C2)])
         # Attach 3x3 conv to all P layers to get the final feature maps.
-        P2 = KL.Conv3D(256, (3, 3, 3), padding="SAME", name="fpn_p2")(P2)
-        P3 = KL.Conv3D(256, (3, 3, 3), padding="SAME", name="fpn_p3")(P3)
-        P4 = KL.Conv3D(256, (3, 3, 3), padding="SAME", name="fpn_p4")(P4)
-        P5 = KL.Conv3D(256, (3, 3, 3), padding="SAME", name="fpn_p5")(P5)
+        P2 = KL.Conv3D(64, (3, 3, 3), padding="SAME", name="fpn_p2")(P2)
+        P3 = KL.Conv3D(64, (3, 3, 3), padding="SAME", name="fpn_p3")(P3)
+        P4 = KL.Conv3D(64, (3, 3, 3), padding="SAME", name="fpn_p4")(P4)
+        P5 = KL.Conv3D(64, (3, 3, 3), padding="SAME", name="fpn_p5")(P5)
         # P6 is used for the 5th anchor scale in RPN. Generated by
         # subsampling from P5 with stride of 2.
         P6 = KL.MaxPooling3D(pool_size=(1, 1, 1), strides=2, name="fpn_p6")(P5)
@@ -2016,7 +2041,7 @@ class MaskRCNN():
         
         # RPN Model #this is where it attaches more region proposal networks to the specific layers
         rpn = build_rpn_model(config.RPN_ANCHOR_STRIDE, 
-                              config.NUM_ANCHORS_PER_LOCATION, 256)
+                              config.NUM_ANCHORS_PER_LOCATION, 64)
         # Loop through pyramid layers
         layer_outputs = []  # list of lists
         for p in rpn_feature_maps:
@@ -2077,7 +2102,7 @@ class MaskRCNN():
             # TODO: verify that this handles zero padded ROIs
             mrcnn_class_logits, mrcnn_class, mrcnn_bbox =\
                 fpn_classifier_graph(rois, mrcnn_feature_maps, config.IMAGE_SHAPE,
-                                     config.POOL_SIZE, config.NUM_CLASSES)
+                                     config.POOL_SIZE, config.NUM_CLASSES, config)
 
             # TODO: clean up (use tf.identify if necessary)
             output_rois = KL.Lambda(lambda x: x * 1, name="output_rois")(rois)
@@ -2109,7 +2134,7 @@ class MaskRCNN():
             # Proposal classifier and BBox regressor heads
             mrcnn_class_logits, mrcnn_class, mrcnn_bbox =\
                 fpn_classifier_graph(rpn_rois, mrcnn_feature_maps, config.IMAGE_SHAPE,
-                                     config.POOL_SIZE, config.NUM_CLASSES)
+                                     config.POOL_SIZE, config.NUM_CLASSES, config)
 
             # Detections
             # output is [batch, num_detections, (y1, x1, z1, y2, x2, z2, class_id, score)] in image coordinates
@@ -2221,8 +2246,7 @@ class MaskRCNN():
         metrics. Then calls the Keras compile() function.
         """
         # Optimizer object
-        optimizer = keras.optimizers.SGD(lr=learning_rate, momentum=momentum,
-                                         clipnorm=5.0)
+        optimizer = keras.optimizers.Adam(lr=learning_rate)
         # Add Losses
         # First, clear previously set losses to avoid duplication
         self.keras_model._losses = []
