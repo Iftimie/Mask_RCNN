@@ -26,13 +26,14 @@ inference_config = InferenceConfig()
 ROOT_DIR = os.getcwd()
 MODEL_DIR = os.path.join(ROOT_DIR, "logs")
 model = modellib.MaskRCNN(mode="inference", config=inference_config,model_dir=MODEL_DIR)
-model.load_weights("logs/shapes20180117T0942/mask_rcnn_shapes_0016.h5",by_name=True)
+model.load_weights("logs/shapes20180126T1615/mask_rcnn_shapes_0033.h5",by_name=True)
 
-for i in range(1,6):
-    original_image, image_meta, gt_bbox = modellib.load_image_gt(None,inference_config,image_id=i, use_mini_mask=False)
-    results = model.detect([original_image], verbose=1)
-    from conversions.validateNNOutput import validateNNOutput, visualizeNNOutput
 
-    #it only prints the first output
-    #validateNNOutput(original_image,results[0]['rois'], gt_bbox, sleep_time=10000)
-    visualizeNNOutput(results[0]['rois'], gt_bbox,sleep_time=6)
+original_image, image_meta, gt_bbox = modellib.load_image_gt(None,inference_config,image_id=1, use_mini_mask=False)
+results = model.detect([original_image], verbose=1, config=inference_config)
+print (results)
+from conversions.validateNNOutput import validateNNOutput, visualizeNNOutput
+
+#it only prints the first output
+#validateNNOutput(original_image,results[0]['rois'], gt_bbox, sleep_time=10000)
+visualizeNNOutput(results[0]['rois'], gt_bbox,sleep_time=6)

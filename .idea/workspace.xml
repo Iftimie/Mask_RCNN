@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="418118b4-75cf-43f0-af73-3a32da8e7cbe" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/shapes20171220T0949/mask_rcnn_shapes_0017.h5" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.py" afterPath="$PROJECT_DIR$/config.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conversions/swap_DCM_input_maskRCNN.py" afterPath="$PROJECT_DIR$/conversions/swap_DCM_input_maskRCNN.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conversions/validateNNOutput.py" afterPath="$PROJECT_DIR$/conversions/validateNNOutput.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conversions/validate_annotation_SMIR.py" afterPath="$PROJECT_DIR$/conversions/validate_annotation_SMIR.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model.py" afterPath="$PROJECT_DIR$/model.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_MRI.py" afterPath="$PROJECT_DIR$/test_MRI.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train_MRI.py" afterPath="$PROJECT_DIR$/train_MRI.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils.py" afterPath="$PROJECT_DIR$/utils.py" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,9 +21,9 @@
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$standardize.coverage" NAME="standardize Coverage Results" MODIFIED="1513546004236" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$only_pad.coverage" NAME="only_pad Coverage Results" MODIFIED="1514970618134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$resizeVolume.coverage" NAME="resizeVolume Coverage Results" MODIFIED="1513271758400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
-    <SUITE FILE_PATH="coverage/Mask_RCNN_py$train_MRI.coverage" NAME="train_MRI Coverage Results" MODIFIED="1516059324684" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Mask_RCNN_py$test_MRI.coverage" NAME="test_MRI Coverage Results" MODIFIED="1516059797990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Mask_RCNN_py$train_MRI.coverage" NAME="train_MRI Coverage Results" MODIFIED="1516997215267" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$swap_DCM_input_maskRCNN.coverage" NAME="swap_DCM_input_maskRCNN Coverage Results" MODIFIED="1516133154394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
+    <SUITE FILE_PATH="coverage/Mask_RCNN_py$test_MRI.coverage" NAME="test_MRI Coverage Results" MODIFIED="1516210140252" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$validate_annotation.coverage" NAME="validate_annotation Coverage Results" MODIFIED="1515139024223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$model.coverage" NAME="model Coverage Results" MODIFIED="1515576190942" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$validate_annotation_SMIR.coverage" NAME="validate_annotation_SMIR Coverage Results" MODIFIED="1516204320996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
@@ -46,59 +43,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="model.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="model.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="1441" column="28" lean-forward="false" selection-start-line="1441" selection-start-column="28" selection-end-line="1441" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="swap_DCM_input_maskRCNN.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conversions/swap_DCM_input_maskRCNN.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="34" column="20" lean-forward="false" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
+            <state relative-caret-position="214">
+              <caret line="788" column="35" lean-forward="false" selection-start-line="788" selection-start-column="35" selection-end-line="788" selection-end-column="35" />
               <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="data_utils.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/utils/data_utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11034">
-              <caret line="634" column="0" lean-forward="false" selection-start-line="634" selection-start-column="0" selection-end-line="634" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="train_MRI.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/train_MRI.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="33" column="21" lean-forward="false" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
-              <folding>
-                <marker date="1516203604330" expanded="true" signature="489:729" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test_MRI.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test_MRI.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="37" column="4" lean-forward="false" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
-              <folding>
-                <marker date="1516203522582" expanded="true" signature="128:523" ph="..." />
-                <marker date="1516203522582" expanded="true" signature="906:1349" ph="..." />
-                <marker date="1516203522582" expanded="true" signature="1169:1285" ph="..." />
+                <element signature="e#183#192#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -107,57 +58,44 @@
       <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2934">
-              <caret line="165" column="16" lean-forward="false" selection-start-line="165" selection-start-column="16" selection-end-line="165" selection-end-column="16" />
-              <folding>
-                <marker date="1516203707909" expanded="true" signature="6462:6765" ph="..." />
-                <marker date="1516203707909" expanded="true" signature="6814:7413" ph="..." />
-                <marker date="1516203707909" expanded="true" signature="7196:7411" ph="..." />
-                <marker date="1516203707909" expanded="true" signature="7197:7361" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mann_cell.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ntm/ntm/mann_cell.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="16" column="36" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="36" />
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="validate_annotation_SMIR.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/conversions/validate_annotation_SMIR.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-144">
-              <caret line="15" column="21" lean-forward="false" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+            <state relative-caret-position="18">
+              <caret line="128" column="13" lean-forward="false" selection-start-line="128" selection-start-column="13" selection-end-line="128" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="validateNNOutput.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conversions/validateNNOutput.py">
+      <file leaf-file-name="train_MRI.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/train_MRI.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="333">
+              <caret line="41" column="25" lean-forward="false" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
+              <folding>
+                <marker date="1516997042566" expanded="true" signature="489:729" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1656">
+              <caret line="92" column="23" lean-forward="false" selection-start-line="92" selection-start-column="4" selection-end-line="92" selection-end-column="23" />
+              <folding>
+                <element signature="e#178#188#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_MRI.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test_MRI.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="630">
-              <caret line="37" column="4" lean-forward="false" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="one_shot_learning.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ntm/one_shot_learning.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="684">
-              <caret line="43" column="21" lean-forward="false" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
+              <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
               <folding>
-                <element signature="e#0#69#0" expanded="true" />
+                <marker date="1516668793297" expanded="true" signature="128:523" ph="..." />
               </folding>
             </state>
           </provider>
@@ -174,11 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>rpn_graph</find>
-      <find>build_rpn_model</find>
-      <find>W_key</find>
-      <find>MANN</find>
-      <find>mann</find>
       <find>prev_state</find>
       <find>model</find>
       <find>IMAGES_PER_GPU</find>
@@ -198,12 +131,17 @@
       <find>mrcnn_class_loss_graph</find>
       <find>mrcnn_bbox_loss_graph</find>
       <find>target_class_ids</find>
-      <find>detection_targets_graph</find>
       <find>DetectionTargetLayer</find>
       <find>load_Image_</find>
       <find>IOU_OBJECTNESS_TRESHOLD</find>
       <find>load_image_gt</find>
       <find>load_image</find>
+      <find>non_max</find>
+      <find>utils.non_max_suppression</find>
+      <find>refine_detections</find>
+      <find>DetectionLayer</find>
+      <find>config.BBOX_STD_DEV</find>
+      <find>detection_targets_graph</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -230,7 +168,6 @@
         <option value="$PROJECT_DIR$/conversions/pad_save_swap_save.py" />
         <option value="/usr/local/lib/python2.7/dist-packages/tensorflow/python/ops/image_ops_impl.py" />
         <option value="$PROJECT_DIR$/conversions/out.csv" />
-        <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/conversions/validate_annotation.py" />
         <option value="$PROJECT_DIR$/conversions/__init__.py" />
         <option value="$PROJECT_DIR$/conversions/visualize_original_nii.py" />
@@ -238,12 +175,13 @@
         <option value="$PROJECT_DIR$/conversions/read_convert_DCM_data.py" />
         <option value="$PROJECT_DIR$/ntm/ntm/mann_cell_K.py" />
         <option value="$PROJECT_DIR$/conversions/validateNNOutput.py" />
-        <option value="$PROJECT_DIR$/config.py" />
-        <option value="$PROJECT_DIR$/train_MRI.py" />
         <option value="$PROJECT_DIR$/test_MRI.py" />
         <option value="$PROJECT_DIR$/conversions/swap_DCM_input_maskRCNN.py" />
-        <option value="$PROJECT_DIR$/model.py" />
         <option value="$PROJECT_DIR$/conversions/validate_annotation_SMIR.py" />
+        <option value="$PROJECT_DIR$/utils.py" />
+        <option value="$PROJECT_DIR$/config.py" />
+        <option value="$PROJECT_DIR$/train_MRI.py" />
+        <option value="$PROJECT_DIR$/model.py" />
       </list>
     </option>
   </component>
@@ -300,7 +238,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -317,9 +257,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -347,7 +285,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.validate_annotation_SMIR">
+  <component name="RunManager" selected="Python.train_MRI">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -528,10 +466,10 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.validate_annotation_SMIR" />
-        <item index="1" class="java.lang.String" itemvalue="Python.swap_DCM_input_maskRCNN" />
-        <item index="2" class="java.lang.String" itemvalue="Python.test_MRI" />
-        <item index="3" class="java.lang.String" itemvalue="Python.train_MRI" />
+        <item index="0" class="java.lang.String" itemvalue="Python.train_MRI" />
+        <item index="1" class="java.lang.String" itemvalue="Python.test_MRI" />
+        <item index="2" class="java.lang.String" itemvalue="Python.validate_annotation_SMIR" />
+        <item index="3" class="java.lang.String" itemvalue="Python.swap_DCM_input_maskRCNN" />
         <item index="4" class="java.lang.String" itemvalue="Python.model" />
       </list>
     </recent_temporary>
@@ -586,12 +524,16 @@
       <workItem from="1516043245394" duration="3760000" />
       <workItem from="1516050373070" duration="8217000" />
       <workItem from="1516132882972" duration="575000" />
-      <workItem from="1516203835716" duration="498000" />
+      <workItem from="1516203835716" duration="1096000" />
+      <workItem from="1516209828552" duration="663000" />
+      <workItem from="1516210525709" duration="34000" />
+      <workItem from="1516825132227" duration="157000" />
+      <workItem from="1516996518096" duration="916000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="202988000" />
+    <option name="totallyTimeSpent" value="205356000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1857" height="1092" extended-state="6" />
@@ -604,12 +546,12 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946378" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.59267014" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23825318" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24101713" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946378" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -642,22 +584,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils.py</url>
-          <line>575</line>
+          <line>576</line>
           <option name="timeStamp" value="79" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils.py</url>
-          <line>611</line>
+          <line>612</line>
           <option name="timeStamp" value="83" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils.py</url>
-          <line>654</line>
+          <line>655</line>
           <option name="timeStamp" value="85" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils.py</url>
-          <line>618</line>
+          <line>619</line>
           <option name="timeStamp" value="88" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -667,12 +609,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model.py</url>
-          <line>964</line>
+          <line>965</line>
           <option name="timeStamp" value="95" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/test_MRI.py</url>
-          <line>33</line>
+          <line>34</line>
           <option name="timeStamp" value="100" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -682,23 +624,33 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model.py</url>
-          <line>1834</line>
+          <line>1835</line>
           <option name="timeStamp" value="115" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model.py</url>
-          <line>1036</line>
+          <line>1037</line>
           <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model.py</url>
-          <line>1029</line>
+          <line>1030</line>
           <option name="timeStamp" value="130" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/test_MRI.py</url>
           <line>37</line>
           <option name="timeStamp" value="132" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/utils.py</url>
+          <line>67</line>
+          <option name="timeStamp" value="133" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/utils.py</url>
+          <line>61</line>
+          <option name="timeStamp" value="134" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -708,7 +660,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="133" />
+      <option name="time" value="135" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -945,16 +897,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1566">
-          <caret line="87" column="33" lean-forward="false" selection-start-line="87" selection-start-column="33" selection-end-line="87" selection-end-column="33" />
-          <folding>
-            <element signature="e#178#188#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/layers/recurrent.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1059">
@@ -998,35 +940,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ntm/one_shot_learning.py">
+    <entry file="file://$PROJECT_DIR$/conversions/swap_DCM_input_maskRCNN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="43" column="21" lean-forward="false" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
+        <state relative-caret-position="504">
+          <caret line="34" column="20" lean-forward="false" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
           <folding>
-            <element signature="e#0#69#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ntm/ntm/mann_cell.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="16" column="36" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2934">
-          <caret line="165" column="16" lean-forward="false" selection-start-line="165" selection-start-column="16" selection-end-line="165" selection-end-column="16" />
-          <folding>
-            <marker date="1516203707909" expanded="true" signature="6462:6765" ph="..." />
-            <marker date="1516203707909" expanded="true" signature="6814:7413" ph="..." />
-            <marker date="1516203707909" expanded="true" signature="7196:7411" ph="..." />
-            <marker date="1516203707909" expanded="true" signature="7197:7361" ph="..." />
+            <element signature="e#0#12#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1039,59 +958,79 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ntm/ntm/mann_cell.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="16" column="36" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/conversions/validateNNOutput.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
           <caret line="37" column="4" lean-forward="false" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conversions/swap_DCM_input_maskRCNN.py">
+    <entry file="file://$PROJECT_DIR$/conversions/validate_annotation_SMIR.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="34" column="20" lean-forward="false" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="117">
+          <caret line="15" column="21" lean-forward="false" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train_MRI.py">
+    <entry file="file://$PROJECT_DIR$/ntm/one_shot_learning.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="33" column="21" lean-forward="false" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
+        <state relative-caret-position="524">
+          <caret line="43" column="21" lean-forward="false" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1656">
+          <caret line="92" column="23" lean-forward="false" selection-start-line="92" selection-start-column="4" selection-end-line="92" selection-end-column="23" />
           <folding>
-            <marker date="1516203604330" expanded="true" signature="489:729" ph="..." />
+            <element signature="e#178#188#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test_MRI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="37" column="4" lean-forward="false" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
+        <state relative-caret-position="630">
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding>
-            <marker date="1516203522582" expanded="true" signature="128:523" ph="..." />
-            <marker date="1516203522582" expanded="true" signature="906:1349" ph="..." />
-            <marker date="1516203522582" expanded="true" signature="1169:1285" ph="..." />
+            <marker date="1516668793297" expanded="true" signature="128:523" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train_MRI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="41" column="25" lean-forward="false" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
+          <folding>
+            <marker date="1516997042566" expanded="true" signature="489:729" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="128" column="13" lean-forward="false" selection-start-line="128" selection-start-column="13" selection-end-line="128" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1441" column="28" lean-forward="false" selection-start-line="1441" selection-start-column="28" selection-end-line="1441" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conversions/validate_annotation_SMIR.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-144">
-          <caret line="15" column="21" lean-forward="false" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
-          <folding />
+        <state relative-caret-position="214">
+          <caret line="788" column="35" lean-forward="false" selection-start-line="788" selection-start-column="35" selection-end-line="788" selection-end-column="35" />
+          <folding>
+            <element signature="e#183#192#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

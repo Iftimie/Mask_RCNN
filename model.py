@@ -301,7 +301,7 @@ class ProposalLayer(KE.Layer):
         def nms(normalized_boxes, scores):
             indices = tf.image.non_max_suppression3d(
                 normalized_boxes, scores, self.proposal_count,
-                self.nms_threshold, name="rpn_non_max_suppression")
+                self.config.NMS_TRESHOLD_ANCHORS_AFTER_APPLY_DELTAS, name="rpn_non_max_suppression")
             proposals = tf.gather(normalized_boxes, indices)
             # Pad if needed
             padding = self.proposal_count - tf.shape(proposals)[0]
@@ -721,10 +721,10 @@ def detection_targets_graph(proposals, gt_boxes, config):
     # Determine postive and negative ROIs
     roi_iou_max = tf.reduce_max(overlaps, axis=1)
     # 1. Positive ROIs are those with >= 0.5 IoU with a GT box
-    positive_roi_bool = (roi_iou_max >= config.IOU_OBJECTNESS_TRESHOLD)
+    positive_roi_bool = (roi_iou_max >= config.RPN_ROIS_IOU_GT_BOX_POSITIVE_TRESH)
     positive_indices = tf.where(positive_roi_bool)[:, 0]
     # 2. Negative ROIs are those with < 0.5 with every GT box
-    negative_indices = tf.where(roi_iou_max < config.IOU_OBJECTNESS_TRESHOLD)[:, 0]
+    negative_indices = tf.where(roi_iou_max < config.RPN_ROIS_IOU_GT_BOX_POSITIVE_TRESH)[:, 0]
 
     # Subsample ROIs. Aim for 33% positive
     # Positive ROIs
@@ -783,9 +783,10 @@ def detection_targets_graph(proposals, gt_boxes, config):
     N = tf.shape(negative_rois)[0]
     P = tf.maximum(config.TRAIN_ROIS_PER_IMAGE - tf.shape(rois)[0], 0)
     rois = tf.pad(rois, [(0, P), (0, 0)])
-    roi_gt_boxes = tf.pad(roi_gt_boxes, [(0, N+P), (0, 0)])
+    roi_gt_boxes = tf.pad(roi_gt_boxes, [(0, N+P), (0, 0)], name="PAD_ROI_GT_BOXES")
     deltas = tf.pad(deltas, [(0, N+P), (0, 0)],name="DELTAS")
     #masks = tf.pad(masks, [[0, N+P], (0, 0), (0, 0)])
+    #roi_gt_boxes = tf.Print(input_=roi_gt_boxes,data=[roi_gt_boxes], message="\nPRINT", summarize=7*7)
 
     return rois, roi_gt_boxes[:, 6], deltas#, masks
 
@@ -881,6 +882,7 @@ def refine_detections(rois, probs, deltas, window, config):
     """
     # Class IDs per ROI
     class_ids = np.argmax(probs, axis=1)
+    print "class_ids", class_ids
     # Class probability of the top class of each ROI
     class_scores = probs[np.arange(class_ids.shape[0]), class_ids]
     # Class-specific bounding box deltas
@@ -904,6 +906,7 @@ def refine_detections(rois, probs, deltas, window, config):
 
     # Filter out background boxes
     keep = np.where(class_ids > 0)[0]
+    
 
     # Filter out low confidence boxes
     # print "keeep where(class_ids > 0)"
@@ -920,6 +923,8 @@ def refine_detections(rois, probs, deltas, window, config):
     pre_nms_scores = class_scores[keep]
     pre_nms_rois = refined_rois[keep]
     #print pre_nms_rois
+
+
     nms_keep = []
     for class_id in np.unique(pre_nms_class_ids):
         # Pick detections of this class
@@ -937,9 +942,13 @@ def refine_detections(rois, probs, deltas, window, config):
     roi_count = config.DETECTION_MAX_INSTANCES
     top_ids = np.argsort(class_scores[keep])[::-1][:roi_count]
     keep = keep[top_ids]
+    print keep
 
     # Arrange output as [N, (y1, x1, z1, y2, x2, z2, class_id, score)]
     # Coordinates are in image domain.
+    # result = np.hstack((refined_rois[keep],
+    #                     class_ids[keep][..., np.newaxis], 
+    #                     class_scores[keep][..., np.newaxis]))
     result = np.hstack((refined_rois[keep],
                         class_ids[keep][..., np.newaxis], 
                         class_scores[keep][..., np.newaxis]))
@@ -963,27 +972,25 @@ class DetectionLayer(KE.Layer):
         def wrapper(rois, mrcnn_class, mrcnn_bbox, image_meta):
             # currently supports one image per batch
             b = 0
-            print "ok"
             _, _, window, _ = parse_image_meta(image_meta)
-            print "ok"
             detections = refine_detections(
                 rois[b], mrcnn_class[b], mrcnn_bbox[b], window[b], self.config)
-            print "ok"
             # Pad with zeros if detections < DETECTION_MAX_INSTANCES
             gap = self.config.DETECTION_MAX_INSTANCES - detections.shape[0]
             assert gap >= 0
             if gap > 0:
                 detections = np.pad(detections, [(0, gap), (0, 0)],
                                     'constant', constant_values=0)
-            print "ok"
             # Cast to float32
             # TODO: track where float64 is introduced
             detections = detections.astype(np.float32)
-
+            print "detections", detections
             # Reshape output
             # [batch, num_detections, (y1, x1, z1, y2, x2, z2, class_score)] in pixels
-            return np.reshape(detections,
+            detections = np.reshape(detections,
                               [1, self.config.DETECTION_MAX_INSTANCES, 8])
+            print "detections reshaped", detections
+            return detections
 
         # Return wrapped function
         return tf.py_func(wrapper, inputs, tf.float32)
@@ -1140,6 +1147,9 @@ def fpn_classifier_graph(rois, feature_maps,
     # Reshape to [batch, boxes, num_classes, (dy, dx, dz, log(dh), log(dw), log(dd))]
     s = K.int_shape(x)
     mrcnn_bbox = KL.Reshape((s[1], num_classes, 6), name="mrcnn_bbox")(x)
+    #mrcnn_bbox = KL.Lambda(lambda mrcnn_bbox: tf.Print(input_=mrcnn_bbox,data=[mrcnn_bbox],message="\nMRCNN_box", summarize=7*7), name="tf_t_to_K_t")(mrcnn_bbox)
+    #mrcnn_class_logits = KL.Lambda(lambda mrcnn_class_logits: tf.Print(input_=mrcnn_class_logits,data=[mrcnn_class_logits],message="\nMRCNN_probs", summarize=7*7), name="tf_t_to_K_t2")(mrcnn_class_logits)
+    #mrcnn_probs = KL.Lambda(lambda mrcnn_class_logits: tf.Print(input_=mrcnn_probs,data=[mrcnn_probs],message="\nMRCNN_probs", summarize=7*7), name="tf_t_to_K_t2")(mrcnn_probs)
 
     return mrcnn_class_logits, mrcnn_probs, mrcnn_bbox
 
@@ -1381,7 +1391,7 @@ def mrcnn_mask_loss_graph(target_masks, target_class_ids, pred_masks):
 ############################################################
 #  Data Generator
 ############################################################
-class_dictionary={0:0, 1:1, 2:2, 9:3, 10:4, 12:5}
+class_dictionary={0:1, 1:2, 2:3, 9:4, 10:5, 12:6}
 def load_image_gt(dataset, config, image_id, augment=False,use_mini_mask=False):
     """Load and return ground truth data for an image (image, mask, bounding boxes).
 
@@ -1442,6 +1452,7 @@ def load_image_gt(dataset, config, image_id, augment=False,use_mini_mask=False):
         z2 = int(data[i,7] )
         class_id = class_dictionary[(int(data[i,1]))]
         boxes[i] = np.array([y1, x1, z1, y2, x2, z2, class_id])
+    
     window = (0,0,0,config.IMAGE_MAX_DIM,config.IMAGE_MAX_DIM,config.IMAGE_MAX_DIM)
 
     # Active classes
@@ -1814,7 +1825,7 @@ def data_generator(dataset, config, shuffle=True, augment=True, random_rois=0,
     """
     b = 0  # batch item index
     image_index = 0
-    image_ids = np.array([1, 2, 3, 4, 5]) # i only have one box
+    image_ids = np.array([1, 2, 3, 4, 5]) # i only have 6 images
     error_count = 0
 
     # Anchors
@@ -1832,6 +1843,8 @@ def data_generator(dataset, config, shuffle=True, augment=True, random_rois=0,
             # Get GT bounding boxes and masks for image.
             image_id = image_ids[image_index]
             image_index = (image_index + 1) % 5
+            
+            image_id = 1
             image, image_meta, gt_boxes = \
                 load_image_gt(dataset, config, image_id, augment=augment, use_mini_mask=config.USE_MINI_MASK)
 
@@ -2459,7 +2472,7 @@ class MaskRCNN():
         windows = np.stack(windows)
         return molded_images, image_metas, windows
 
-    def unmold_detections(self, detections, image_shape, window):
+    def unmold_detections(self, detections, image_shape, window, config):
         """Reformats the detections of one image from the format of the neural
         network output to a format suitable for use in the rest of the
         application.
@@ -2476,11 +2489,11 @@ class MaskRCNN():
         """
         # How many detections do we have?
         # Detections array is padded with zeros. Find the first class_id == 0.
-        zero_ix = np.where(detections[:,6] == 0)[0]
+        zero_ix = np.where(detections[:,6] == config.NUM_CLASSES-1)[0]
         N = zero_ix[0] if zero_ix.shape[0] > 0 else detections.shape[0]
-        
         # Extract boxes, class_ids, scores, and class-specific masks
         boxes = detections[:N, :6]
+        print  "boxes in unmold detections", boxes
         class_ids = detections[:N, 6].astype(np.int32)
         scores = detections[:N, 7]
 
@@ -2493,6 +2506,7 @@ class MaskRCNN():
             class_ids = np.delete(class_ids, exclude_ix, axis=0)
             scores = np.delete(scores, exclude_ix, axis=0)
             N = class_ids.shape[0]
+
 
         # Compute scale and shift to translate coordinates to image domain.
         h_scale = image_shape[0] / (window[3] - window[0])
@@ -2510,7 +2524,7 @@ class MaskRCNN():
         
         return boxes, class_ids, scores
 
-    def detect(self, images, verbose=0):
+    def detect(self, images, verbose=0, config=None):
         """Runs the detection pipeline.
 
         images: List of images, potentially of different sizes.
@@ -2536,11 +2550,15 @@ class MaskRCNN():
         detections, mrcnn_class, mrcnn_bbox, \
         rois, rpn_class, rpn_bbox =\
             self.keras_model.predict([molded_images, image_metas], verbose=0)
+        
         # Process detections
         results = []
+
         for i, image in enumerate(images):
+            
             final_rois, final_class_ids, final_scores =\
-                self.unmold_detections(detections[i],image.shape, windows[i])
+                self.unmold_detections(detections[i],image.shape, windows[i],config)
+            print "final rois", final_rois
             results.append({
                 "rois": final_rois,
                 "class_ids": final_class_ids,

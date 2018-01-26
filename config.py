@@ -59,7 +59,7 @@ class Config(object):
     ###### RPN ######
     # Length of square anchor side in pixels
     ## Use smaller anchors because our image and objects are small
-    RPN_ANCHOR_SCALES = (8, 13, 18, 28, 34)  # anchor side in pixels #  the number of scales should be equal to BACKBONE_STRIDES
+    RPN_ANCHOR_SCALES = (6, 12, 24, 48, 86)  # anchor side in pixels #  the number of scales should be equal to BACKBONE_STRIDES
     #this is clever because you compute the anchors for specific layers. the low resolution layers contain information about big objects
     #high resolution layers contain information about smaller objects
     #so there are attached achros to specific layers. this is better because if we attach small scale on low resolution, the
@@ -88,7 +88,7 @@ class Config(object):
     RPN_TRAIN_ANCHORS_PER_IMAGE = 256
 
     # ROIs kept after non-maximum supression (training and inference)
-    POST_NMS_ROIS_TRAINING = 5000
+    POST_NMS_ROIS_TRAINING = 2000
     POST_NMS_ROIS_INFERENCE = 1000
 
     # If enabled, resizes instance masks to a smaller size to reduce
@@ -122,8 +122,8 @@ class Config(object):
     # Maximum number of ground truth instances to use in one image
     MAX_GT_INSTANCES = 6
 
-    DEV = 1 # DEV = 0.1 for x y z and 0.2 for h w d
-    DEV2 = 1
+    DEV = 0.1 # DEV = 0.1 for x y z and 0.2 for h w d
+    DEV2 =0.2
     # Bounding box refinement standard deviation for RPN and final detections.
     RPN_BBOX_STD_DEV = np.array([DEV, DEV, DEV, DEV2, DEV2, DEV2])
     BBOX_STD_DEV = np.array([DEV, DEV, DEV, DEV2, DEV2, DEV2])
@@ -133,21 +133,22 @@ class Config(object):
 
     # Minimum probability value to accept a detected instance
     # ROIs below this threshold are skipped
-    DETECTION_MIN_CONFIDENCE = 0.5 #this
-    rpn_class_loss_W = 1
-    mrcnn_class_loss_W = 1
+    DETECTION_MIN_CONFIDENCE = 0.3 #original 0.7
 
-    IOU_OBJECTNESS_TRESHOLD = 0.4 #this
+    RPN_ROIS_IOU_GT_BOX_POSITIVE_TRESH = 0.5 #original 0.5 #this is between proposed rois and ground-truth images
 
-    # Non-maximum suppression threshold for detection
-    DETECTION_NMS_THRESHOLD = 0.9
+    # You can reduce this during training to generate more propsals
+    NMS_TRESHOLD_ANCHORS_AFTER_APPLY_DELTAS = 0.7 #original: 0.7 found as RPN_NMS_THRESHOLD
 
-    ANCHOR_IOU_POS_TRESH = 0.4 #this
-    ANCHOR_IOU_NEG_TRESH = 0.4
+    # Non-maximum suppression threshold for detection/ inference
+    DETECTION_NMS_THRESHOLD = 0.99 #original 0.3
+
+    ANCHOR_IOU_POS_TRESH = 0.4 #original 0.7 and 0.3
+    ANCHOR_IOU_NEG_TRESH = 0.2
 
     # Learning rate and momentum
     # The paper uses lr=0.02, but we found that to cause weights to explode often
-    LEARNING_RATE = 0.002 #this
+    LEARNING_RATE = 0.0006 #this
     LEARNING_MOMENTUM = 0.9
 
     # Weight decay regularization

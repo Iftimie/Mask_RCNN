@@ -58,6 +58,7 @@ def compute_iou(box, boxes, box_area, boxes_area):
           efficency. Calculate once in the caller to avoid duplicate work.
     """
     # Calculate intersection areas
+
     y1 = np.maximum(box[0], boxes[:, 0])
     y2 = np.minimum(box[3], boxes[:, 3])
     x1 = np.maximum(box[1], boxes[:, 1])
@@ -106,7 +107,7 @@ def non_max_suppression(boxes, scores, threshold):
     y2 = boxes[:, 3]
     x2 = boxes[:, 4]
     z2 = boxes[:, 5]
-    area = (y2 - y1) * (x2 - x1) * (y2 - y1)
+    area = (y2 - y1) * (x2 - x1) * (z2 - z1)
 
     # Get indicies of boxes sorted by scores (highest first)
     ixs = scores.argsort()[::-1]
