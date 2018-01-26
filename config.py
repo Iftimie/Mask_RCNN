@@ -85,11 +85,11 @@ class Config(object):
     RPN_ANCHOR_STRIDE = 1
 
     # How many anchors per image to use for RPN training
-    RPN_TRAIN_ANCHORS_PER_IMAGE = 256
+    RPN_TRAIN_ANCHORS_PER_IMAGE = 512
 
     # ROIs kept after non-maximum supression (training and inference)
-    POST_NMS_ROIS_TRAINING = 2000
-    POST_NMS_ROIS_INFERENCE = 1000
+    POST_NMS_ROIS_TRAINING = 10000
+    POST_NMS_ROIS_INFERENCE = 3000
 
     # If enabled, resizes instance masks to a smaller size to reduce
     # memory load. Recommended when using high-resolution images.
@@ -109,7 +109,7 @@ class Config(object):
     MEAN_PIXEL = np.array([127.5])
 
     # Number of ROIs per image to feed to classifier/mask heads
-    TRAIN_ROIS_PER_IMAGE = 128  # TODO: paper uses 512
+    TRAIN_ROIS_PER_IMAGE = 512  # TODO: paper uses 512
 
     # Percent of positive ROIs used to train classifier/mask heads
     ROI_POSITIVE_RATIO = 0.33
@@ -143,8 +143,8 @@ class Config(object):
     # Non-maximum suppression threshold for detection/ inference
     DETECTION_NMS_THRESHOLD = 0.99 #original 0.3
 
-    ANCHOR_IOU_POS_TRESH = 0.4 #original 0.7 and 0.3
-    ANCHOR_IOU_NEG_TRESH = 0.2
+    ANCHOR_IOU_POS_TRESH = 0.5 #original 0.7 and 0.3
+    ANCHOR_IOU_NEG_TRESH = 0.3
 
     # Learning rate and momentum
     # The paper uses lr=0.02, but we found that to cause weights to explode often

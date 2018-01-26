@@ -26,7 +26,7 @@ inference_config = InferenceConfig()
 ROOT_DIR = os.getcwd()
 MODEL_DIR = os.path.join(ROOT_DIR, "logs")
 model = modellib.MaskRCNN(mode="inference", config=inference_config,model_dir=MODEL_DIR)
-model.load_weights("logs/shapes20180126T1615/mask_rcnn_shapes_0033.h5",by_name=True)
+model.load_weights("logs/shapes20180126T1615/mask_rcnn_shapes_0039.h5",by_name=True)
 
 
 original_image, image_meta, gt_bbox = modellib.load_image_gt(None,inference_config,image_id=1, use_mini_mask=False)

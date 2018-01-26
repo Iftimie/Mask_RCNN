@@ -516,7 +516,7 @@ def unmold_mask(mask, bbox, image_shape):
 ############################################################
 # scale is the size in pixels
 #the shape (BACKBONE_SHAPES) tells me the resolution of the layer!!!!!!!!
-def generate_anchors(scales, ratios, shape, feature_stride, anchor_stride):
+def generate_anchors(scales, ratios, shape, feature_stride, anchor_stride, num_anchors_per_location):
     """
     scales: 1D array of anchor sizes in pixels. Example: [32, 64, 128]
     ratios: 1D array of anchor ratios of width/height. Example: [0.5, 1, 2]
@@ -547,9 +547,20 @@ def generate_anchors(scales, ratios, shape, feature_stride, anchor_stride):
     widths = widths.tolist()
     heights.append(widths[0])
     widths.append(widths[0])
+    depths = [widths[0], widths[1], widths[0], heights[0]]
+
+    if num_anchors_per_location ==12:
+        for i in range(4):
+            heights.append(heights[i]*1.25)
+            heights.append(heights[i]*0.75)
+            widths.append(widths[i]*1.25)
+            widths.append(widths[i]*0.75)
+            depths.append(depths[i]*1.25)
+            depths.append(depths[i]*0.75)
+
     heights = np.array(heights)
     widths = np.array(widths)
-    depths = np.array([widths[0], widths[1], widths[0], heights[0]])
+    depths = np.array(depths)
 
     # Enumerate shifts in feature space
     shifts_y = np.arange(0, shape[0], anchor_stride) * feature_stride + heights[0] /2
@@ -666,7 +677,7 @@ def plotBoxesMesh(boxes):
 #                                               config.BACKBONE_STRIDES, [4, 8, 16, 32, 64]  # The strides of each layer of the FPN Pyramid.
 #                                               config.RPN_ANCHOR_STRIDE) 2
 def generate_pyramid_anchors(scales, ratios, feature_shapes, feature_strides,
-                             anchor_stride):
+                             anchor_stride, num_anchors_per_location):
     """Generate anchors at different levels of a feature pyramid. Each scale
     is associated with a level of the pyramid, but each ratio is used in
     all levels of the pyramid.
@@ -681,7 +692,7 @@ def generate_pyramid_anchors(scales, ratios, feature_shapes, feature_strides,
     anchors = []
     for i in range(len(scales)):
         anchors.append(generate_anchors(scales[i], ratios, feature_shapes[i],
-                                        feature_strides[i], anchor_stride))
+                                        feature_strides[i], anchor_stride, num_anchors_per_location))
     return np.concatenate(anchors, axis=0)
 
 

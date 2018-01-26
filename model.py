@@ -1834,7 +1834,8 @@ def data_generator(dataset, config, shuffle=True, augment=True, random_rois=0,
                                               config.RPN_ANCHOR_RATIOS,
                                               config.BACKBONE_SHAPES,
                                               config.BACKBONE_STRIDES, 
-                                              config.RPN_ANCHOR_STRIDE)
+                                              config.RPN_ANCHOR_STRIDE,
+                                              config.NUM_ANCHORS_PER_LOCATION)
 
     # Keras requires a generator to run indefinately.
     while True:
@@ -2050,7 +2051,8 @@ class MaskRCNN():
                                                        config.RPN_ANCHOR_RATIOS,
                                                        config.BACKBONE_SHAPES,
                                                        config.BACKBONE_STRIDES, 
-                                                       config.RPN_ANCHOR_STRIDE)    
+                                                       config.RPN_ANCHOR_STRIDE,
+                                                       config.NUM_ANCHORS_PER_LOCATION)    
         
         # RPN Model #this is where it attaches more region proposal networks to the specific layers
         rpn = build_rpn_model(config.RPN_ANCHOR_STRIDE, 

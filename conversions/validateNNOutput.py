@@ -121,7 +121,7 @@ def visualize_target_graphs(rois, gt_boxes):
     time.sleep(1000)
     return rois_orig, gt_boxes_orig
 
-def showBoxes(rois,ax, i, colour):
+def showBoxes(rois,ax, i, colour,edgecolors):
     from mpl_toolkits.mplot3d.art3d import Poly3DCollection, Line3DCollection
     Y1,X1,Z1,Y2,X2,Z2 = rois[i,:6]
     points_R = np.array([[Y1,X1,Z1],
@@ -145,7 +145,7 @@ def showBoxes(rois,ax, i, colour):
              [Z[4],Z[7],Z[3],Z[0]],
              [Z[2],Z[3],Z[7],Z[6]]]
     ax.add_collection3d(Poly3DCollection(verts,
-                                         facecolors=colour, linewidths=1, edgecolors='r', alpha=.25))
+                                         facecolors=colour, linewidths=1, edgecolors=edgecolors, alpha=.25))
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
@@ -158,11 +158,11 @@ def visualizeNNOutput(out_bbox, gt_bbox,sleep_time=100000):
     rois =out_bbox
     print len(rois)
     for i in range(len(rois)):
-        showBoxes(rois,ax, i, colour="red")
+        showBoxes(rois,ax, i, colour="red" , edgecolors="cyan")
     fig2 = plt.figure()
     ax2 = fig2.add_subplot(111, projection='3d')
     for i in range(len(gt_bbox)):
-        showBoxes(gt_bbox,ax2,i,colour="cyan")
+        showBoxes(gt_bbox,ax2,i,colour="cyan", edgecolors="red")
     plt.show()
     import time
     time.sleep(sleep_time)
