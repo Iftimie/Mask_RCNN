@@ -1414,7 +1414,7 @@ def load_image_gt(dataset, config, image_id, augment=False,use_mini_mask=False):
     # Load image and mask
     #image = dataset.load_image(image_id)
     from nifti import NiftiImage
-    data_mri =  NiftiImage('../rocketChallenge_data/smir/input_MaskRCNN_128/MRI_'+str(image_id)+'.nii').data
+    data_mri =  NiftiImage('input_MaskRCNN_128/MRI_'+str(image_id)+'.nii').data
     image = data_mri[:,:,:,np.newaxis]
     #mask, class_ids = dataset.load_mask(image_id)
     shape = image.shape
@@ -1844,8 +1844,7 @@ def data_generator(dataset, config, shuffle=True, augment=True, random_rois=0,
             # Get GT bounding boxes and masks for image.
             image_id = image_ids[image_index]
             image_index = (image_index + 1) % 5
-            
-            image_id = 1
+
             image, image_meta, gt_boxes = \
                 load_image_gt(dataset, config, image_id, augment=augment, use_mini_mask=config.USE_MINI_MASK)
 
