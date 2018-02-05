@@ -105,6 +105,8 @@ def identity_block(input_tensor, kernel_size, filters, stage, block,
     x = KL.Activation('relu', name='res'+str(stage)+block+'_out')(x)
     return x
 
+
+
 #example call conv_block(x, 3, [2, 2, 8], stage=2, block='a', strides=(1, 1, 1))
 def conv_block(input_tensor, kernel_size, filters, stage, block, 
                strides=(2, 2, 2), use_bias=True):
@@ -1437,7 +1439,6 @@ def load_image_gt(dataset, config, image_id, augment=False,use_mini_mask=False):
     #bbox = utils.extract_bboxes(mask)
     number_of_classes = config.NUM_CLASSES #this has 1 + 6(nb organs) = 7
 
-    image_id = 1
     import pandas as pd
     df=pd.read_csv('../rocketChallenge_data/smir/input_MaskRCNN_128/out_'+str(image_id)+'.csv', sep=',')
     data = df.as_matrix()

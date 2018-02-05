@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="418118b4-75cf-43f0-af73-3a32da8e7cbe" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/autoencoder_model.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/train_autoencoder.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.py" afterPath="$PROJECT_DIR$/config.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model.py" afterPath="$PROJECT_DIR$/model.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_MRI.py" afterPath="$PROJECT_DIR$/test_MRI.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train_MRI.py" afterPath="$PROJECT_DIR$/train_MRI.py" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,7 +19,7 @@
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$standardize.coverage" NAME="standardize Coverage Results" MODIFIED="1513546004236" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$only_pad.coverage" NAME="only_pad Coverage Results" MODIFIED="1514970618134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$resizeVolume.coverage" NAME="resizeVolume Coverage Results" MODIFIED="1513271758400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
-    <SUITE FILE_PATH="coverage/Mask_RCNN_py$train_MRI.coverage" NAME="train_MRI Coverage Results" MODIFIED="1517730877435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Mask_RCNN_py$train_MRI.coverage" NAME="train_MRI Coverage Results" MODIFIED="1517734236968" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$swap_DCM_input_maskRCNN.coverage" NAME="swap_DCM_input_maskRCNN Coverage Results" MODIFIED="1516133154394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$test_MRI.coverage" NAME="test_MRI Coverage Results" MODIFIED="1517730944790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$validate_annotation.coverage" NAME="validate_annotation Coverage Results" MODIFIED="1515139024223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
@@ -28,6 +27,7 @@
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$validate_annotation_SMIR.coverage" NAME="validate_annotation_SMIR Coverage Results" MODIFIED="1516204320996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$visualize_original_nii.coverage" NAME="visualize_original_nii Coverage Results" MODIFIED="1514971303013" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$read_DCM_data.coverage" NAME="read_DCM_data Coverage Results" MODIFIED="1515006422727" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
+    <SUITE FILE_PATH="coverage/Mask_RCNN_py$train_autoencoder.coverage" NAME="train_autoencoder Coverage Results" MODIFIED="1517741658654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -42,11 +42,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="model.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="model.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="1843" column="32" lean-forward="false" selection-start-line="1843" selection-start-column="32" selection-end-line="1843" selection-end-column="32" />
+            <state relative-caret-position="-789">
+              <caret line="1320" column="19" lean-forward="false" selection-start-line="1320" selection-start-column="4" selection-end-line="1320" selection-end-column="19" />
               <folding>
                 <element signature="e#183#192#0" expanded="true" />
               </folding>
@@ -54,21 +54,65 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config.py">
+      <file leaf-file-name="topology.py" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/engine/topology.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="35" column="22" lean-forward="false" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
+            <state relative-caret-position="186">
+              <caret line="551" column="0" lean-forward="false" selection-start-line="551" selection-start-column="0" selection-end-line="551" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="train_MRI.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="342">
+              <caret line="35" column="4" lean-forward="false" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="train_MRI.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train_MRI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="43" column="84" lean-forward="false" selection-start-line="43" selection-start-column="84" selection-end-line="43" selection-end-column="84" />
+            <state relative-caret-position="263">
+              <caret line="39" column="21" lean-forward="false" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="train_autoencoder.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/train_autoencoder.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="13" column="12" lean-forward="false" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="autoencoder_model.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/autoencoder_model.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="183">
+              <caret line="927" column="40" lean-forward="false" selection-start-line="927" selection-start-column="34" selection-end-line="927" selection-end-column="40" />
+              <folding>
+                <element signature="e#183#192#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="interfaces.py" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/legacy/interfaces.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -107,36 +151,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>prev_state</find>
-      <find>model</find>
-      <find>IMAGES_PER_GPU</find>
-      <find>mode == &quot;tra</find>
-      <find>BATCH_SIZE</find>
-      <find>load</find>
-      <find>data_generator</find>
-      <find>rpn_model</find>
-      <find>fpn_classifier_graph</find>
-      <find>positive_overlaps</find>
-      <find>loss</find>
-      <find>rpn_class_loss_graph</find>
-      <find>train</find>
-      <find>rpn_bbox_loss</find>
-      <find>outputs</find>
-      <find>w</find>
-      <find>mrcnn_class_loss_graph</find>
-      <find>mrcnn_bbox_loss_graph</find>
-      <find>target_class_ids</find>
-      <find>DetectionTargetLayer</find>
-      <find>load_Image_</find>
-      <find>IOU_OBJECTNESS_TRESHOLD</find>
-      <find>load_image</find>
-      <find>non_max</find>
-      <find>utils.non_max_suppression</find>
-      <find>refine_detections</find>
-      <find>DetectionLayer</find>
-      <find>config.BBOX_STD_DEV</find>
-      <find>detection_targets_graph</find>
+      <find>log_dir</find>
+      <find>log</find>
+      <find>MaxPooling3d</find>
+      <find>upsamplin</find>
+      <find>resnet</find>
+      <find>resnet_</find>
+      <find>resnet_graph</find>
+      <find>resnet_grap</find>
+      <find>KL.</find>
+      <find>KM.model</find>
+      <find>reverse_res</find>
+      <find>cross_e</find>
+      <find>reverse_resne</find>
+      <find>gener</find>
+      <find>mrcnn_mask_loss_graph</find>
+      <find>set_trainable</find>
+      <find>reverse_identity_block</find>
+      <find>reverse_resnet_graph</find>
+      <find>load_im</find>
       <find>load_image_gt</find>
+      <find>compile</find>
+      <find>__ini</find>
+      <find>load_ima</find>
+      <find>build</find>
+      <find>KM.M</find>
+      <find>loss</find>
+      <find>target</find>
+      <find>mask_rcnn</find>
+      <find>loss_</find>
+      <find>mrcnn_bbox_loss</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -174,9 +218,11 @@
         <option value="$PROJECT_DIR$/conversions/validate_annotation_SMIR.py" />
         <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/config.py" />
-        <option value="$PROJECT_DIR$/model.py" />
         <option value="$PROJECT_DIR$/test_MRI.py" />
         <option value="$PROJECT_DIR$/train_MRI.py" />
+        <option value="$PROJECT_DIR$/train_autoencoder.py" />
+        <option value="$PROJECT_DIR$/model.py" />
+        <option value="$PROJECT_DIR$/autoencoder_model.py" />
       </list>
     </option>
   </component>
@@ -286,7 +332,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test_MRI">
+  <component name="RunManager" selected="Python.train_autoencoder">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -368,24 +414,6 @@
       <properties />
       <listeners />
     </configuration>
-    <configuration name="model" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Mask_RCNN_py" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
     <configuration name="swap_DCM_input_maskRCNN" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -440,6 +468,24 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
+    <configuration name="train_autoencoder" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Mask_RCNN_py" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_autoencoder.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
     <configuration name="validate_annotation_SMIR" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -462,16 +508,16 @@
       <item index="0" class="java.lang.String" itemvalue="Python.swap_DCM_input_maskRCNN" />
       <item index="1" class="java.lang.String" itemvalue="Python.validate_annotation_SMIR" />
       <item index="2" class="java.lang.String" itemvalue="Python.train_MRI" />
-      <item index="3" class="java.lang.String" itemvalue="Python.model" />
-      <item index="4" class="java.lang.String" itemvalue="Python.test_MRI" />
+      <item index="3" class="java.lang.String" itemvalue="Python.test_MRI" />
+      <item index="4" class="java.lang.String" itemvalue="Python.train_autoencoder" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.test_MRI" />
+        <item index="0" class="java.lang.String" itemvalue="Python.train_autoencoder" />
         <item index="1" class="java.lang.String" itemvalue="Python.train_MRI" />
-        <item index="2" class="java.lang.String" itemvalue="Python.validate_annotation_SMIR" />
-        <item index="3" class="java.lang.String" itemvalue="Python.swap_DCM_input_maskRCNN" />
-        <item index="4" class="java.lang.String" itemvalue="Python.model" />
+        <item index="2" class="java.lang.String" itemvalue="Python.test_MRI" />
+        <item index="3" class="java.lang.String" itemvalue="Python.validate_annotation_SMIR" />
+        <item index="4" class="java.lang.String" itemvalue="Python.swap_DCM_input_maskRCNN" />
       </list>
     </recent_temporary>
   </component>
@@ -531,12 +577,12 @@
       <workItem from="1516825132227" duration="157000" />
       <workItem from="1516996518096" duration="916000" />
       <workItem from="1517697256781" duration="814000" />
-      <workItem from="1517730822143" duration="260000" />
+      <workItem from="1517730822143" duration="11054000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="206430000" />
+    <option name="totallyTimeSpent" value="217224000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1857" height="1092" extended-state="6" />
@@ -556,6 +602,7 @@
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24378109" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946378" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -569,7 +616,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="combo" />
       <window_info id="Dynamic Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -607,13 +653,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model.py</url>
-          <line>499</line>
+          <line>501</line>
           <option name="timeStamp" value="89" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/model.py</url>
-          <line>965</line>
-          <option name="timeStamp" value="95" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/test_MRI.py</url>
@@ -627,17 +668,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model.py</url>
-          <line>1835</line>
+          <line>1836</line>
           <option name="timeStamp" value="115" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model.py</url>
-          <line>1037</line>
+          <line>1039</line>
           <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model.py</url>
-          <line>1030</line>
+          <line>1032</line>
           <option name="timeStamp" value="130" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -655,6 +696,16 @@
           <line>61</line>
           <option name="timeStamp" value="134" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model.py</url>
+          <line>2022</line>
+          <option name="timeStamp" value="136" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/autoencoder_model.py</url>
+          <line>560</line>
+          <option name="timeStamp" value="148" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -663,25 +714,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="135" />
+      <option name="time" value="149" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/tensorflow/python/ops/image_grad.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="158" column="0" lean-forward="false" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/tensorflow/python/ops/gen_image_ops.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10008">
-          <caret line="570" column="0" lean-forward="false" selection-start-line="570" selection-start-column="0" selection-end-line="570" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python2.7/dist-packages/tensorflow/python/ops/image_ops_impl.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27432">
@@ -760,13 +797,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/legacy/interfaces.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/conversions/pad_align_face_to_axis.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -826,13 +856,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/engine/training.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37872">
-          <caret line="2114" column="0" lean-forward="false" selection-start-line="2114" selection-start-column="0" selection-end-line="2114" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/conversions/out.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -858,14 +881,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="650" column="0" lean-forward="false" selection-start-line="650" selection-start-column="0" selection-end-line="650" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/engine/topology.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="602" column="0" lean-forward="false" selection-start-line="602" selection-start-column="0" selection-end-line="602" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -927,6 +942,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="11034">
           <caret line="634" column="0" lean-forward="false" selection-start-line="634" selection-start-column="0" selection-end-line="634" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1004,24 +1020,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="35" column="22" lean-forward="false" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1843" column="32" lean-forward="false" selection-start-line="1843" selection-start-column="32" selection-end-line="1843" selection-end-column="32" />
-          <folding>
-            <element signature="e#183#192#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test_MRI.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
@@ -1030,11 +1028,73 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/legacy/interfaces.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/engine/topology.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="551" column="0" lean-forward="false" selection-start-line="551" selection-start-column="0" selection-end-line="551" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="35" column="4" lean-forward="false" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/train_MRI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="43" column="84" lean-forward="false" selection-start-line="43" selection-start-column="84" selection-end-line="43" selection-end-column="84" />
+        <state relative-caret-position="263">
+          <caret line="39" column="21" lean-forward="false" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/engine/training.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="925" column="75" lean-forward="false" selection-start-line="925" selection-start-column="75" selection-end-line="925" selection-end-column="75" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train_autoencoder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="13" column="12" lean-forward="false" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/autoencoder_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="927" column="40" lean-forward="false" selection-start-line="927" selection-start-column="34" selection-end-line="927" selection-end-column="40" />
+          <folding>
+            <element signature="e#183#192#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-789">
+          <caret line="1320" column="19" lean-forward="false" selection-start-line="1320" selection-start-column="4" selection-end-line="1320" selection-end-column="19" />
+          <folding>
+            <element signature="e#183#192#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
