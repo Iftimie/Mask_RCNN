@@ -1442,7 +1442,7 @@ def load_image_gt(dataset, config, image_id, augment=False,use_mini_mask=False):
     number_of_classes = config.NUM_CLASSES #this has 1 + 6(nb organs) = 7
 
     import pandas as pd
-    df=pd.read_csv('../rocketChallenge_data/smir/input_MaskRCNN_128/out_'+str(image_id)+'.csv', sep=',')
+    df=pd.read_csv('input_MaskRCNN_128/out_'+str(image_id)+'.csv', sep=',')
     data = df.as_matrix()
     number_of_bbox_in_image = len(data)
     boxes = np.zeros([number_of_bbox_in_image, 7], dtype=np.int32)
