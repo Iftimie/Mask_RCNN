@@ -1002,7 +1002,7 @@ class DetectionLayer(KE.Layer):
 
 
 # Region Proposal Network (RPN)
-import ntm.ntm.mann_cell_K as ntm_cell
+
 from tensorflow.contrib import rnn
 def rpn_graph(feature_map, anchors_per_location, anchor_stride):
     """Builds the computation graph of Region Proposal Network.
@@ -1415,8 +1415,10 @@ def load_image_gt(dataset, config, image_id, augment=False,use_mini_mask=False):
     """
     # Load image and mask
     #image = dataset.load_image(image_id)
-    from nifti import NiftiImage
-    data_mri =  NiftiImage('input_MaskRCNN_128/MRI_'+str(image_id)+'.nii').data
+    #from nifti import NiftiImage
+    import nibabel as nib
+    data_mri = nib.load('input_MaskRCNN_128/MRI_'+str(image_id)+'.nii').get_data()
+    #data_mri =  NiftiImage('input_MaskRCNN_128/MRI_'+str(image_id)+'.nii').data
     image = data_mri[:,:,:,np.newaxis]
     #mask, class_ids = dataset.load_mask(image_id)
     shape = image.shape
