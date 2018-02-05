@@ -287,8 +287,10 @@ def load_image_gt(dataset, config, image_id, augment=False,use_mini_mask=False):
     """
     # Load image and mask
     #image = dataset.load_image(image_id)
-    from nifti import NiftiImage
-    data_mri =  NiftiImage('input_MaskRCNN_128/MRI_'+str(image_id)+'.nii').data
+    #from nifti import NiftiImage
+    import nibabel as nib
+    data_mri = nib.load('input_MaskRCNN_128/MRI_'+str(image_id)+'.nii').get_data()
+    #data_mri =  NiftiImage('input_MaskRCNN_128/MRI_'+str(image_id)+'.nii').data
     image = data_mri[:,:,:,np.newaxis]
     #mask, class_ids = dataset.load_mask(image_id)
     shape = image.shape
@@ -312,7 +314,7 @@ def load_image_gt(dataset, config, image_id, augment=False,use_mini_mask=False):
     number_of_classes = config.NUM_CLASSES #this has 1 + 6(nb organs) = 7
 
     import pandas as pd
-    df=pd.read_csv('../rocketChallenge_data/smir/input_MaskRCNN_128/out_'+str(image_id)+'.csv', sep=',')
+    df=pd.read_csv('input_MaskRCNN_128/out_'+str(image_id)+'.csv', sep=',')
     data = df.as_matrix()
     number_of_bbox_in_image = len(data)
     boxes = np.zeros([number_of_bbox_in_image, 7], dtype=np.int32)
