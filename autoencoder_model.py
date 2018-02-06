@@ -250,7 +250,7 @@ def data_generator(dataset, config, shuffle=True, augment=True, random_rois=0,
     """
     b = 0  # batch item index
     image_index = 0
-    image_ids = np.array([1, 2, 3, 4, 5]) # i only have 6 images
+    image_ids = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]) # i only have 6 images
     error_count = 0
 
     # Keras requires a generator to run indefinately.

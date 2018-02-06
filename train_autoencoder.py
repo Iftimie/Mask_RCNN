@@ -29,7 +29,7 @@ class VolumesConfig(Config):
     to the toy shapes dataset.
     """
     # Give the configuration a recognizable name
-    IMAGES_PER_GPU = 1
+    IMAGES_PER_GPU = 3
     NAME = "AUTOENCODER"
 
 config = VolumesConfig()
@@ -41,7 +41,7 @@ print (config)
 # K.set_session(sess)
 #Create model in training mode
 model = modellib.MaskRCNN(mode="training", config=config, model_dir=MODEL_DIR)
-model.load_weights("logs/autoencoder20180205T1959/mask_rcnn_autoencoder_0002.h5",by_name=True)
+#model.load_weights("logs/autoencoder20180205T1959/mask_rcnn_autoencoder_0002.h5",by_name=True)
 model.train(None,None,
             learning_rate=config.LEARNING_RATE / 10,
             epochs=100,
