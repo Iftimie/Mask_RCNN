@@ -77,26 +77,13 @@ def identity_block(input_tensor, kernel_size, filters, stage, block,
         stage: integer, current stage label, used for generating layer names
         block: 'a','b'..., current block label, used for generating layer names
     """
-    nb_filter1, nb_filter2, nb_filter3 = filters
+    nb_filter2 = filters
     conv_name_base = 'res' + str(stage) + block + '_branch'
-    bn_name_base = 'bn' + str(stage) + block + '_branch'
-
-    x = KL.Conv3D(nb_filter1, (1, 1, 1), name=conv_name_base + '2a',
-                  use_bias=use_bias)(input_tensor)
-    x = BatchNorm(axis=4, name=bn_name_base + '2a')(x)
-    x = KL.Activation('relu')(x)
 
     x = KL.Conv3D(nb_filter2, (kernel_size, kernel_size, kernel_size), padding='same',
-                  name=conv_name_base + '2b', use_bias=use_bias)(x)
-    x = BatchNorm(axis=4, name=bn_name_base + '2b')(x)
+                  name=conv_name_base + '2b', use_bias=use_bias)(input_tensor)
     x = KL.Activation('relu')(x)
 
-    x = KL.Conv3D(nb_filter3, (1, 1, 1), name=conv_name_base + '2c',
-                  use_bias=use_bias)(x)
-    x = BatchNorm(axis=4, name=bn_name_base + '2c')(x)
-
-    x = KL.Add()([x, input_tensor])
-    x = KL.Activation('relu', name='res'+str(stage)+block+'_out')(x)
     return x
 
 #example call conv_block(x, 3, [2, 2, 8], stage=2, block='a', strides=(1, 1, 1))
@@ -112,28 +99,15 @@ def conv_block(input_tensor, kernel_size, filters, stage, block,
     Note that from stage 3, the first conv layer at main path is with subsample=(2,2)
     And the shortcut should have subsample=(2,2) as well
     """
-    nb_filter1, nb_filter2, nb_filter3 = filters
+    nb_filter2, nb_filter3 = filters
     conv_name_base = 'res' + str(stage) + block + '_branch'
-    bn_name_base = 'bn' + str(stage) + block + '_branch'
 
-    x = KL.Conv3D(nb_filter1, (1, 1, 1), strides=strides,
-                  name=conv_name_base + '2a', use_bias=use_bias)(input_tensor)
-    x = BatchNorm(axis=4, name=bn_name_base + '2a')(x)
+    x = KL.Conv3D(nb_filter2, (kernel_size, kernel_size, kernel_size), padding='same', strides =strides,
+                  name=conv_name_base + '2b', use_bias=use_bias)(input_tensor)
     x = KL.Activation('relu')(x)
 
-    x = KL.Conv3D(nb_filter2, (kernel_size, kernel_size, kernel_size), padding='same',
-                  name=conv_name_base + '2b', use_bias=use_bias)(x)
-    x = BatchNorm(axis=4, name=bn_name_base + '2b')(x)
-    x = KL.Activation('relu')(x)
+    x = KL.Conv3D(nb_filter3, (kernel_size, kernel_size, kernel_size), padding='same', name=conv_name_base + '2c', use_bias=use_bias)(x)
 
-    x = KL.Conv3D(nb_filter3, (1, 1, 1), name=conv_name_base + '2c', use_bias=use_bias)(x)
-    x = BatchNorm(axis=4, name=bn_name_base + '2c')(x)
-
-    shortcut = KL.Conv3D(nb_filter3, (1, 1, 1), strides=strides,
-                         name=conv_name_base + '1', use_bias=use_bias)(input_tensor)
-    shortcut = BatchNorm(axis=4, name=bn_name_base + '1')(shortcut)
-
-    x = KL.Add()([x, shortcut])
     x = KL.Activation('relu', name='res'+str(stage)+block+'_out')(x)
     return x
 
@@ -142,123 +116,65 @@ def resnet_graph(input_image, architecture, stage5=False):
     assert architecture in ["resnet50", "resnet101"]
     # Stage 1
     x = KL.ZeroPadding3D((3, 3, 3))(input_image)
-    x = KL.Conv3D(4, (7, 7, 7), strides=(2, 2, 2), name='conv1', use_bias=True)(x)
-    x = BatchNorm(axis=4, name='bn_conv1')(x)
-    x = KL.Activation('relu')(x)
-    C1 = x = KL.MaxPooling3D((3, 3, 3), strides=(2, 2, 2), padding="same")(x)
+    x = KL.Conv3D(8, (7, 7, 7), strides=(2, 2, 2), name='conv1', use_bias=True)(x)
+    C1 = x = KL.Activation('relu')(x)
+
     # Stage 2
-    x = conv_block(x, 3, [2, 2, 8], stage=2, block='a', strides=(1, 1, 1))
-    x = identity_block(x, 3, [2, 2, 8], stage=2, block='b')
-    C2 = x = identity_block(x, 3, [2, 2, 8], stage=2, block='c')
+    C2 = x = conv_block(x, 3, [8, 16], stage=2, block='a')
+    # x = identity_block(x, 3, [16], stage=2, block='b')
+    # C2 = x = identity_block(x, 3, [2, 2, 8], stage=2, block='c')
     # Stage 3
-    x = conv_block(x, 3, [4, 4, 16], stage=3, block='a')
-    x = identity_block(x, 3, [4, 4, 16], stage=3, block='b')
-    x = identity_block(x, 3, [4, 4, 16], stage=3, block='c')
-    C3 = x = identity_block(x, 3, [4, 4, 16], stage=3, block='d')
+    C3 = x = conv_block(x, 3, [16, 32], stage=3, block='a')
+    # x = identity_block(x, 3, [4, 4, 16], stage=3, block='b')
+    # x = identity_block(x, 3, [4, 4, 16], stage=3, block='c')
+    # C3 = x = identity_block(x, 3, [4, 4, 16], stage=3, block='d')
     # Stage 4
-    x = conv_block(x, 3, [8, 8, 32], stage=4, block='a')
-    block_count = {"resnet50": 5, "resnet101": 22}[architecture]
-    for i in range(block_count):
-        x = identity_block(x, 3, [8, 8, 32], stage=4, block=chr(98+i))
+    x = conv_block(x, 3, [32, 64], stage=4, block='a')
+    # block_count = {"resnet50": 5, "resnet101": 22}[architecture]
+    # for i in range(block_count):
+    #     x = identity_block(x, 3, [8, 8, 32], stage=4, block=chr(98+i))
     C4 = x
     # Stage 5
     if stage5:
-        x = conv_block(x, 3, [16, 16, 64], stage=5, block='a')
-        x = identity_block(x, 3, [16, 16, 64], stage=5, block='b')
-        C5 = x = identity_block(x, 3, [16, 16, 64], stage=5, block='c')
+        C5 = x = conv_block(x, 3, [64, 128], stage=5, block='a')
+        #x = identity_block(x, 3, [16, 16, 64], stage=5, block='b')
+        #C5 = x = identity_block(x, 3, [16, 16, 64], stage=5, block='c')
     else:
         C5 = None
     return [C1, C2, C3, C4, C5]
-
-def reverse_conv_block(input_tensor, kernel_size, filters, stage, block,
-                       strides=(1, 1, 1), use_bias=True):
-    """conv_block is the block that has a conv layer at shortcut
-    # Arguments
-        input_tensor: input tensor
-        kernel_size: defualt 3, the kernel size of middle conv layer at main path
-        filters: list of integers, the nb_filters of 3 conv layer at main path
-        stage: integer, current stage label, used for generating layer names
-        block: 'a','b'..., current block label, used for generating layer names
-    Note that from stage 3, the first conv layer at main path is with subsample=(2,2)
-    And the shortcut should have subsample=(2,2) as well
-    """
-    nb_filter1, nb_filter2, nb_filter3 = filters
-    conv_name_base = 'rev_res' + str(stage) + block + '_branch'
-    bn_name_base = 'rev_bn' + str(stage) + block + '_branch'
-
-    x = KL.Conv3D(nb_filter1, (1, 1, 1), strides=strides,
-                  name=conv_name_base + '2a', use_bias=use_bias)(input_tensor)
-    x = BatchNorm(axis=4, name=bn_name_base + '2a')(x)
-    x = KL.Activation('relu')(x)
-
-    x = KL.Conv3D(nb_filter2, (kernel_size, kernel_size, kernel_size), padding='same',
-                  name=conv_name_base + '2b', use_bias=use_bias)(x)
-    x = BatchNorm(axis=4, name=bn_name_base + '2b')(x)
-    x = KL.Activation('relu')(x)
-
-    x = KL.Conv3D(nb_filter3, (1, 1, 1), name=conv_name_base + '2c', use_bias=use_bias)(x)
-    x = BatchNorm(axis=4, name=bn_name_base + '2c')(x)
-
-    shortcut = KL.Conv3D(nb_filter3, (1, 1, 1), strides=strides,
-                         name=conv_name_base + '1', use_bias=use_bias)(input_tensor)
-    shortcut = BatchNorm(axis=4, name=bn_name_base + '1')(shortcut)
-
-    x = KL.Add()([x, shortcut])
-    x = KL.Activation('relu', name='rev_res'+str(stage)+block+'_out')(x)
-    return x
-
-def reverse_identity_block(input_tensor, kernel_size, filters, stage, block,use_bias=True):
-    nb_filter1, nb_filter2, nb_filter3 = filters
-    conv_name_base = 'rev_res' + str(stage) + block + '_branch'
-    bn_name_base = 'rev_bn' + str(stage) + block + '_branch'
-    x = KL.Conv3D(nb_filter1, (1, 1, 1), name=conv_name_base + '2a',
-                  use_bias=use_bias)(input_tensor)
-    x = BatchNorm(axis=4, name=bn_name_base + '2a')(x)
-    x = KL.Activation('relu')(x)
-
-    x = KL.Conv3D(nb_filter2, (kernel_size, kernel_size, kernel_size), padding='same',
-                  name=conv_name_base + '2b', use_bias=use_bias)(x)
-    x = BatchNorm(axis=4, name=bn_name_base + '2b')(x)
-    x = KL.Activation('relu')(x)
-
-    x = KL.Conv3D(nb_filter3, (1, 1, 1), name=conv_name_base + '2c',
-                  use_bias=use_bias)(x)
-    x = BatchNorm(axis=4, name=bn_name_base + '2c')(x)
-
-    x = KL.Add()([x, input_tensor])
-    x = KL.Activation('relu', name='rev_res'+str(stage)+block+'_out')(x)
-    return x
 
 def reverse_resnet_graph(layer, architecture, stage5=False):
     # # Stage 5
     if stage5:
         layer = KL.UpSampling3D((2,2,2))(layer)
-        layer = reverse_identity_block(layer,3,[16,16,64], stage=5, block='c')
-        layer = reverse_identity_block(layer,3,[16,16,64], stage=5, block='b')
-        layer = reverse_conv_block(layer, 3,[16,16,64], stage=5, block='a')
+        layer = conv_block(layer, 3,[64, 64], stage=5, block='arev', strides=(1,1,1))
     # Stage 4
-    block_count = {"resnet50": 5, "resnet101": 22}[architecture]
+    #block_count = {"resnet50": 5, "resnet101": 22}[architecture]
     layer = KL.UpSampling3D((2,2,2))(layer)
-    layer = KL.Conv3D(32, (3,3,3), strides=(1, 1, 1), use_bias=True, padding='same')(layer)
-    for i in range(block_count):
-        layer = reverse_identity_block(layer, 3, [8, 8, 32], stage=4, block=chr(98 + block_count -1 - i))
-    layer = reverse_conv_block(layer, 3, [8, 8, 32], stage=4, block='a')
+    # layer = KL.Conv3D(32, (3,3,3), strides=(1, 1, 1), use_bias=True, padding='same')(layer)
+    # layer = KL.Activation('relu')(layer)
+    # for i in range(block_count):
+    #     layer = reverse_identity_block(layer, 3, [8, 8, 32], stage=4, block=chr(98 + block_count -1 - i))
+    layer = conv_block(layer, 3, [32, 32], stage=4, block='arev', strides=(1,1,1))
     # Stage 3
     layer = KL.UpSampling3D((2,2,2))(layer)
-    layer = KL.Conv3D(16, (3,3,3), strides=(1, 1, 1), use_bias=True, padding='same')(layer)
-    layer = reverse_conv_block(layer, 3, [4, 4, 16], stage=3, block='d')
-    layer = reverse_identity_block(layer, 3, [4, 4, 16], stage=3, block='c')
-    layer = reverse_identity_block(layer, 3, [4, 4, 16], stage=3, block='b')
-    layer = reverse_conv_block(layer,3, [4, 4, 16], stage=3, block='a')
+    # layer = KL.Conv3D(16, (3,3,3), strides=(1, 1, 1), use_bias=True, padding='same')(layer)
+    # layer = KL.Activation('relu')(layer)
+    # layer = reverse_conv_block(layer, 3, [4, 4, 16], stage=3, block='d')
+    # layer = reverse_identity_block(layer, 3, [4, 4, 16], stage=3, block='c')
+    # layer = reverse_identity_block(layer, 3, [4, 4, 16], stage=3, block='b')
+    layer = conv_block(layer,3, [16, 16], stage=3, block='arev', strides=(1,1,1))
     # Stage 2
     layer = KL.UpSampling3D((2,2,2))(layer)
-    layer = KL.Conv3D(8, (3,3,3), strides=(1, 1, 1), use_bias=True, padding='same')(layer)
-    layer = reverse_identity_block(layer, 3, [2, 2, 8], stage=2, block='c')
-    layer = reverse_identity_block(layer, 3, [2, 2, 8], stage=2, block='b')
-    layer = reverse_conv_block(layer, 3, [2, 2, 8], stage=2, block='a')
+    # layer = KL.Conv3D(8, (3,3,3), strides=(1, 1, 1), use_bias=True, padding='same')(layer)
+    # layer = KL.Activation('relu')(layer)
+    # layer = reverse_identity_block(layer, 3, [2, 2, 8], stage=2, block='c')
+    # layer = reverse_identity_block(layer, 3, [2, 2, 8], stage=2, block='b')
+    layer = conv_block(layer, 3, [8, 8], stage=2, block='arev', strides=(1,1,1))
     # Stage 1
     layer = KL.UpSampling3D((2,2,2))(layer)
     layer = KL.Conv3D(1, (7, 7, 7), strides=(1, 1, 1), name='conv_last', use_bias=True, padding='same')(layer)
+    layer = KL.Activation('relu')(layer)
     return layer
 
 
@@ -292,61 +208,9 @@ def load_image_gt(dataset, config, image_id, augment=False,use_mini_mask=False):
     data_mri = nib.load('input_MaskRCNN_128/MRI_'+str(image_id)+'.nii').get_data()
     #data_mri =  NiftiImage('input_MaskRCNN_128/MRI_'+str(image_id)+'.nii').data
     image = data_mri[:,:,:,np.newaxis]
-    #mask, class_ids = dataset.load_mask(image_id)
-    shape = image.shape
-    # image, window, scale, padding = utils.resize_image(
-    #     image,
-    #     min_dim=config.IMAGE_MIN_DIM,
-    #     max_dim=config.IMAGE_MAX_DIM,
-    #     padding=config.IMAGE_PADDING)
-    # mask = utils.resize_mask(mask, scale, padding)
 
-    # Random horizontal flips.
-    # if augment:
-    #     if random.randint(0, 1):
-    #         image = np.fliplr(image)
-    #         mask = np.fliplr(mask)
 
-    # Bounding boxes. Note that some boxes might be all zeros
-    # if the corresponding mask got cropped out.
-    # bbox: [num_instances, (y1, x1, y2, x2)]
-    #bbox = utils.extract_bboxes(mask)
-    number_of_classes = config.NUM_CLASSES #this has 1 + 6(nb organs) = 7
-
-    import pandas as pd
-    df=pd.read_csv('input_MaskRCNN_128/out_'+str(image_id)+'.csv', sep=',')
-    data = df.as_matrix()
-    number_of_bbox_in_image = len(data)
-    boxes = np.zeros([number_of_bbox_in_image, 7], dtype=np.int32)
-    for i in range(number_of_bbox_in_image):
-        y1 = int(data[i,2] )
-        x1 = int(data[i,3] )
-        z1 = int(data[i,4] )
-        y2 = int(data[i,5] )
-        x2 = int(data[i,6] )
-        z2 = int(data[i,7] )
-        class_id = class_dictionary[(int(data[i,1]))]
-        boxes[i] = np.array([y1, x1, z1, y2, x2, z2, class_id])
-
-    window = (0,0,0,config.IMAGE_MAX_DIM,config.IMAGE_MAX_DIM,config.IMAGE_MAX_DIM)
-
-    # Active classes
-    # Different datasets have different classes, so track the
-    # classes supported in the dataset of this image.
-    active_class_ids = np.zeros([number_of_classes], dtype=np.int32)
-    class_ids = range(number_of_classes)
-    active_class_ids[class_ids] = 1
-    #class_ids = dataset.source_class_ids[dataset.image_info[image_id]["source"]]
-    #active_class_ids[class_ids] = 1
-
-    # Resize masks to smaller size to reduce memory usage
-    # if use_mini_mask:
-    #     mask = utils.minimize_mask(bbox, mask, config.MINI_MASK_SHAPE)
-
-    # Image meta data
-    image_meta = compose_image_meta(image_id, shape, window, active_class_ids=active_class_ids)
-
-    return image, image_meta, boxes
+    return image
 
 
 def data_generator(dataset, config, shuffle=True, augment=True, random_rois=0,
@@ -397,8 +261,7 @@ def data_generator(dataset, config, shuffle=True, augment=True, random_rois=0,
             image_id = image_ids[image_index]
             image_index = (image_index + 1) % 5
 
-            image, image_meta, gt_boxes = \
-                load_image_gt(dataset, config, image_id, augment=augment, use_mini_mask=config.USE_MINI_MASK)
+            image = load_image_gt(dataset, config, image_id, augment=augment, use_mini_mask=config.USE_MINI_MASK)
 
             # Init batch arrays
             if b == 0:
@@ -451,9 +314,10 @@ class MaskRCNN():
         self.keras_model = self.build(mode=mode, config=config)
 
     def loss_function(self, labels,logits):
-        loss = tf.nn.sigmoid_cross_entropy_with_logits(labels=labels,logits=logits)
-        loss = K.mean(loss)
-        loss = K.reshape(loss, [1, 1])
+        loss = tf.losses.mean_squared_error(labels=labels,predictions=logits, weights=20.0)
+        #loss = tf.nn.sigmoid_cross_entropy_with_logits(labels=labels,logits=logits)
+        # loss = K.mean(loss)
+        # loss = K.reshape(loss, [1, 1])
         return loss
 
     def build(self, mode, config):
@@ -479,10 +343,11 @@ class MaskRCNN():
         # Bottom-up Layers
         # Returns a list of the last layers of each stage, 5 in total.
         # Don't create the head (stage 5), so we pick the 4th item in the list.
-        _, C2, C3, C4, C5 = resnet_graph(input_image, "resnet101", stage5=True)
+        _, C2, C3, C4, C5 = resnet_graph(input_image, "resnet101", stage5=False)
 
-        output_logits = reverse_resnet_graph(C5, "resnet50", stage5=True)
-        output = KL.Activation('sigmoid', name='rev_res')(output_logits)
+        output_logits = reverse_resnet_graph(C4, "resnet50", stage5=False)
+        output = output_logits
+        #output = KL.Activation('sigmoid', name='rev_res')(output_logits)
 
 
         loss = KL.Lambda(lambda x: self.loss_function(*x), name="loss")([input_image, output_logits])
@@ -728,30 +593,17 @@ class MaskRCNN():
             original image (padding excluded).
         """
         molded_images = []
-        image_metas = []
-        windows = []
         for image in images:
             # Resize image to fit the model expected size
             # TODO: move resizing to mold_image()
-            molded_image, window, scale, padding = utils.resize_image(
-                image,
-                min_dim=self.config.IMAGE_MIN_DIM,
-                max_dim=self.config.IMAGE_MAX_DIM,
-                padding=self.config.IMAGE_PADDING)
-            molded_image = mold_image(molded_image, self.config)
-            # Build image_meta
-            image_meta = compose_image_meta(
-                0, image.shape, window,
-                np.zeros([self.config.NUM_CLASSES], dtype=np.int32))
-            # Append
+
+            molded_image = mold_image(image, self.config)
+
             molded_images.append(molded_image)
-            windows.append(window)
-            image_metas.append(image_meta)
+
         # Pack into arrays
         molded_images = np.stack(molded_images)
-        image_metas = np.stack(image_metas)
-        windows = np.stack(windows)
-        return molded_images, image_metas, windows
+        return molded_images
 
     def unmold_detections(self, detections, image_shape, window, config):
         """Reformats the detections of one image from the format of the neural
@@ -823,27 +675,19 @@ class MaskRCNN():
             for image in images:
                 log("image", image)
         # Mold inputs to format expected by the neural network
-        molded_images, image_metas, windows = self.mold_inputs(images)
+        molded_images = self.mold_inputs(images)
         if verbose:
             log("molded_images", molded_images)
-            log("image_metas", image_metas)
         # Run object detection
-        detections, mrcnn_class, mrcnn_bbox, \
-        rois, rpn_class, rpn_bbox = \
-            self.keras_model.predict([molded_images, image_metas], verbose=0)
+        reconstructed_images = self.keras_model.predict([molded_images], verbose=0)
 
         # Process detections
         results = []
 
-        for i, image in enumerate(images):
+        for i, reconstructed_image in enumerate(reconstructed_images):
 
-            final_rois, final_class_ids, final_scores = \
-                self.unmold_detections(detections[i],image.shape, windows[i],config)
-            print "final rois", final_rois
             results.append({
-                "rois": final_rois,
-                "class_ids": final_class_ids,
-                "scores": final_scores,
+                "image": reconstructed_image
             })
         return results
 

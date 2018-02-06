@@ -33,17 +33,28 @@ class VolumesConfig(Config):
     NAME = "AUTOENCODER"
 
 config = VolumesConfig()
-print (config)
+class InferenceConfig(VolumesConfig):
+    GPU_COUNT = 1
+    IMAGES_PER_GPU = 1
+inference_config = InferenceConfig()
 
 # from tensorflow.python import debug as tf_debug
 # sess = K.get_session()
 # sess = tf_debug.LocalCLIDebugWrapperSession(sess)
 # K.set_session(sess)
 #Create model in training mode
-model = modellib.MaskRCNN(mode="training", config=config, model_dir=MODEL_DIR)
+model = modellib.MaskRCNN(mode="inference", config=config, model_dir=MODEL_DIR)
+#model.load_weights("savedModels/mask_rcnn_autoencoder_0016.h5",by_name=True)
 model.load_weights("logs/autoencoder20180205T1959/mask_rcnn_autoencoder_0002.h5",by_name=True)
-model.train(None,None,
-            learning_rate=config.LEARNING_RATE / 10,
-            epochs=100,
-            layers="all")
 
+original_image= modellib.load_image_gt(None,inference_config,image_id=1, use_mini_mask=False)
+results = model.detect([original_image], verbose=1, config=inference_config)
+RMI = results[0]['image']
+print (RMI.max())
+import cv2
+for x in range(128):
+    #the output here is after RELU so it is not less than 0, but it is possible to be more than 1. Should clamp the values before multiplying
+    RMI = np.clip(RMI,0.0,1.0)
+    slice = np.array(RMI[:,:,x] * 255,dtype=np.uint8)
+    cv2.imshow("slice",slice)
+    cv2.waitKey(100)
