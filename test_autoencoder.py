@@ -10,7 +10,7 @@ import cv2
 import matplotlib
 import matplotlib.pyplot as plt
 
-from config import Config
+from config_autoencoder import Config
 import utils
 import autoencoder_model as modellib
 import visualize
@@ -47,14 +47,22 @@ model = modellib.MaskRCNN(mode="inference", config=config, model_dir=MODEL_DIR)
 #model.load_weights("savedModels/mask_rcnn_autoencoder_0016.h5",by_name=True)
 model.load_weights("logs/autoencoder20180205T1959/mask_rcnn_autoencoder_0002.h5",by_name=True)
 
-original_image= modellib.load_image_gt(None,inference_config,image_id=1, use_mini_mask=False)
-results = model.detect([original_image], verbose=1, config=inference_config)
-RMI = results[0]['image']
-print (RMI.max())
-import cv2
-for x in range(128):
-    #the output here is after RELU so it is not less than 0, but it is possible to be more than 1. Should clamp the values before multiplying
-    RMI = np.clip(RMI,0.0,1.0)
-    slice = np.array(RMI[:,:,x] * 255,dtype=np.uint8)
-    cv2.imshow("slice",slice)
-    cv2.waitKey(100)
+cv2.namedWindow('reconstructed image',cv2.WINDOW_NORMAL)
+cv2.namedWindow('original image',cv2.WINDOW_NORMAL)
+for image_id in range(1,19):
+    original_image= modellib.load_image_gt(None,inference_config,image_id=image_id, use_mini_mask=False)
+    results = model.detect([original_image], verbose=1, config=inference_config)
+    RMI = results[0]['image']
+    import cv2
+    for x in range(128):
+        #the output here is after RELU so it is not less than 0, but it is possible to be more than 1. Should clamp the values before multiplying
+        RMI = np.clip(RMI,0.0,1.0)
+        slice = np.array(RMI[:,:,x] * 255,dtype=np.uint8)
+        slice = cv2.resize(slice,(0,0), fx=2, fy=2)
+        cv2.imshow("reconstructed image",slice)
+        slice = np.array(original_image[:,:,x],dtype=np.uint8)
+        slice = cv2.resize(slice, (0,0), fx=2, fy=2)
+        cv2.imshow("original image",slice)
+        cv2.waitKey(100)
+        if image_id == 1 and x==1:
+            cv2.waitKey(15000)

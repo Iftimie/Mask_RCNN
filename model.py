@@ -83,32 +83,17 @@ def identity_block(input_tensor, kernel_size, filters, stage, block,
         stage: integer, current stage label, used for generating layer names
         block: 'a','b'..., current block label, used for generating layer names
     """
-    nb_filter1, nb_filter2, nb_filter3 = filters
+    nb_filter2 = filters
     conv_name_base = 'res' + str(stage) + block + '_branch'
-    bn_name_base = 'bn' + str(stage) + block + '_branch'
-
-    x = KL.Conv3D(nb_filter1, (1, 1, 1), name=conv_name_base + '2a',
-                  use_bias=use_bias)(input_tensor)
-    x = BatchNorm(axis=4, name=bn_name_base + '2a')(x)
-    x = KL.Activation('relu')(x)
 
     x = KL.Conv3D(nb_filter2, (kernel_size, kernel_size, kernel_size), padding='same',
-                  name=conv_name_base + '2b', use_bias=use_bias)(x)
-    x = BatchNorm(axis=4, name=bn_name_base + '2b')(x)
+                  name=conv_name_base + '2b', use_bias=use_bias)(input_tensor)
     x = KL.Activation('relu')(x)
 
-    x = KL.Conv3D(nb_filter3, (1, 1, 1), name=conv_name_base + '2c',
-                  use_bias=use_bias)(x)
-    x = BatchNorm(axis=4, name=bn_name_base + '2c')(x)
-
-    x = KL.Add()([x, input_tensor])
-    x = KL.Activation('relu', name='res'+str(stage)+block+'_out')(x)
     return x
 
-
-
 #example call conv_block(x, 3, [2, 2, 8], stage=2, block='a', strides=(1, 1, 1))
-def conv_block(input_tensor, kernel_size, filters, stage, block, 
+def conv_block(input_tensor, kernel_size, filters, stage, block,
                strides=(2, 2, 2), use_bias=True):
     """conv_block is the block that has a conv layer at shortcut
     # Arguments
@@ -120,28 +105,15 @@ def conv_block(input_tensor, kernel_size, filters, stage, block,
     Note that from stage 3, the first conv layer at main path is with subsample=(2,2)
     And the shortcut should have subsample=(2,2) as well
     """
-    nb_filter1, nb_filter2, nb_filter3 = filters
+    nb_filter2, nb_filter3 = filters
     conv_name_base = 'res' + str(stage) + block + '_branch'
-    bn_name_base = 'bn' + str(stage) + block + '_branch'
 
-    x = KL.Conv3D(nb_filter1, (1, 1, 1), strides=strides,
-                  name=conv_name_base + '2a', use_bias=use_bias)(input_tensor)
-    x = BatchNorm(axis=4, name=bn_name_base + '2a')(x)
+    x = KL.Conv3D(nb_filter2, (kernel_size, kernel_size, kernel_size), padding='same', strides =strides,
+                  name=conv_name_base + '2b', use_bias=use_bias)(input_tensor)
     x = KL.Activation('relu')(x)
 
-    x = KL.Conv3D(nb_filter2, (kernel_size, kernel_size, kernel_size), padding='same',
-                  name=conv_name_base + '2b', use_bias=use_bias)(x)
-    x = BatchNorm(axis=4, name=bn_name_base + '2b')(x)
-    x = KL.Activation('relu')(x)
+    x = KL.Conv3D(nb_filter3, (kernel_size, kernel_size, kernel_size), padding='same', name=conv_name_base + '2c', use_bias=use_bias)(x)
 
-    x = KL.Conv3D(nb_filter3, (1, 1, 1), name=conv_name_base + '2c', use_bias=use_bias)(x)
-    x = BatchNorm(axis=4, name=bn_name_base + '2c')(x)
-
-    shortcut = KL.Conv3D(nb_filter3, (1, 1, 1), strides=strides,
-                         name=conv_name_base + '1', use_bias=use_bias)(input_tensor)
-    shortcut = BatchNorm(axis=4, name=bn_name_base + '1')(shortcut)
-
-    x = KL.Add()([x, shortcut])
     x = KL.Activation('relu', name='res'+str(stage)+block+'_out')(x)
     return x
 
@@ -150,30 +122,29 @@ def resnet_graph(input_image, architecture, stage5=False):
     assert architecture in ["resnet50", "resnet101"]
     # Stage 1
     x = KL.ZeroPadding3D((3, 3, 3))(input_image)
-    x = KL.Conv3D(4, (7, 7, 7), strides=(2, 2, 2), name='conv1', use_bias=True)(x)
-    x = BatchNorm(axis=4, name='bn_conv1')(x)
-    x = KL.Activation('relu')(x)
-    C1 = x = KL.MaxPooling3D((3, 3, 3), strides=(2, 2, 2), padding="same")(x)
+    x = KL.Conv3D(8, (7, 7, 7), strides=(2, 2, 2), name='conv1', use_bias=True)(x)
+    C1 = x = KL.Activation('relu')(x)
+
     # Stage 2
-    x = conv_block(x, 3, [2, 2, 8], stage=2, block='a', strides=(1, 1, 1))
-    x = identity_block(x, 3, [2, 2, 8], stage=2, block='b')
-    C2 = x = identity_block(x, 3, [2, 2, 8], stage=2, block='c')
+    C2 = x = conv_block(x, 3, [8, 16], stage=2, block='a')
+    # x = identity_block(x, 3, [16], stage=2, block='b')
+    # C2 = x = identity_block(x, 3, [2, 2, 8], stage=2, block='c')
     # Stage 3
-    x = conv_block(x, 3, [4, 4, 16], stage=3, block='a')
-    x = identity_block(x, 3, [4, 4, 16], stage=3, block='b')
-    x = identity_block(x, 3, [4, 4, 16], stage=3, block='c')
-    C3 = x = identity_block(x, 3, [4, 4, 16], stage=3, block='d')
+    C3 = x = conv_block(x, 3, [16, 32], stage=3, block='a')
+    # x = identity_block(x, 3, [4, 4, 16], stage=3, block='b')
+    # x = identity_block(x, 3, [4, 4, 16], stage=3, block='c')
+    # C3 = x = identity_block(x, 3, [4, 4, 16], stage=3, block='d')
     # Stage 4
-    x = conv_block(x, 3, [8, 8, 32], stage=4, block='a')
-    block_count = {"resnet50": 5, "resnet101": 22}[architecture]
-    for i in range(block_count):
-        x = identity_block(x, 3, [8, 8, 32], stage=4, block=chr(98+i))
+    x = conv_block(x, 3, [32, 64], stage=4, block='a')
+    # block_count = {"resnet50": 5, "resnet101": 22}[architecture]
+    # for i in range(block_count):
+    #     x = identity_block(x, 3, [8, 8, 32], stage=4, block=chr(98+i))
     C4 = x
     # Stage 5
     if stage5:
-        x = conv_block(x, 3, [16, 16, 64], stage=5, block='a')
-        x = identity_block(x, 3, [16, 16, 64], stage=5, block='b')
-        C5 = x = identity_block(x, 3, [16, 16, 64], stage=5, block='c')
+        C5 = x = conv_block(x, 3, [64, 128], stage=5, block='a')
+        #x = identity_block(x, 3, [16, 16, 64], stage=5, block='b')
+        #C5 = x = identity_block(x, 3, [16, 16, 64], stage=5, block='c')
     else:
         C5 = None
     return [C1, C2, C3, C4, C5]
@@ -429,13 +400,14 @@ class PyramidROIAlign(KE.Layer):
         # e.g. a 224x224 ROI (in pixels) maps to P4. TODO I added 128 insead of 224 because my input is at most 128 pixels. see paper Feature Pyramid Networks for Object Detection
         image_volume = tf.cast(self.image_shape[0] * self.image_shape[1] * self.image_shape[2], tf.float32)
         roi_level = log2_graph(tf.sqrt(h*w*d) / (self.config.IMAGE_MAX_DIM/tf.sqrt(image_volume)))
-        roi_level = tf.minimum(5, tf.maximum(2, 4 + tf.cast(tf.round(roi_level), tf.int32)))
+        number_scales = len(self.config.RPN_ANCHOR_SCALES)
+        roi_level = tf.minimum(number_scales, tf.maximum(2, (number_scales - 1) + tf.cast(tf.round(roi_level), tf.int32)))
         roi_level = tf.squeeze(roi_level, 2)
 
         # Loop through levels and apply ROI pooling to each. P2 to P5.
         pooled = []
         box_to_level = []
-        for i, level in enumerate(range(2, 6)):
+        for i, level in enumerate(range(2, 5)):
             ix = tf.where(tf.equal(roi_level, level))
             level_boxes = tf.gather_nd(boxes, ix)
 
@@ -2007,46 +1979,34 @@ class MaskRCNN():
             h, w, d = K.shape(input_image)[1], K.shape(input_image)[2], K.shape(input_image)[3]
             image_scale = K.cast(K.stack([h, w, d, h, w, d, 1], axis=0), tf.float32)
             gt_boxes = KL.Lambda(lambda x: K.cast(x, tf.float32) / image_scale)(input_gt_boxes)
-            # GT Masks (zero padded)
-            # [batch, height, width, MAX_GT_INSTANCES]
-            # if config.USE_MINI_MASK:
-            #     input_gt_masks = KL.Input(
-            #         shape=[config.MINI_MASK_SHAPE[0], config.MINI_MASK_SHAPE[1], None],
-            #         name="input_gt_masks", dtype=bool)
-            # else:
-            #     input_gt_masks = KL.Input(
-            #         shape=[config.IMAGE_SHAPE[0], config.IMAGE_SHAPE[1], None],
-            #         name="input_gt_masks", dtype=bool)
+
                 
         # Build the shared convolutional layers.
         # Bottom-up Layers
         # Returns a list of the last layers of each stage, 5 in total.
         # Don't create the head (stage 5), so we pick the 4th item in the list.
-        _, C2, C3, C4, C5 = resnet_graph(input_image, "resnet101", stage5=True)
+        _, C2, C3, C4, C5 = resnet_graph(input_image, "resnet101", stage5=False)
         # Top-down Layers
         # TODO: add assert to varify feature map sizes match what's in config
-        P5 = KL.Conv3D(64, (1, 1, 1), name='fpn_c5p5')(C5)
-        P4 = KL.Add(name="fpn_p4add")([
-            KL.UpSampling3D(size=(2, 2, 2), name="fpn_p5upsampled")(P5),
-            KL.Conv3D(64, (1, 1, 1), name='fpn_c4p4')(C4)])
-        P3 = KL.Add(name="fpn_p3add")([
-            KL.UpSampling3D(size=(2, 2, 2), name="fpn_p4upsampled")(P4),
+        P4 = KL.Conv3D(64, (1, 1, 1), name='fpn_c4p4')(C4)
+        P3 = KL.Add(name="fpn_p4add")([
+            KL.UpSampling3D(size=(2, 2, 2), name="fpn_p5upsampled")(P4),
             KL.Conv3D(64, (1, 1, 1), name='fpn_c3p3')(C3)])
-        P2 = KL.Add(name="fpn_p2add")([
-            KL.UpSampling3D(size=(2, 2, 2), name="fpn_p3upsampled")(P3),
+        P2 = KL.Add(name="fpn_p3add")([
+            KL.UpSampling3D(size=(2, 2, 2), name="fpn_p4upsampled")(P3),
             KL.Conv3D(64, (1, 1, 1), name='fpn_c2p2')(C2)])
+
         # Attach 3x3 conv to all P layers to get the final feature maps.
         P2 = KL.Conv3D(64, (3, 3, 3), padding="SAME", name="fpn_p2")(P2)
         P3 = KL.Conv3D(64, (3, 3, 3), padding="SAME", name="fpn_p3")(P3)
         P4 = KL.Conv3D(64, (3, 3, 3), padding="SAME", name="fpn_p4")(P4)
-        P5 = KL.Conv3D(64, (3, 3, 3), padding="SAME", name="fpn_p5")(P5)
-        # P6 is used for the 5th anchor scale in RPN. Generated by
+        # P5 is used for the 4th anchor scale in RPN. Generated by
         # subsampling from P5 with stride of 2.
-        P6 = KL.MaxPooling3D(pool_size=(1, 1, 1), strides=2, name="fpn_p6")(P5)
+        P5 = KL.MaxPooling3D(pool_size=(1, 1, 1), strides=2, name="fpn_p5")(P4)
         
         # Note that P6 is used in RPN, but not in the classifier heads.
-        rpn_feature_maps = [P2, P3, P4, P5, P6]
-        mrcnn_feature_maps = [P2, P3, P4, P5]
+        rpn_feature_maps = [P2, P3, P4, P5]
+        mrcnn_feature_maps = [P2, P3, P4]
 
         # Generate Anchors
         self.anchors = utils.generate_pyramid_anchors(config.RPN_ANCHOR_SCALES, 
@@ -2234,6 +2194,44 @@ class MaskRCNN():
         if exclude:
             layers = filter(lambda l: l.name not in exclude, layers)
         
+        if by_name:
+            topology.load_weights_from_hdf5_group_by_name(f, layers)
+        else:
+            topology.load_weights_from_hdf5_group(f, layers)
+        if hasattr(f, 'close'):
+            f.close()
+
+        # Update the log directory
+        self.set_log_dir(filepath)
+
+    def load_pretrained_weights(self, filepath, by_name=False, exclude=None):
+        """Modified version of the correspoding Keras function with
+        the addition of multi-GPU support and the ability to exclude
+        some layers from loading.
+        exlude: list of layer names to excluce
+        """
+        import h5py
+        from keras.engine import topology
+
+        if exclude:
+            by_name = True
+
+        if h5py is None:
+            raise ImportError('`load_weights` requires h5py.')
+        f = h5py.File(filepath, mode='r')
+        if 'layer_names' not in f.attrs and 'model_weights' in f:
+            f = f['model_weights']
+
+        # In multi-GPU training, we wrap the model. Get layers
+        # of the inner model because they have the weights.
+        keras_model = self.keras_model
+        layers = keras_model.inner_model.layers if hasattr(keras_model, "inner_model") \
+            else keras_model.layers
+
+        # Exclude some layers
+        if exclude:
+            layers = filter(lambda l: l.name not in exclude, layers)
+
         if by_name:
             topology.load_weights_from_hdf5_group_by_name(f, layers)
         else:

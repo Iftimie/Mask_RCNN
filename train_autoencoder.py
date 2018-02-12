@@ -10,7 +10,7 @@ import cv2
 import matplotlib
 import matplotlib.pyplot as plt
 
-from config import Config
+from config_autoencoder import Config
 import utils
 import autoencoder_model as modellib
 import visualize

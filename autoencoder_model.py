@@ -357,7 +357,7 @@ class MaskRCNN():
 
         if mode == "training":
 
-            model = KM.Model([input_image], [ loss], name='mask_rcnn')
+            model = KM.Model([input_image], [loss], name='mask_rcnn')
         else:
 
             model = KM.Model([input_image], [output], name='mask_rcnn')

@@ -42,8 +42,9 @@ print (config)
 model = modellib.MaskRCNN(mode="training", config=config,
                           model_dir=MODEL_DIR)
 #model.load_weights("logs/shapes20180203T1740/mask_rcnn_shapes_0006.h5",by_name=True)
+model.load_pretrained_weights("logs/autoencoder20180205T1959/mask_rcnn_autoencoder_0002.h5",by_name=True)
 model.train(None,None,
             learning_rate=config.LEARNING_RATE / 10,
             epochs=100,
-            layers="all")
+            layers="heads")
 
