@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="418118b4-75cf-43f0-af73-3a32da8e7cbe" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/output_autoencoder_256/autoencoder_output.nii" afterPath="" />
-    </list>
+    <list default="true" id="418118b4-75cf-43f0-af73-3a32da8e7cbe" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -594,12 +592,12 @@
       <workItem from="1518131849290" duration="11000" />
       <workItem from="1518132548695" duration="269000" />
       <workItem from="1518280886228" duration="5185000" />
-      <workItem from="1518469457063" duration="1235000" />
+      <workItem from="1518469457063" duration="1486000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="242382000" />
+    <option name="totallyTimeSpent" value="242633000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1857" height="1092" extended-state="6" />
