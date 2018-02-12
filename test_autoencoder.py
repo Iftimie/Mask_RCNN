@@ -45,10 +45,11 @@ inference_config = InferenceConfig()
 #Create model in training mode
 model = modellib.MaskRCNN(mode="inference", config=config, model_dir=MODEL_DIR)
 #model.load_weights("savedModels/mask_rcnn_autoencoder_0016.h5",by_name=True)
-model.load_weights("logs/autoencoder20180205T1959/mask_rcnn_autoencoder_0002.h5",by_name=True)
+model.load_weights("logs/autoencoder20180205T1959/mask_rcnn_autoencoder_0008.h5",by_name=True)
 
 cv2.namedWindow('reconstructed image',cv2.WINDOW_NORMAL)
 cv2.namedWindow('original image',cv2.WINDOW_NORMAL)
+from nifti import *
 for image_id in range(1,19):
     original_image= modellib.load_image_gt(None,inference_config,image_id=image_id, use_mini_mask=False)
     results = model.detect([original_image], verbose=1, config=inference_config)
@@ -65,4 +66,9 @@ for image_id in range(1,19):
         cv2.imshow("original image",slice)
         cv2.waitKey(100)
         if image_id == 1 and x==1:
-            cv2.waitKey(15000)
+            cv2.waitKey(100)
+
+    # import scipy.ndimage as ndimage
+    # resized_data = ndimage.zoom(RMI,(2.0)) #ndimage.zoom(data,0.5)
+    # nim = NiftiImage(resized_data)
+    # nim.save("output_autoencoder_256/autoencoder_output.nii")
