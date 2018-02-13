@@ -116,27 +116,27 @@ def resnet_graph(input_image, architecture, stage5=False):
     assert architecture in ["resnet50", "resnet101"]
     # Stage 1
     x = KL.ZeroPadding3D((3, 3, 3))(input_image)
-    x = KL.Conv3D(8, (7, 7, 7), strides=(2, 2, 2), name='conv1', use_bias=True)(x)
+    x = KL.Conv3D(24, (7, 7, 7), strides=(2, 2, 2), name='conv1', use_bias=True)(x)
     C1 = x = KL.Activation('relu')(x)
 
     # Stage 2
-    C2 = x = conv_block(x, 3, [8, 16], stage=2, block='a')
+    C2 = x = conv_block(x, 3, [24, 48], stage=2, block='a')
     # x = identity_block(x, 3, [16], stage=2, block='b')
     # C2 = x = identity_block(x, 3, [2, 2, 8], stage=2, block='c')
     # Stage 3
-    C3 = x = conv_block(x, 3, [16, 32], stage=3, block='a')
+    C3 = x = conv_block(x, 3, [48, 96], stage=3, block='a')
     # x = identity_block(x, 3, [4, 4, 16], stage=3, block='b')
     # x = identity_block(x, 3, [4, 4, 16], stage=3, block='c')
     # C3 = x = identity_block(x, 3, [4, 4, 16], stage=3, block='d')
     # Stage 4
-    x = conv_block(x, 3, [32, 64], stage=4, block='a')
+    x = conv_block(x, 3, [96, 192], stage=4, block='a')
     # block_count = {"resnet50": 5, "resnet101": 22}[architecture]
     # for i in range(block_count):
     #     x = identity_block(x, 3, [8, 8, 32], stage=4, block=chr(98+i))
     C4 = x
     # Stage 5
     if stage5:
-        C5 = x = conv_block(x, 3, [64, 128], stage=5, block='a')
+        C5 = x = conv_block(x, 3, [192, 384], stage=5, block='a')
         #x = identity_block(x, 3, [16, 16, 64], stage=5, block='b')
         #C5 = x = identity_block(x, 3, [16, 16, 64], stage=5, block='c')
     else:
@@ -147,7 +147,7 @@ def reverse_resnet_graph(layer, architecture, stage5=False):
     # # Stage 5
     if stage5:
         layer = KL.UpSampling3D((2,2,2))(layer)
-        layer = conv_block(layer, 3,[64, 64], stage=5, block='arev', strides=(1,1,1))
+        layer = conv_block(layer, 3,[192, 192], stage=5, block='arev', strides=(1,1,1))
     # Stage 4
     #block_count = {"resnet50": 5, "resnet101": 22}[architecture]
     layer = KL.UpSampling3D((2,2,2))(layer)
@@ -155,7 +155,7 @@ def reverse_resnet_graph(layer, architecture, stage5=False):
     # layer = KL.Activation('relu')(layer)
     # for i in range(block_count):
     #     layer = reverse_identity_block(layer, 3, [8, 8, 32], stage=4, block=chr(98 + block_count -1 - i))
-    layer = conv_block(layer, 3, [32, 32], stage=4, block='arev', strides=(1,1,1))
+    layer = conv_block(layer, 3, [96, 96], stage=4, block='arev', strides=(1,1,1))
     # Stage 3
     layer = KL.UpSampling3D((2,2,2))(layer)
     # layer = KL.Conv3D(16, (3,3,3), strides=(1, 1, 1), use_bias=True, padding='same')(layer)
@@ -163,14 +163,14 @@ def reverse_resnet_graph(layer, architecture, stage5=False):
     # layer = reverse_conv_block(layer, 3, [4, 4, 16], stage=3, block='d')
     # layer = reverse_identity_block(layer, 3, [4, 4, 16], stage=3, block='c')
     # layer = reverse_identity_block(layer, 3, [4, 4, 16], stage=3, block='b')
-    layer = conv_block(layer,3, [16, 16], stage=3, block='arev', strides=(1,1,1))
+    layer = conv_block(layer,3, [48, 48], stage=3, block='arev', strides=(1,1,1))
     # Stage 2
     layer = KL.UpSampling3D((2,2,2))(layer)
     # layer = KL.Conv3D(8, (3,3,3), strides=(1, 1, 1), use_bias=True, padding='same')(layer)
     # layer = KL.Activation('relu')(layer)
     # layer = reverse_identity_block(layer, 3, [2, 2, 8], stage=2, block='c')
     # layer = reverse_identity_block(layer, 3, [2, 2, 8], stage=2, block='b')
-    layer = conv_block(layer, 3, [8, 8], stage=2, block='arev', strides=(1,1,1))
+    layer = conv_block(layer, 3, [24, 24], stage=2, block='arev', strides=(1,1,1))
     # Stage 1
     layer = KL.UpSampling3D((2,2,2))(layer)
     layer = KL.Conv3D(1, (7, 7, 7), strides=(1, 1, 1), name='conv_last', use_bias=True, padding='same')(layer)
