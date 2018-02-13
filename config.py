@@ -143,7 +143,7 @@ class Config(object):
     # Non-maximum suppression threshold for detection/ inference
     DETECTION_NMS_THRESHOLD = 0.3 #original 0.3
 
-    ANCHOR_IOU_POS_TRESH = 0.5 #original 0.7 and 0.3
+    ANCHOR_IOU_POS_TRESH = 0.7 #original 0.7 and 0.3
     ANCHOR_IOU_NEG_TRESH = 0.3
 
     # Learning rate and momentum
