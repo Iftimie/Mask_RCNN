@@ -133,7 +133,7 @@ class Config(object):
 
     # Minimum probability value to accept a detected instance
     # ROIs below this threshold are skipped
-    DETECTION_MIN_CONFIDENCE = 0.3 #original 0.7
+    DETECTION_MIN_CONFIDENCE = 0.5 #original 0.7
 
     RPN_ROIS_IOU_GT_BOX_POSITIVE_TRESH = 0.5 #original 0.5 #this is between proposed rois and ground-truth images
 
@@ -141,7 +141,7 @@ class Config(object):
     NMS_TRESHOLD_ANCHORS_AFTER_APPLY_DELTAS = 0.7 #original: 0.7 found as RPN_NMS_THRESHOLD
 
     # Non-maximum suppression threshold for detection/ inference
-    DETECTION_NMS_THRESHOLD = 0.99 #original 0.3
+    DETECTION_NMS_THRESHOLD = 0.3 #original 0.3
 
     ANCHOR_IOU_POS_TRESH = 0.5 #original 0.7 and 0.3
     ANCHOR_IOU_NEG_TRESH = 0.3

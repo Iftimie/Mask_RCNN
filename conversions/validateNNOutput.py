@@ -149,7 +149,9 @@ def showBoxes(rois,ax, i, colour,edgecolors):
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
-def visualizeNNOutput(out_bbox, gt_bbox,sleep_time=100000):
+
+class_colors = {1:'green', 2:'magenta', 3:'yellow', 4:'black', 5:'white', 6:'blue'}
+def visualizeNNOutput(out_bbox, class_ids, gt_bbox,sleep_time=100000):
     from mpl_toolkits.mplot3d import Axes3D
 
     import matplotlib.pyplot as plt
@@ -158,11 +160,10 @@ def visualizeNNOutput(out_bbox, gt_bbox,sleep_time=100000):
     rois =out_bbox
     print len(rois)
     for i in range(len(rois)):
-        showBoxes(rois,ax, i, colour="red" , edgecolors="cyan")
+        showBoxes(rois,ax, i, colour=class_colors[class_ids[i]] , edgecolors="cyan")
     fig2 = plt.figure()
     ax2 = fig2.add_subplot(111, projection='3d')
     for i in range(len(gt_bbox)):
-        showBoxes(gt_bbox,ax2,i,colour="cyan", edgecolors="red")
+        class_id = gt_bbox[i,6]
+        showBoxes(gt_bbox,ax2,i,colour=class_colors[class_id], edgecolors="red")
     plt.show()
-    import time
-    time.sleep(sleep_time)

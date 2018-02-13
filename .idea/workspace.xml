@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="418118b4-75cf-43f0-af73-3a32da8e7cbe" name="Default" comment="" />
+    <list default="true" id="418118b4-75cf-43f0-af73-3a32da8e7cbe" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.py" afterPath="$PROJECT_DIR$/config.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conversions/validateNNOutput.py" afterPath="$PROJECT_DIR$/conversions/validateNNOutput.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_MRI.py" afterPath="$PROJECT_DIR$/test_MRI.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_autoencoder.py" afterPath="$PROJECT_DIR$/test_autoencoder.py" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -11,17 +17,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Mask_RCNN_py$test_autoencoder.coverage" NAME="test_autoencoder Coverage Results" MODIFIED="1518470414672" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Mask_RCNN_py$test_autoencoder.coverage" NAME="test_autoencoder Coverage Results" MODIFIED="1518473604081" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$resizeVolume.coverage" NAME="resizeVolume Coverage Results" MODIFIED="1513271758400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$train_MRI.coverage" NAME="train_MRI Coverage Results" MODIFIED="1518285227348" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Mask_RCNN_py$swap_DCM_input_maskRCNN.coverage" NAME="swap_DCM_input_maskRCNN Coverage Results" MODIFIED="1516133154394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
+    <SUITE FILE_PATH="coverage/Mask_RCNN_py$swap_DCM_input_maskRCNN.coverage" NAME="swap_DCM_input_maskRCNN Coverage Results" MODIFIED="1518472308128" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$validate_annotation.coverage" NAME="validate_annotation Coverage Results" MODIFIED="1515139024223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$visualize_original_nii.coverage" NAME="visualize_original_nii Coverage Results" MODIFIED="1514971303013" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$compute_receptive_field.coverage" NAME="compute_receptive_field Coverage Results" MODIFIED="1517876975536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$standardize.coverage" NAME="standardize Coverage Results" MODIFIED="1513546004236" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$only_pad.coverage" NAME="only_pad Coverage Results" MODIFIED="1514970618134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
-    <SUITE FILE_PATH="coverage/Mask_RCNN_py$test_MRI.coverage" NAME="test_MRI Coverage Results" MODIFIED="1517730944790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Mask_RCNN_py$test_MRI.coverage" NAME="test_MRI Coverage Results" MODIFIED="1518549351481" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$model.coverage" NAME="model Coverage Results" MODIFIED="1515576190942" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Mask_RCNN_py$read_convert_DCM_data.coverage" NAME="read_convert_DCM_data Coverage Results" MODIFIED="1518471385012" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$validate_annotation_SMIR.coverage" NAME="validate_annotation_SMIR Coverage Results" MODIFIED="1516204320996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$read_DCM_data.coverage" NAME="read_DCM_data Coverage Results" MODIFIED="1515006422727" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/conversions" />
     <SUITE FILE_PATH="coverage/Mask_RCNN_py$train_autoencoder.coverage" NAME="train_autoencoder Coverage Results" MODIFIED="1517879785963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -39,21 +46,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="config_autoencoder.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config_autoencoder.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="model.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="2369" column="8" lean-forward="false" selection-start-line="2369" selection-start-column="8" selection-end-line="2369" selection-end-column="8" />
+            <state relative-caret-position="186">
+              <caret line="1950" column="0" lean-forward="false" selection-start-line="1950" selection-start-column="0" selection-end-line="1950" selection-end-column="0" />
               <folding>
                 <element signature="e#183#192#0" expanded="true" />
               </folding>
@@ -64,18 +61,18 @@
       <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1080">
-              <caret line="61" column="21" lean-forward="false" selection-start-line="61" selection-start-column="4" selection-end-line="61" selection-end-column="21" />
+            <state relative-caret-position="414">
+              <caret line="143" column="33" lean-forward="false" selection-start-line="143" selection-start-column="33" selection-end-line="143" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="train_MRI.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/train_MRI.py">
+      <file leaf-file-name="test_autoencoder.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test_autoencoder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="44" column="69" lean-forward="false" selection-start-line="44" selection-start-column="69" selection-end-line="44" selection-end-column="69" />
+            <state relative-caret-position="186">
+              <caret line="47" column="24" lean-forward="true" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -86,18 +83,18 @@
       <file leaf-file-name="topology.py" pinned="false" current-in-tab="false">
         <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/engine/topology.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9558">
-              <caret line="551" column="0" lean-forward="false" selection-start-line="551" selection-start-column="0" selection-end-line="551" selection-end-column="0" />
+            <state relative-caret-position="195">
+              <caret line="602" column="0" lean-forward="false" selection-start-line="602" selection-start-column="0" selection-end-line="602" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_autoencoder.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test_autoencoder.py">
+      <file leaf-file-name="train_MRI.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/train_MRI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
-              <caret line="61" column="15" lean-forward="true" selection-start-line="61" selection-start-column="15" selection-end-line="61" selection-end-column="15" />
+            <state relative-caret-position="236">
+              <caret line="19" column="31" lean-forward="true" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -105,11 +102,31 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="swap_DCM_input_maskRCNN.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conversions/swap_DCM_input_maskRCNN.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_MRI.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test_MRI.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="402">
+              <caret line="35" column="25" lean-forward="false" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="validateNNOutput.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/conversions/validateNNOutput.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="151" column="4" lean-forward="false" selection-start-line="151" selection-start-column="4" selection-end-line="151" selection-end-column="4" />
+            <state relative-caret-position="460">
+              <caret line="168" column="14" lean-forward="false" selection-start-line="168" selection-start-column="14" selection-end-line="168" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -118,8 +135,8 @@
       <file leaf-file-name="resizeVolume.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/conversions/resizeVolume.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="522">
-              <caret line="29" column="3" lean-forward="false" selection-start-line="29" selection-start-column="3" selection-end-line="29" selection-end-column="34" />
+            <state relative-caret-position="396">
+              <caret line="22" column="21" lean-forward="false" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -127,24 +144,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="train_autoencoder.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/train_autoencoder.py">
+      <file leaf-file-name="read_convert_DCM_data.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conversions/read_convert_DCM_data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="12" column="23" lean-forward="false" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
+            <state relative-caret-position="828">
+              <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="12492">
-              <caret line="694" column="0" lean-forward="false" selection-start-line="694" selection-start-column="0" selection-end-line="694" selection-end-column="0" />
-              <folding>
-                <element signature="e#178#188#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -160,7 +165,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>reverse_identity_block</find>
       <find>load_im</find>
       <find>compile</find>
       <find>__ini</find>
@@ -190,6 +194,7 @@
       <find>load_wei</find>
       <find>resnet_gra</find>
       <find>rpn_feature_maps</find>
+      <find>res</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -204,7 +209,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="/usr/lib/python2.7/dist-packages/nifti/image.py" />
-        <option value="$PROJECT_DIR$/conversions/resizeVolume.py" />
         <option value="$PROJECT_DIR$/coco.py" />
         <option value="/usr/local/lib/python2.7/dist-packages/tensorflow/python/pywrap_tensorflow.py" />
         <option value="/usr/local/lib/python2.7/dist-packages/tensorflow/python/ops/image_ops.py" />
@@ -222,18 +226,19 @@
         <option value="$PROJECT_DIR$/conversions/read_DCM_data.py" />
         <option value="$PROJECT_DIR$/conversions/read_convert_DCM_data.py" />
         <option value="$PROJECT_DIR$/ntm/ntm/mann_cell_K.py" />
-        <option value="$PROJECT_DIR$/conversions/validateNNOutput.py" />
         <option value="$PROJECT_DIR$/conversions/swap_DCM_input_maskRCNN.py" />
         <option value="$PROJECT_DIR$/conversions/validate_annotation_SMIR.py" />
         <option value="$PROJECT_DIR$/utils.py" />
-        <option value="$PROJECT_DIR$/test_MRI.py" />
         <option value="$PROJECT_DIR$/compute_receptive_field.py" />
         <option value="$PROJECT_DIR$/autoencoder_model.py" />
-        <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/train_autoencoder.py" />
         <option value="$PROJECT_DIR$/model.py" />
-        <option value="$PROJECT_DIR$/test_autoencoder.py" />
         <option value="$PROJECT_DIR$/train_MRI.py" />
+        <option value="$PROJECT_DIR$/conversions/resizeVolume.py" />
+        <option value="$PROJECT_DIR$/test_autoencoder.py" />
+        <option value="$PROJECT_DIR$/config.py" />
+        <option value="$PROJECT_DIR$/test_MRI.py" />
+        <option value="$PROJECT_DIR$/conversions/validateNNOutput.py" />
       </list>
     </option>
   </component>
@@ -290,6 +295,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -300,16 +306,20 @@
             <path>
               <item name="Mask_RCNN_py" type="b2602c69:ProjectViewProjectNode" />
               <item name="Mask_RCNN_py" type="462c0819:PsiDirectoryNode" />
+              <item name="conversions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Mask_RCNN_py" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Mask_RCNN_py" type="462c0819:PsiDirectoryNode" />
               <item name="savedModels" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
       <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -339,7 +349,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test_autoencoder">
+  <component name="RunManager" selected="Python.test_MRI">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -421,20 +431,38 @@
       <properties />
       <listeners />
     </configuration>
-    <configuration name="compute_receptive_field" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="read_convert_DCM_data" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/conversions" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Mask_RCNN_py" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/compute_receptive_field.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/conversions/read_convert_DCM_data.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="swap_DCM_input_maskRCNN" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/conversions" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Mask_RCNN_py" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/conversions/swap_DCM_input_maskRCNN.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -493,38 +521,20 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="train_autoencoder" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Mask_RCNN_py" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_autoencoder.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.train_MRI" />
-      <item index="1" class="java.lang.String" itemvalue="Python.test_MRI" />
-      <item index="2" class="java.lang.String" itemvalue="Python.train_autoencoder" />
-      <item index="3" class="java.lang.String" itemvalue="Python.test_autoencoder" />
-      <item index="4" class="java.lang.String" itemvalue="Python.compute_receptive_field" />
+      <item index="1" class="java.lang.String" itemvalue="Python.test_autoencoder" />
+      <item index="2" class="java.lang.String" itemvalue="Python.read_convert_DCM_data" />
+      <item index="3" class="java.lang.String" itemvalue="Python.swap_DCM_input_maskRCNN" />
+      <item index="4" class="java.lang.String" itemvalue="Python.test_MRI" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.test_autoencoder" />
-        <item index="1" class="java.lang.String" itemvalue="Python.train_MRI" />
-        <item index="2" class="java.lang.String" itemvalue="Python.train_autoencoder" />
-        <item index="3" class="java.lang.String" itemvalue="Python.compute_receptive_field" />
-        <item index="4" class="java.lang.String" itemvalue="Python.test_MRI" />
+        <item index="0" class="java.lang.String" itemvalue="Python.test_MRI" />
+        <item index="1" class="java.lang.String" itemvalue="Python.test_autoencoder" />
+        <item index="2" class="java.lang.String" itemvalue="Python.swap_DCM_input_maskRCNN" />
+        <item index="3" class="java.lang.String" itemvalue="Python.read_convert_DCM_data" />
+        <item index="4" class="java.lang.String" itemvalue="Python.train_MRI" />
       </list>
     </recent_temporary>
   </component>
@@ -592,15 +602,18 @@
       <workItem from="1518131849290" duration="11000" />
       <workItem from="1518132548695" duration="269000" />
       <workItem from="1518280886228" duration="5185000" />
-      <workItem from="1518469457063" duration="1486000" />
+      <workItem from="1518469457063" duration="4412000" />
+      <workItem from="1518474152044" duration="649000" />
+      <workItem from="1518547816295" duration="1566000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="242633000" />
+    <option name="totallyTimeSpent" value="247774000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1857" height="1092" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -609,19 +622,19 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946378" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3329843" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3329843" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26644555" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27307904" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946378" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35602096" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35602096" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -666,11 +679,6 @@
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test_MRI.py</url>
-          <line>34</line>
-          <option name="timeStamp" value="100" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/conversions/swap_DCM_input_maskRCNN.py</url>
           <line>14</line>
           <option name="timeStamp" value="103" />
@@ -689,11 +697,6 @@
           <url>file://$PROJECT_DIR$/model.py</url>
           <line>1004</line>
           <option name="timeStamp" value="130" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test_MRI.py</url>
-          <line>37</line>
-          <option name="timeStamp" value="132" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils.py</url>
@@ -731,14 +734,24 @@
           <option name="timeStamp" value="154" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/model.py</url>
-          <line>390</line>
-          <option name="timeStamp" value="156" />
+          <url>file://$PROJECT_DIR$/conversions/read_convert_DCM_data.py</url>
+          <line>51</line>
+          <option name="timeStamp" value="158" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/model.py</url>
-          <line>1093</line>
-          <option name="timeStamp" value="157" />
+          <url>file://$PROJECT_DIR$/conversions/swap_DCM_input_maskRCNN.py</url>
+          <line>18</line>
+          <option name="timeStamp" value="159" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/conversions/validateNNOutput.py</url>
+          <line>167</line>
+          <option name="timeStamp" value="162" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/conversions/validateNNOutput.py</url>
+          <line>166</line>
+          <option name="timeStamp" value="163" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -748,7 +761,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="158" />
+      <option name="time" value="164" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -831,13 +844,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conversions/read_convert_DCM_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-342">
-          <caret line="35" column="33" lean-forward="false" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/parallel_model.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-630">
@@ -887,51 +893,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ntm/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ntm/ntm/mann_cell_2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="14" column="18" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ntm/ntm/ntm_cell.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ntm/ntm/mann_cell_K.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="24" column="42" lean-forward="false" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ntm/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="56" column="8" lean-forward="false" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conversions/swap_DCM_input_maskRCNN.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="34" column="20" lean-forward="false" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#12#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ntm/__init__.py" />
+    <entry file="file://$PROJECT_DIR$/ntm/ntm/mann_cell_2.py" />
+    <entry file="file://$PROJECT_DIR$/ntm/ntm/ntm_cell.py" />
+    <entry file="file://$PROJECT_DIR$/ntm/ntm/mann_cell_K.py" />
+    <entry file="file://$PROJECT_DIR$/ntm/model.py" />
     <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/utils/data_utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="11034">
@@ -939,20 +905,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ntm/ntm/mann_cell.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="16" column="36" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ntm/one_shot_learning.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="524">
-          <caret line="43" column="21" lean-forward="false" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ntm/ntm/mann_cell.py" />
+    <entry file="file://$PROJECT_DIR$/ntm/one_shot_learning.py" />
     <entry file="file://$PROJECT_DIR$/input_MaskRCNN_128/out_1.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1016,19 +970,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_MRI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="23" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/conversions/pad_save_swap_save.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
           <caret line="38" column="39" lean-forward="false" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1056,51 +1001,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="12" column="23" lean-forward="false" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/engine/topology.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9558">
-          <caret line="551" column="0" lean-forward="false" selection-start-line="551" selection-start-column="0" selection-end-line="551" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="61" column="21" lean-forward="false" selection-start-line="61" selection-start-column="4" selection-end-line="61" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conversions/validateNNOutput.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="151" column="4" lean-forward="false" selection-start-line="151" selection-start-column="4" selection-end-line="151" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conversions/resizeVolume.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="29" column="3" lean-forward="false" selection-start-line="29" selection-start-column="3" selection-end-line="29" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_autoencoder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="61" column="15" lean-forward="true" selection-start-line="61" selection-start-column="15" selection-end-line="61" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1112,10 +1012,62 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/conversions/resizeVolume.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" column="21" lean-forward="false" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conversions/read_convert_DCM_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="828">
+          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conversions/swap_DCM_input_maskRCNN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="143" column="33" lean-forward="false" selection-start-line="143" selection-start-column="33" selection-end-line="143" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_autoencoder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="47" column="24" lean-forward="true" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/engine/topology.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="602" column="0" lean-forward="false" selection-start-line="602" selection-start-column="0" selection-end-line="602" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="2369" column="8" lean-forward="false" selection-start-line="2369" selection-start-column="8" selection-end-line="2369" selection-end-column="8" />
+        <state relative-caret-position="186">
+          <caret line="1950" column="0" lean-forward="false" selection-start-line="1950" selection-start-column="0" selection-end-line="1950" selection-end-column="0" />
           <folding>
             <element signature="e#183#192#0" expanded="true" />
           </folding>
@@ -1124,11 +1076,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train_MRI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="44" column="69" lean-forward="false" selection-start-line="44" selection-start-column="69" selection-end-line="44" selection-end-column="69" />
+        <state relative-caret-position="236">
+          <caret line="19" column="31" lean-forward="true" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conversions/validateNNOutput.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="168" column="14" lean-forward="false" selection-start-line="168" selection-start-column="14" selection-end-line="168" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_MRI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="35" column="25" lean-forward="false" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
