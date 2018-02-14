@@ -2018,7 +2018,7 @@ class MaskRCNN():
         
         # RPN Model #this is where it attaches more region proposal networks to the specific layers
         rpn = build_rpn_model(config.RPN_ANCHOR_STRIDE, 
-                              config.NUM_ANCHORS_PER_LOCATION, 64)
+                              config.NUM_ANCHORS_PER_LOCATION, 192)
         # Loop through pyramid layers
         layer_outputs = []  # list of lists
         for p in rpn_feature_maps:
