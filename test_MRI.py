@@ -26,7 +26,7 @@ inference_config = InferenceConfig()
 ROOT_DIR = os.getcwd()
 MODEL_DIR = os.path.join(ROOT_DIR, "logs")
 model = modellib.MaskRCNN(mode="inference", config=inference_config,model_dir=MODEL_DIR)
-model.load_weights("savedModels/mask_rcnn_shapes_0011-02.13.2018.h5",by_name=True)
+model.load_weights("savedModels/mask_rcnn_shapes_0033-14.02.2018.h5",by_name=True)
 
 
 for image in range(1,6):

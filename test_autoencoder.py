@@ -44,8 +44,8 @@ inference_config = InferenceConfig()
 # K.set_session(sess)
 #Create model in training mode
 model = modellib.MaskRCNN(mode="inference", config=config, model_dir=MODEL_DIR)
-#model.load_weights("savedModels/mask_rcnn_autoencoder_0016.h5",by_name=True)
-model.load_weights("logs/autoencoder20180205T1959/mask_rcnn_autoencoder_0008.h5",by_name=True)
+model.load_weights("savedModels/mask_rcnn_autoencoder_0017-02.14.2018.h",by_name=True)
+#model.load_weights("logs/autoencoder20180205T1959/mask_rcnn_autoencoder_0008.h5",by_name=True)
 
 cv2.namedWindow('reconstructed image',cv2.WINDOW_NORMAL)
 cv2.namedWindow('original image',cv2.WINDOW_NORMAL)
@@ -55,18 +55,18 @@ for image_id in range(1,19):
     results = model.detect([original_image], verbose=1, config=inference_config)
     RMI = results[0]['image']
     import cv2
-    # for x in range(128):
-    #     #the output here is after RELU so it is not less than 0, but it is possible to be more than 1. Should clamp the values before multiplying
-    #     RMI = np.clip(RMI,0.0,1.0)
-    #     slice = np.array(RMI[:,:,x] * 255,dtype=np.uint8)
-    #     slice = cv2.resize(slice,(0,0), fx=2, fy=2)
-    #     cv2.imshow("reconstructed image",slice)
-    #     slice = np.array(original_image[:,:,x],dtype=np.uint8)
-    #     slice = cv2.resize(slice, (0,0), fx=2, fy=2)
-    #     cv2.imshow("original image",slice)
-    #     cv2.waitKey(100)
-    #     if image_id == 1 and x==1:
-    #         cv2.waitKey(100)
+    for x in range(128):
+        #the output here is after RELU so it is not less than 0, but it is possible to be more than 1. Should clamp the values before multiplying
+        RMI = np.clip(RMI,0.0,1.0)
+        slice = np.array(RMI[:,:,x] * 255,dtype=np.uint8)
+        slice = cv2.resize(slice,(0,0), fx=2, fy=2)
+        cv2.imshow("reconstructed image",slice)
+        slice = np.array(original_image[:,:,x],dtype=np.uint8)
+        slice = cv2.resize(slice, (0,0), fx=2, fy=2)
+        cv2.imshow("original image",slice)
+        cv2.waitKey(100)
+        if image_id == 1 and x==1:
+            cv2.waitKey(100)
 
     import scipy.ndimage as ndimage
     RMI = RMI[...,0] * 255
