@@ -1613,7 +1613,7 @@ def viz_anchors_gt(overlaps, gt, anchors):
             y1,x1,z1,y2,x2,z2 = gt[:]
             color = 'red'
         else:
-            if overlaps[i] < 0.3: continue
+            if overlaps[i] > 0.3 or overlaps[i]<0.1: continue
             y1,x1,z1,y2,x2,z2 = anchors[i,:6]
 
         points = np.array([[y1,x1,z1],
@@ -1667,7 +1667,7 @@ def build_rpn_targets(image_shape, anchors, gt_boxes, config):
     for i in range(overlaps.shape[1]):
         gt = gt_boxes[i][:6]
         overlaps[:,i] = utils.compute_iou(gt, anchors, gt_box_area[i], anchor_area)
-        visualize = False
+        visualize = True
         if visualize: #and i==4 or i==3: # if kidneys
             ov = overlaps[:,i] # get the overlaps between all anchors and a single GT
             viz_anchors_gt(overlaps=ov, gt=gt, anchors=anchors)
