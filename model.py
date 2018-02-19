@@ -236,7 +236,7 @@ class ProposalLayer(KE.Layer):
         # Base anchors
         anchors = self.anchors
 
-        anchors = tf.Print(input_=anchors,data=[anchors], message="\nPRINT", summarize=7*7)
+        #anchors = tf.Print(input_=anchors,data=[anchors], message="\nPRINT", summarize=7*7)
 
         # Improve performance by trimming to top anchors by score
         # and doing the rest on the smaller subset.
@@ -1667,7 +1667,7 @@ def build_rpn_targets(image_shape, anchors, gt_boxes, config):
     for i in range(overlaps.shape[1]):
         gt = gt_boxes[i][:6]
         overlaps[:,i] = utils.compute_iou(gt, anchors, gt_box_area[i], anchor_area)
-        visualize = True
+        visualize = False
         if visualize: #and i==4 or i==3: # if kidneys
             ov = overlaps[:,i] # get the overlaps between all anchors and a single GT
             viz_anchors_gt(overlaps=ov, gt=gt, anchors=anchors)
