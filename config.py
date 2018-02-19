@@ -33,7 +33,7 @@ class Config(object):
     # handle 2 images of 1024x1024px.
     # Adjust based on your GPU memory and image sizes. Use the highest
     # number that your GPU can handle for best performance.
-    IMAGES_PER_GPU = 5
+    IMAGES_PER_GPU = 1
 
     # Number of training steps per epoch
     # This doesn't need to match the size of the training set. Tensorboard
@@ -135,7 +135,7 @@ class Config(object):
     # ROIs below this threshold are skipped
     DETECTION_MIN_CONFIDENCE = 0.5 #original 0.7
 
-    RPN_ROIS_IOU_GT_BOX_POSITIVE_TRESH = 0.5 #original 0.5 #this is between proposed rois and ground-truth images
+    RPN_ROIS_IOU_GT_BOX_POSITIVE_TRESH = 0.3 #original 0.5 #this is between proposed rois and ground-truth images
 
     # You can reduce this during training to generate more propsals
     NMS_TRESHOLD_ANCHORS_AFTER_APPLY_DELTAS = 0.7 #original: 0.7 found as RPN_NMS_THRESHOLD
@@ -143,8 +143,8 @@ class Config(object):
     # Non-maximum suppression threshold for detection/ inference
     DETECTION_NMS_THRESHOLD = 0.3 #original 0.3
 
-    ANCHOR_IOU_POS_TRESH = 0.7 #original 0.7 and 0.3
-    ANCHOR_IOU_NEG_TRESH = 0.3
+    ANCHOR_IOU_POS_TRESH = 0.3 #original 0.7 and 0.3
+    ANCHOR_IOU_NEG_TRESH = 0.2
 
     # Learning rate and momentum
     # The paper uses lr=0.02, but we found that to cause weights to explode often

@@ -38,11 +38,11 @@ print (config)
 # sess = K.get_session()
 # sess = tf_debug.LocalCLIDebugWrapperSession(sess)
 # K.set_session(sess)
-#Create model in training mode
+# Create model in training mode
 model = modellib.MaskRCNN(mode="training", config=config,
                           model_dir=MODEL_DIR)
-#model.load_weights("logs/shapes20180203T1740/mask_rcnn_shapes_0006.h5",by_name=True)
-model.load_pretrained_weights("savedModels/mask_rcnn_autoencoder_0017-02.14.2018.h",by_name=True)
+model.load_weights("savedModels/mask_rcnn_shapes_0033-14.02.2018.h5",by_name=True) ##### MRI trained model
+#model.load_pretrained_weights("savedModels/mask_rcnn_autoencoder_0017-02.14.2018.h",by_name=True) ##### Autoencoder model
 model.train(None,None,
             learning_rate=config.LEARNING_RATE / 10,
             epochs=100,

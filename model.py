@@ -236,6 +236,8 @@ class ProposalLayer(KE.Layer):
         # Base anchors
         anchors = self.anchors
 
+        anchors = tf.Print(input_=anchors,data=[anchors], message="\nPRINT", summarize=7*7)
+
         # Improve performance by trimming to top anchors by score
         # and doing the rest on the smaller subset.
         pre_nms_limit = min(10000, self.anchors.shape[0])
@@ -663,7 +665,7 @@ def detection_targets_graph(proposals, gt_boxes, config):
     # TF doesn't have an equivalent to np.repeate() so simulate it
     # using tf.tile() and tf.reshape.
     rois = tf.reshape(tf.tile(tf.expand_dims(proposals, 1), 
-                              [1, 1, tf.shape(gt_boxes)[0]]), [-1, 6])
+                              [1, 1, tf.shape(gt_boxes)[0]]), [-1, 6], name="ROISSSS")
     boxes = tf.tile(gt_boxes, [tf.shape(proposals)[0], 1],name="TILE")
 
     #rois,boxes = tf.py_func(visualize_target_graphs,[rois, boxes],[tf.float32,tf.float32])
@@ -678,7 +680,7 @@ def detection_targets_graph(proposals, gt_boxes, config):
     x2 = tf.minimum(roi_x2, box_x2)
     z2 = tf.minimum(roi_z2, box_z2)
     intersection = tf.maximum(x2 - x1, 0) * tf.maximum(y2 - y1, 0) * tf.maximum(z2 -z1, 0,name="INTERSECTION")
-    intersection = tf.identity(intersection, name="INTERSECTION")
+    #intersection = tf.identity(intersection, name="INTERSECTION")
     # 3. Compute unions
     roi_area = (roi_y2 - roi_y1) * (roi_x2 - roi_x1) * (roi_z2 - roi_z1)
     box_area = (box_y2 - box_y1) * (box_x2 - box_x1) * (box_z2 - box_z1)
@@ -688,7 +690,7 @@ def detection_targets_graph(proposals, gt_boxes, config):
     iou_has_nans = intersection / union
 
 
-
+    #iou_has_nans = tf.Print(input_=iou_has_nans,data=[iou_has_nans], message="\nPRINT", summarize=7*7)
     iou = tf.where(tf.is_nan(iou_has_nans), tf.zeros_like(iou_has_nans), iou_has_nans, "IOU_WITHOUT_NAN")
     overlaps = tf.reshape(iou, [tf.shape(proposals)[0], tf.shape(gt_boxes)[0]])
 
@@ -1589,6 +1591,54 @@ def build_detection_targets(rpn_rois, gt_boxes, gt_masks, config):
         
     return rois, class_ids, bboxes, masks
 
+def viz_anchors_gt(overlaps, gt, anchors):
+    from mpl_toolkits.mplot3d import Axes3D
+    from mpl_toolkits.mplot3d.art3d import Poly3DCollection, Line3DCollection
+    import matplotlib.pyplot as plt
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    import time
+
+    ax.set_xlim(0,128)
+    ax.set_ylim(0,128)
+    ax.set_zlim(0,128)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+
+    color = "cyan"
+    for i in range(len(anchors) + 1):
+
+        if i == len(anchors):
+            y1,x1,z1,y2,x2,z2 = gt[:]
+            color = 'red'
+        else:
+            if overlaps[i] < 0.5: continue
+            y1,x1,z1,y2,x2,z2 = anchors[i,:6]
+
+        points = np.array([[y1,x1,z1],
+                           [y1,x2,z1],
+                           [y1,x2, z2],
+                           [y1, x1,z2],
+                           [y2,x1, z1],
+                           [y2,x2,z1],
+                           [y2,x2,z2],
+                           [y2,x1,z2]])
+
+        ax.scatter3D(points[:, 0], points[:, 1], points[:, 2])
+        Z = points
+        verts = [[Z[0],Z[1],Z[2],Z[3]],
+                     [Z[4],Z[5],Z[6],Z[7]],
+                     [Z[0],Z[1],Z[5],Z[4]],
+                     [Z[2],Z[3],Z[7],Z[6]],
+                     [Z[1],Z[2],Z[6],Z[5]],
+                     [Z[4],Z[7],Z[3],Z[0]],
+                     [Z[2],Z[3],Z[7],Z[6]]]
+
+        ax.add_collection3d(Poly3DCollection(verts,
+                                                 facecolors=color, linewidths=1, edgecolors='r', alpha=.25))
+        print 'finished showing'
+    plt.show()
 
 def build_rpn_targets(image_shape, anchors, gt_boxes, config):
     """Given the anchors and GT boxes, compute overlaps and identify positive
@@ -1617,6 +1667,11 @@ def build_rpn_targets(image_shape, anchors, gt_boxes, config):
     for i in range(overlaps.shape[1]):
         gt = gt_boxes[i][:6]
         overlaps[:,i] = utils.compute_iou(gt, anchors, gt_box_area[i], anchor_area)
+        visualize = False
+        if visualize and i==4 or i==3: # if kidneys
+            ov = overlaps[:,i] # get the overlaps between all anchors and a single GT
+            viz_anchors_gt(overlaps=ov, gt=gt, anchors=anchors)
+
 
     # Match anchors to GT Boxes
     # If an anchor overlaps a GT box with IoU >= 0.7 then it's positive.
