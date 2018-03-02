@@ -14,7 +14,7 @@ As I manually labeled some examples (only 5 of them found in in input_MaskRCNN_1
 The output of the autoencoder after training looks like in the following gif.
 
 ![Autoencoder2](assets/autoencoder2.gif)
-![Autoencoder](asstes/autoencoder.gif)
+![Autoencoder](assets/autoencoder.gif)
 
 You should be able to download it, and if you have all the requirements installed (most important, my tensorflow version) you should be able to run is instantly using:
 ```
