@@ -1,6 +1,10 @@
 from nifti import *
 import numpy as np
 import cv2
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.patches as mpatches
+import matplotlib
+import matplotlib.pyplot as plt
 
 def draw(data, y1, x1, z1, y2, x2, z2, colour, text):
 
@@ -150,19 +154,55 @@ def showBoxes(rois,ax, i, colour,edgecolors):
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
 
-class_colors = {1:'green', 2:'magenta', 3:'yellow', 4:'black', 5:'white', 6:'blue'}
-def visualizeNNOutput(out_bbox, class_ids, gt_bbox,sleep_time=100000):
-    from mpl_toolkits.mplot3d import Axes3D
+def move_figure(f, x, y):
+    """Move figure's upper left corner to pixel (x, y)"""
+    backend = matplotlib.get_backend()
+    if backend == 'TkAgg':
+        f.canvas.manager.window.wm_geometry("+%d+%d" % (x, y))
+    elif backend == 'WXAgg':
+        f.canvas.manager.window.SetPosition((x, y))
+    else:
+        # This works for QT and GTK
+        # You can also use window.setGeometry
+        f.canvas.manager.window.move(x, y)
 
-    import matplotlib.pyplot as plt
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
+
+trans = 0.5
+class_colors = {1:(0.0,0.8,0.0,trans), 2:(1.0,0.0,1.0,trans), 3:(1.0,1.0,0.0,trans), 4:(0.0,0.0,0.0,trans), 5:(1.0,1.0,1.0,trans), 6:(0.0,0.0,1.0,trans)}
+def visualizeNNOutput(out_bbox, class_ids, gt_bbox,sleep_time=100000):
+
+    patch_lung1 = mpatches.Patch(color=(0.0,0.8,0.0), label='Left lung')
+    patch_lung2 = mpatches.Patch(color=(1.0,0.0,1.0), label='right lung')
+    patch_liver = mpatches.Patch(color=(1.0,1.0,0.0), label='Liver')
+    patch_kidney1 = mpatches.Patch(color=(0.0,0.0,0.0), label='Left kidney')
+    patch_kidney2 = mpatches.Patch(color=(1.0,1.0,1.0), label='Right kidney')
+    patch_heart = mpatches.Patch(color=(0.0,0.0,1.0), label='Heart')
+
+    # fig = plt.figure()
+    # fig.legend(handles=[patch_lung1, patch_lung2, patch_liver, patch_kidney1, patch_kidney2,patch_heart])
+    # ax = fig.add_subplot(111, projection='3d')
+    # rois =out_bbox
+    # print len(rois)
+    # for i in range(len(rois)):
+    #     showBoxes(rois,ax, i, colour=class_colors[class_ids[i]] , edgecolors="cyan")
+    # fig2 = plt.figure()
+    # fig2.legend(handles=[patch_lung1, patch_lung2, patch_liver, patch_kidney1, patch_kidney2,patch_heart])
+    # ax2 = fig2.add_subplot(111, projection='3d')
+    # for i in range(len(gt_bbox)):
+    #     class_id = gt_bbox[i,6]
+    #     showBoxes(gt_bbox,ax2,i,colour=class_colors[class_id], edgecolors="red")
+    # plt.show()
+    fig = plt.figure(num=None, figsize=(8, 16), dpi=80, facecolor='w', edgecolor='k')
+    move_figure(fig, 500, 500)
+    fig.legend(handles=[patch_lung1, patch_lung2, patch_liver, patch_kidney1, patch_kidney2,patch_heart])
+    ax = fig.add_subplot(211, projection='3d')
     rois =out_bbox
     print len(rois)
     for i in range(len(rois)):
-        showBoxes(rois,ax, i, colour=class_colors[class_ids[i]] , edgecolors="cyan")
-    fig2 = plt.figure()
-    ax2 = fig2.add_subplot(111, projection='3d')
+        showBoxes(rois,ax, i, colour=class_colors[class_ids[i]] , edgecolors="red")
+
+
+    ax2 = fig.add_subplot(212, projection='3d')
     for i in range(len(gt_bbox)):
         class_id = gt_bbox[i,6]
         showBoxes(gt_bbox,ax2,i,colour=class_colors[class_id], edgecolors="red")
