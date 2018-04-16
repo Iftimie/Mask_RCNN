@@ -1,7 +1,7 @@
 # MRI-AI: Faster R-CNN for Object Detection in 3D. Based on [matterport](https://github.com/matterport/Mask_RCNN) implementation
 
 This project is a personal one. I wanted to do somethin cool, so I thought of applying my knowledge into medicine.
-The ideea is to predict bounding boxes for anatomical structures (organs) given a 3D volume from MRI or CT scanner.
+The ideea is to predict bounding boxes for anatomical structures (organs) given a 3D volume from MRI or CT scanner. If you try to run this and if you find some issues, just email me and I will try to fix.
 
 ![Example](assets/Capture.JPG)
 
